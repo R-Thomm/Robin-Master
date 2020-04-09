@@ -30,22 +30,24 @@ def H(t, args):
 
     args (dictonary which carries all parameters (all are mandatory) except t):
         t time at which the Hamiltonian is calculated
-        w0 the unmodulated frequency
-        dwQ (strength) and dtQ (duration) of a gaussian shaped quench centered around t=0
-        dwP (strength) and dtP (duration) of a parametric modulation of frequency 2 w0 which starts at t = delay
-        dtP shoud be an integer multiple of pi/(2 w0) to avoid uncontinuity at t=delay+dtP
+        n dimension of the hilbert space (or cutoff dimension)
+        omega(t, a1, a2, a3, a4, a5, a6) frequency, modulated in time, described by parameters a1, ..., a6
+        omegaDt(t, a1, ...) time derivative of the frequency,  described by a1, ..., a6
+        => in args you need: n, omega, omegaDt, a1, ..., a6
 
     This form of imput is necessary to use H in further calculations (mesolve)"""
 
-    w0 = args['w0']
-    dwQ = args['dwQ']
-    dtQ = args['dtQ']
-    dwP = args['dwP']
-    dtP = args['dtP']
-    delay = args['delay']
+    omega = args['omega']
+    omegaDt = args['omegaDt']
+    a1 = args['a1']
+    a2 = args['a2']
+    a3 = args['a3']
+    a4 = args['a4']
+    a5 = args['a5']
+    a6 = args['a6']
     n = args['n']
     ad = create(n)
     a = destroy(n)
-    ham = w(t, w0, dwQ, dtQ, dwP, dtP, delay)*(ad*a+0.5*qeye(n))
-    ham += 1j/4*wdot(t, w0, dwQ, dtQ, dwP, dtP, delay)/w(t, w0, dwQ, dtQ, dwP, dtP, delay)*(a*a-ad*ad)
+    ham = omega(t, a1, a2, a3, a4, a5, a6)*(ad*a+0.5*qeye(n))
+    ham += 1j/4*omegaDt(t, a1, a2, a3, a4, a5, a6)/omega(t, a1, a2, a3, a4, a5, a6)*(a*a-ad*ad)
     return(ham)
