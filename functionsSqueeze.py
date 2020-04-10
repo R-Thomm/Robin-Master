@@ -51,3 +51,39 @@ def H(t, args):
     ham = omega(t, a1, a2, a3, a4, a5, a6)*(ad*a+0.5*qeye(n))
     ham += 1j/4*omegaDt(t, a1, a2, a3, a4, a5, a6)/omega(t, a1, a2, a3, a4, a5, a6)*(a*a-ad*ad)
     return(ham)
+
+def getParams(psi):
+    """calculates for a given state psi:
+    alpha: the coherent displacement parameter
+    xi: the squeezing parameter
+    nBar: the mean photon number
+    nT: the photon number of the thermal state DM_t
+    returns the following list: {alpha, xi, nBar, nT}
+
+    assumes that psi can be written as DM_psi = D(alpha) S(xi) DM_t S(xi).dag() D(alpha).dag()
+    further assumes that the thermal excitation is close to the vacuum"""
+    n = psi.dims[0][0]
+    ad = create(n)
+    a = destroy(n)
+    x = (ad + a)
+    p = 1j*(ad - a)
+
+    xV = variance(x, psi)
+    pV = variance(p, psi)
+
+    # calculated by hand, assuming t = 0 (e.g. DM_t = |0><0|)
+    xiR = np.arcsinh(0.5*np.sqrt(xV + pV - 2 +0j))
+    xiT1 = 0.25*(pV - xV)/(np.cosh(xiR)*np.sinh(xiR))
+    xiT = -np.sign(xiT1)*np.arccos(xiT1)
+    xi = xiR*np.exp(1j*xiT)
+    # alpha = 0.5*np.sqrt(xV + pV)
+    alpha = expect(a, psi)
+    # print(alpha)
+    nCS = np.abs(alpha)**2 + np.sinh(xiR)**2
+    # print(nCS)
+    nBar = expect(ad*a, psi)
+    # print(nBar)
+    nT = np.abs(nBar - nCS)
+    # print(nT)
+
+    return(alpha, xi, nBar, nCS, nT)
