@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import qutip
 from qutip import *
 
-def w(t, args):
+def wQP(t, args):
     """calculates and returns the modulated frequency like in "Lit early universe"
 
     t time at which the frequency is calculated
@@ -12,33 +12,49 @@ def w(t, args):
         dwQ (strength) and dtQ (duration) of a gaussian shaped quench centered around t=0
         dwP (strength) and dtP (duration) of a parametric modulation of frequency 2 w0 which starts at t = delay
         dtP shoud be an integer multiple of pi/(2 w0) to avoid uncontinuity at t=delay+dtP
-        units: all frequencies are circular frequencies with unit MHz, times have unit \mu s"""
-    w0 = args[0]
-    dwQ = args[1]
-    dtQ = args[2]
-    dwP = args[3]
-    dtP = args[4]
-    delay = args[5]
 
-    freq = w0
+    units: all frequencies are circular frequencies with unit MHz, times have unit \mu s"""
+    w0, dwQ, dtQ, dwP, dtP, delay = args[0], args[1], args[2], args[3], args[4], args[5]
+
     # freq += dwQ/(np.sqrt(2*np.pi)*dtQ)*np.exp(-0.5*(t/dtQ)**2)
-    freq += dwQ*np.exp(-0.5*(t/dtQ)**2)
-    freq += dwP*np.sin(2*w0*(t-delay))*np.heaviside(t-delay,1)*np.heaviside(dtP-(t-delay),1)
+    freq = w0 + dwQ*np.exp(-0.5*(t/dtQ)**2) # quench
+    freq += dwP*np.sin(2*w0*(t-delay))*np.heaviside(t-delay,1)*np.heaviside(dtP-(t-delay),1) # parametric
     return(freq)
 
-def wdot(t, args):
+def wQPdot(t, args):
     """calculates the time derivative of w(t, args) at time t
-    check help(w) for further information on args"""
-    w0 = args[0]
-    dwQ = args[1]
-    dtQ = args[2]
-    dwP = args[3]
-    dtP = args[4]
-    delay = args[5]
+    check help(wQP) for further information on args"""
+    w0, dwQ, dtQ, dwP, dtP, delay = args[0], args[1], args[2], args[3], args[4], args[5]
 
     # freqD = - dwQ/(np.sqrt(2*np.pi)*dtQ)*np.exp(-0.5*(t/dtQ)**2) * t/(dtQ**2)
-    freqD = - dwQ*np.exp(-0.5*(t/dtQ)**2) * t/(dtQ**2)
-    freqD += 2*w0*dwP*np.cos(2*w0*t)*np.heaviside(t-delay,1)*np.heaviside(dtP-(t-delay),1)
+    freqD = - dwQ*np.exp(-0.5*(t/dtQ)**2) * t/(dtQ**2) # quench
+    freqD += 2*w0*dwP*np.cos(2*w0*t)*np.heaviside(t-delay,1)*np.heaviside(dtP-(t-delay),1) # parametric
+    return(freqD)
+
+def wQQ(t, args):
+    """calculates and returns the modulated (two quenches) frequency like in "Lit early universe"
+
+    t time at which the frequency is calculated
+    args: a list {w0, dw1, dt1, dw2, dt2, delay} with necessary arguments
+        w0 the unmodulated frequency
+        dw1/2 (strength) and dt1/2 (duration) of the first/second gaussian shaped quench
+        delay: time between the two quenches
+
+    units: all frequencies are circular frequencies with unit MHz, times have unit \mu s"""
+    w0, dw1, dt1, dw2, dt2, delay = args[0], args[1], args[2], args[3], args[4], args[5]
+
+    freq = w0
+    freq += dw1*np.exp(-0.5*(t/dt1)**2)
+    freq += dw2*np.exp(-0.5*((t-delay)/dt2)**2)
+    return(freq)
+
+def wQQdot(t, args):
+    """calculates the time derivative of wQQ(t, args) at time t
+    check help(wQQ) for further information on args"""
+    w0, dw1, dt1, dw2, dt2, delay = args[0], args[1], args[2], args[3], args[4], args[5]
+
+    freqD = - dw1*np.exp(-0.5*(t/dt1)**2) * t/(dt1**2)
+    freqD += - dw2*np.exp(-0.5*((t-delay)/dt2)**2) * (t-delay)/(dt2**2)
     return(freqD)
 
 # defining the hamiltonian
@@ -69,16 +85,20 @@ def H(t, args):
     # additional term because of w(t) not constant
     ham += 1j/4*omegaDt(t, omegaArgs)/omega(t, omegaArgs)*(a*a-ad*ad)
     # Force term (9**10^-9 = x0, extent of ground state wave function), see Wittmann diss
-    ham += (9*10**-9)/(10**6)*f0*omegaDt(t, omegaArgs)*(ad + a)
+    # with compensation term -f0/w0^2 (e.g. no force in the case of no modulation)
+    ham += (9*10**-9)/(10**6)*(f0/(omega(t, omegaArgs)**2) - f0/(omegaArgs[0]**2))*(ad + a)
     return(ham)
 
 
-def getParams(psi):
+def getParams(psi, calculate_nT = True):
     """calculates for a given state psi:
     alpha: the coherent displacement parameter
     xi: the squeezing parameter
     nBar: the mean photon number
     nT: the photon number due to the thermal excitation DM_t
+    calculate_nT: bool, decides if nT will be calculated (takes time), default set to True
+        if calculate_nT = False, xi is only correct modulo complex conjugation, nT is set to 0!!!
+
     returns alpha, xi, nBar, nT
 
     assumes that psi can be written as DM_psi = D(alpha) S(xi) DM_t S(xi).dag() D(alpha).dag()
@@ -105,53 +125,64 @@ def getParams(psi):
     nBar = np.abs(expect(num(n), psi))
     # print(nBar)
     # calculates the thermal excitation (assuming DM_psi = D S DM_t S.dag() D.dag())
-    psiT = squeeze(n, xi).dag()*displace(n, alpha).dag()*psi*displace(n, alpha)*squeeze(n, xi)
-    nT = np.abs(expect(num(n), psiT))
+    if calculate_nT:
+        psiT = squeeze(n, xi).dag()*displace(n, alpha).dag()*psi*displace(n, alpha)*squeeze(n, xi)
+        nT = np.abs(expect(num(n), psiT))
 
-    xic = np.conj(xi)
-    psiTc = squeeze(n, xic).dag()*displace(n, alpha).dag()*psi*displace(n, alpha)*squeeze(n, xic)
-    nTc = np.abs(expect(num(n), psiTc))
+        xic = np.conj(xi)
+        psiTc = squeeze(n, xic).dag()*displace(n, alpha).dag()*psi*displace(n, alpha)*squeeze(n, xic)
+        nTc = np.abs(expect(num(n), psiTc))
 
-    if nTc < nT:
-        return(alpha, xic, nBar, nTc)
+        if nTc < nT:
+            return(alpha, xic, nBar, nTc)
+        else:
+            return(alpha, xi, nBar, nT)
     else:
-        return(alpha, xi, nBar, nT)
+        return(alpha, xi, nBar, 0)
 
 
-def plotResults(times, result, args):
+def plotResults(times, result, args, calculate_nT = True, nSkipp = 1, showProgress = False):
     """plots the development of the coherent displacement alpha,
     squeezing parameter r, mean excitation number nBar, thermal excitation nT
     together with the time dependant frequency and the force
     arguments:
         times: list of times for which the values should be calculated
         results: list of states (as returned from mesolve) corresponding to times
-        args: arguments given to H in the calculation of the dynamics"""
+        args: arguments given to H in the calculation of the dynamics
+        calculate_nT = True: bool, if nT should be calculated as well (takes time)
+        nSkipp = 1: number of states that should be skipped between each plotted point (speeds it up)"""
+    times = times[::nSkipp]
     wList = args['omega'](times, args['omegaArgs'])
-    wdotList = args['omegaDt'](times, args['omegaArgs'])
+    fList = args['f0']/wList**2 - args['f0']/args['omegaArgs'][0]**2
 
     masterList = [[],[],[],[]]
-    for psi in result.states:
-        alpha, xi, nBar, nT = getParams(psi)
+    nStates = len(result.states[::nSkipp])
+    progress = 0
+    for psi in result.states[::nSkipp]:
+        alpha, xi, nBar, nT = getParams(psi, calculate_nT = calculate_nT)
         masterList[0].append(np.abs(alpha))
         masterList[1].append(np.abs(xi))
         masterList[2].append(nBar)
         masterList[3].append(nT)
+        if showProgress:
+            progress += 1
+            print('\r', "Progress:", round(100*progress/nStates), "%", end = '')
 
     plt.subplot
     fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(5)
     fig.set_size_inches(15.5, 7.5, forward=True)
-
     ax1.plot(times, masterList[0], label = "np.abs(alpha)")
     ax1.legend()
-    ax2.semilogy(times, masterList[1], label = "r")
+    ax2.plot(times, masterList[1], label = "r")
     ax2.legend()
-    ax3.semilogy(times, masterList[2], label = "nBar")
-    ax3.semilogy(times, masterList[3], label = "nT")
+    ax3.plot(times, masterList[2], label = "nBar")
+    if calculate_nT:
+        ax3.plot(times, masterList[3], label = "nT")
     ax3.legend()
     ax4.plot(times, wList, label = "w(t)")
     ax4.legend()
 
-    ax5.plot(times, wdotList*args['f0'], label = "F/hbar in N/(Js)")
+    ax5.plot(times, fList, label = "F/hbar in N/(Js)")
     ax5.legend()
     plt.show()
 
