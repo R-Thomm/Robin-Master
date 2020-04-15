@@ -168,7 +168,6 @@ def plotResults(times, result, args, calculate_nT = True, nSkipp = 1, showProgre
             progress += 1
             print('\r', "Progress:", round(100*progress/nStates), "%", end = '')
 
-    plt.subplot
     fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(5)
     fig.set_size_inches(15.5, 7.5, forward=True)
     ax1.plot(times, masterList[0], label = "np.abs(alpha)")
