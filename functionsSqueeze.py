@@ -87,6 +87,7 @@ def H(t, args):
     # Force term (9**10^-9 = x0, extent of ground state wave function), see Wittmann diss
     # with compensation term -f0/w0^2 (e.g. no force in the case of no modulation)
     ham += (9*10**-9)/(10**6)*(f0/(omega(t, omegaArgs)**2) - f0/(omegaArgs[0]**2))*(ad + a)
+    # ham += (9*10**-9)/(10**6)*(f0/(omega(t, omegaArgs)**2))*(ad + a)
     return(ham)
 
 
