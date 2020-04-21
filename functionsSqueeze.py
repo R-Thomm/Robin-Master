@@ -187,3 +187,31 @@ def plotResults(times, result, args, calculate_nT = True, nSkipp = 1, showProgre
     plt.show()
 
     return(0)
+
+
+def scanAlpha(valueList, whichVal, H, psi0, times, args, showProgress = True, skippInLoop = 0):
+    alphaList = []
+
+    # if skippInLoop > 0: calculate the first skippInLoop steps only once (and do the loop only over the rest)
+    if skippInLoop > 0:
+        times1 = times[:skippInLoop]
+        times2 = times[skippInLoop:]
+        result = mesolve(H, psi0, times1, args)
+        psi1 = result.states[-1]
+    else:
+        times2 = times
+        psi1 = psi0
+
+    # calculate time evolution for all values in valueList
+    for val in valueList:
+        args['omegaArgs'][whichVal] = val # change the value that needs changing
+        result = mesolve(H, psi1, times2, args) # calculate time evolution
+
+        psi2 = resultQQ.states[-1] # final state
+    #     alpha2,_,_,_ = getParams(psi2, False) # get alpha
+        alpha = np.sqrt(np.abs(expect(x, psi2)**2) + np.abs(expect(p, psi2)**2)) # get alpha
+        alphaList.append(np.abs(alpha)) # save alpha
+        if showProgress:
+            print('\r', "Progress: ", round(100*(val-valueList[0])/(valueList[-1]-valueList[0])), " %", end = '')
+
+    return(alphaList)
