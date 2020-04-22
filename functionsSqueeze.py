@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import qutip
 from qutip import *
+import time
+
+
 
 def wQP(t, args):
     """calculates and returns the modulated frequency like in "Lit early universe"
@@ -21,6 +24,8 @@ def wQP(t, args):
     freq += dwP*np.sin(2*w0*(t-delay))*np.heaviside(t-delay,1)*np.heaviside(dtP-(t-delay),1) # parametric
     return(freq)
 
+
+
 def wQPdot(t, args):
     """calculates the time derivative of w(t, args) at time t
     check help(wQP) for further information on args"""
@@ -30,6 +35,8 @@ def wQPdot(t, args):
     freqD = - dwQ*np.exp(-0.5*(t/dtQ)**2) * t/(dtQ**2) # quench
     freqD += 2*w0*dwP*np.cos(2*w0*t)*np.heaviside(t-delay,1)*np.heaviside(dtP-(t-delay),1) # parametric
     return(freqD)
+
+
 
 def wQQ(t, args):
     """calculates and returns the modulated (two quenches) frequency like in "Lit early universe"
@@ -48,6 +55,8 @@ def wQQ(t, args):
     freq += dw2*np.exp(-0.5*((t-delay)/dt2)**2)
     return(freq)
 
+
+
 def wQQdot(t, args):
     """calculates the time derivative of wQQ(t, args) at time t
     check help(wQQ) for further information on args"""
@@ -57,10 +66,36 @@ def wQQdot(t, args):
     freqD += - dw2*np.exp(-0.5*((t-delay)/dt2)**2) * (t-delay)/(dt2**2)
     return(freqD)
 
-# defining the hamiltonian
+
+
+# defining the spin phonon coupling hamiltonian
+def H_spin_phonon_coupling(w0, wz, Omega, n_LD, n):
+    # taken from "time resolved thermalization"
+    """returns the Hamiltonian for the spin phonon H_spin_phonon_coupling
+    arguments:
+        w0: circular frequency of the gap between the two spin levels
+        wz: circular frequency of the phonon harmonic oscillator (= trap frequency)
+        Omega: rabi frequency
+        n_LD: Lamb Dicke parameter
+        n: dimension of the phonon hilbert space (or cutoff dimension for the numerical calculations)
+    """
+    a = destroy(n)
+    ad = a.dag()
+    sUp = 0.5*(sigmax() + 1j*sigmay())
+    sDown = 0.5*(sigmax() - 1j*sigmay())
+    C = (1j*n_LD*(ad + a)).expm() - qeye(n)
+
+    H_ps = 0.5*wz*tensor(sigmaz(), qeye(n)) # phonon part
+    H_ps += w0*tensor(qeye(2), ad*a) # spin part
+    H_ps += 0.5*Omega*(tensor(sUp, C) + tensor(sDown, C.dag())) # coupling
+    return(H_ps)
+
+
+
+# defining the hamiltonian of the phonon evolution for vaiable w(t)
 def H(t, args):
     """calculates the hamiltonian of a harmonic oscillator with modulated frequency
-    has an additional term which takes a force proportional to wdot into account
+    has an additional term which takes a force proportional to 1/w^2 into account
 
     args (dictonary which carries all arguments except t):
         t time at which the Hamiltonian is calculated (unit \mu s)
@@ -69,7 +104,6 @@ def H(t, args):
         omega(t, omegaArgs) frequency, modulated in time, described by the list of arguments omegaArgs
         omegaDt(t, omegaArgs) time derivative of the frequency
         => in args you need: n, f0, omega, omegaDt, omegaArgs
-
     This form of imput is necessary to use H in further calculations (mesolve)"""
 
     f0 = args['f0']
@@ -89,6 +123,7 @@ def H(t, args):
     ham += (9*10**-9)/(10**6)*(f0/(omega(t, omegaArgs)**2) - f0/(omegaArgs[0]**2))*(ad + a)
     # ham += (9*10**-9)/(10**6)*(f0/(omega(t, omegaArgs)**2))*(ad + a)
     return(ham)
+
 
 
 def getParams(psi, calculate_nT = True):
@@ -142,6 +177,7 @@ def getParams(psi, calculate_nT = True):
         return(alpha, xi, nBar, 0)
 
 
+
 def plotResults(times, result, args, calculate_nT = True, nSkipp = 1, showProgress = False):
     """plots the development of the coherent displacement alpha,
     squeezing parameter r, mean excitation number nBar, thermal excitation nT
@@ -152,6 +188,7 @@ def plotResults(times, result, args, calculate_nT = True, nSkipp = 1, showProgre
         args: arguments given to H in the calculation of the dynamics
         calculate_nT = True: bool, if nT should be calculated as well (takes time)
         nSkipp = 1: number of states that should be skipped between each plotted point (speeds it up)"""
+    t1 = time.time()
     times = times[::nSkipp]
     wList = args['omega'](times, args['omegaArgs'])
     fList = args['f0']/wList**2 - args['f0']/args['omegaArgs'][0]**2
@@ -167,7 +204,7 @@ def plotResults(times, result, args, calculate_nT = True, nSkipp = 1, showProgre
         masterList[3].append(nT)
         if showProgress:
             progress += 1
-            print('\r', "Progress:", round(100*progress/nStates), "%", end = '')
+            print('\r', "Progress:", round(100*progress/nStates), "%, processing time:", round(time.time() - t1), "s", end = '')
 
     fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(5)
     fig.set_size_inches(15.5, 7.5, forward=True)
@@ -181,23 +218,36 @@ def plotResults(times, result, args, calculate_nT = True, nSkipp = 1, showProgre
     ax3.legend()
     ax4.plot(times, wList, label = "w(t)")
     ax4.legend()
-
     ax5.plot(times, fList, label = "F/hbar in N/(Js)")
     ax5.legend()
     plt.show()
-
     return(0)
 
 
-def scanAlpha(valueList, whichVal, H, psi0, times, args, showProgress = True, skippInLoop = 0):
+
+def scanAlphaXi(H, psi0, times, args, valueList, whichVal, showProgress = True, skippInLoop = 0, scanA = True, scanX = False, scanN = False):
+    """returns quentity of interest (alpha and/or xi and/or nBar) for a given list of valueList
+
+    arguments:
+        H: Hamiltonian which governs the time evolution
+        psi0: initial states
+        times: list of times used to calculate the time evolution
+        args: dictionary of arguments given to the hamiltonian (check help(H))
+
+        valueList: list of values for which the quantity should be calculated
+        vhichVal: value in args['omegaArgs'] which should be changed according to valueList
+        skippInLoop: number of timesteps which should be calculated before the loop over valueList
+            this means that these timesteps are calculated only for the value args['omegaArgs'] given in args (not for all values in valueList)
+        Not yet implemented: scanA = True, scanX = False, scanN = False
+    """
     alphaList = []
 
     # if skippInLoop > 0: calculate the first skippInLoop steps only once (and do the loop only over the rest)
     if skippInLoop > 0:
         times1 = times[:skippInLoop]
         times2 = times[skippInLoop:]
-        result = mesolve(H, psi0, times1, args)
-        psi1 = result.states[-1]
+        results = mesolve(H, psi0, times1, args)
+        psi1 = results.states[-1]
     else:
         times2 = times
         psi1 = psi0
@@ -205,13 +255,12 @@ def scanAlpha(valueList, whichVal, H, psi0, times, args, showProgress = True, sk
     # calculate time evolution for all values in valueList
     for val in valueList:
         args['omegaArgs'][whichVal] = val # change the value that needs changing
-        result = mesolve(H, psi1, times2, args) # calculate time evolution
+        results = mesolve(H, psi1, times2, args) # calculate time evolution
 
-        psi2 = resultQQ.states[-1] # final state
+        psi2 = results.states[-1] # final state
     #     alpha2,_,_,_ = getParams(psi2, False) # get alpha
         alpha = np.sqrt(np.abs(expect(x, psi2)**2) + np.abs(expect(p, psi2)**2)) # get alpha
-        alphaList.append(np.abs(alpha)) # save alpha
+        alphaList.append(alpha) # save alpha
         if showProgress:
             print('\r', "Progress: ", round(100*(val-valueList[0])/(valueList[-1]-valueList[0])), " %", end = '')
-
     return(alphaList)
