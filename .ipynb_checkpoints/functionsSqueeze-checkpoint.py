@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import qutip
-import scipy.special as scs
 from qutip import *
 import time
 
@@ -69,24 +68,10 @@ def wQQdot(t, args):
 
 
 
-def RabiTPSR(omega0, n1, n2, n_LD):
-    """calculates the rabi rate corresponding to |down, n1> -> |up, n2> when doing TPSR
-    """
-    if n1 > n2: # make sure n1 < n2
-        n1, n2 = n2, n1
-    dn = n2-n1
-
-    Lpol = scs.genlaguerre(n1, dn)
-    fac1 = np.sqrt(scs.factorial(n1)/scs.factorial(n2))
-    fac2 = Lpol(n_LD**2)
-    return(omega0 * np.exp(-0.5*n_LD**2) * n_LD**dn * fac1 * fac2)
-
-
-
 # defining the spin phonon coupling hamiltonian
 def H_spin_phonon_coupling(w0, wz, Omega, n_LD, n):
     # taken from "time resolved thermalization"
-    """returns the Hamiltonian for the spin phonon coupling
+    """returns the Hamiltonian for the spin phonon H_spin_phonon_coupling
     arguments:
         w0: circular frequency of the gap between the two spin levels
         wz: circular frequency of the phonon harmonic oscillator (= trap frequency)
