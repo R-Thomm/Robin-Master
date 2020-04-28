@@ -164,8 +164,12 @@ def getParams(psi, calculate_nT = True):
     pV = variance(p, psi)
 
     # calculated by hand, assuming t = 0 (e.g. DM_t = |0><0|)
-    xiR = np.arcsinh(0.5*np.sqrt(xV + pV - 2 +0j))
-    xiT1 = 0.25*(pV - xV)/(np.cosh(xiR)*np.sinh(xiR))
+    xiR = np.arcsinh(0.5*np.sqrt(xV + pV - 2 +0j)) # avoid NANs
+    if (np.cosh(xiR)*np.sinh(xiR))==0:
+        xiT1 = 0
+    else:
+        xiT1 = 0.25*(pV - xV)/(np.cosh(xiR)*np.sinh(xiR))
+
     # cos is symmetric to x=0, therefore is the inverse +/- arccos(...)
     # xiT = np.sign(xiT1)*np.arccos(xiT1)
     xiT = np.sign(xiT1)*np.arccos(xiT1)
