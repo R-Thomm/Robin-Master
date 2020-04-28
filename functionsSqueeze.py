@@ -244,7 +244,7 @@ def plotResults(times, result, args, calculate_nT = True, nSkipp = 1, showProgre
 
 
 
-def scanAlphaXi(H, psi0, times, args, valueList, whichVal, showProgress = True, skippInLoop = 0, scanA = True, scanX = False, scanN = False):
+def scanAlphaXiN(H, psi0, times, args, valueList, whichVal, showProgress = True, skippInLoop = 0):
     """returns quentity of interest (alpha and/or xi and/or nBar) for a given list of valueList
 
     arguments:
@@ -259,13 +259,16 @@ def scanAlphaXi(H, psi0, times, args, valueList, whichVal, showProgress = True, 
             this means that these timesteps are calculated only for the value args['omegaArgs'] given in args (not for all values in valueList)
         Not yet implemented: scanA = True, scanX = False, scanN = False
     """
+    t1 = time.time()
     alphaList = []
+    xiList = []
+    nList = []
 
     # if skippInLoop > 0: calculate the first skippInLoop steps only once (and do the loop only over the rest)
     if skippInLoop > 0:
         times1 = times[:skippInLoop]
         times2 = times[skippInLoop:]
-        results = mesolve(H, psi0, times1, args)
+        results = mesolve(H, psi0, times1, args=args)
         psi1 = results.states[-1]
     else:
         times2 = times
@@ -274,12 +277,15 @@ def scanAlphaXi(H, psi0, times, args, valueList, whichVal, showProgress = True, 
     # calculate time evolution for all values in valueList
     for val in valueList:
         args['omegaArgs'][whichVal] = val # change the value that needs changing
-        results = mesolve(H, psi1, times2, args) # calculate time evolution
+        results = mesolve(H, psi1, times2, args=args) # calculate time evolution
 
         psi2 = results.states[-1] # final state
-    #     alpha2,_,_,_ = getParams(psi2, False) # get alpha
-        alpha = np.sqrt(np.abs(expect(x, psi2)**2) + np.abs(expect(p, psi2)**2)) # get alpha
+        alpha,xi,nBar,_ = getParams(psi2, False) # get alpha
+        # alpha = np.sqrt(np.abs(expect(x, psi2)**2) + np.abs(expect(p, psi2)**2)) # get alpha
         alphaList.append(alpha) # save alpha
+        xiList.append(xi) # save xi
+        nList.append(nBar) # save nBar
         if showProgress:
-            print('\r', "Progress: ", round(100*(val-valueList[0])/(valueList[-1]-valueList[0])), " %", end = '')
-    return(alphaList)
+            print('\r', "Progress: ", round(100*(val-valueList[0])/(valueList[-1]-valueList[0])), "%, processing time:", round(time.time() - t1), "s", end = '')
+
+    return(alphaList, xiList, nList)
