@@ -69,10 +69,16 @@ def wQQdot(t, args):
 
 
 
-def RabiTPSR(omega0, n1, n2, n_LD):
+def RabiTPSR(omega0,  n_LD, n1, n2 = -1):
     """calculates the rabi rate corresponding to |down, n1> -> |up, n2> when doing TPSR
+    arguments:
+        omega0: rabi frequency of the carrier
+        n_LD: Lamb Dicke factor
+        n1, n2: motional states, default for n2 is n2 = n1+1
     """
-    if n1 > n2: # make sure n1 < n2
+    if n2 == -1:
+        n2 = n1+1
+    elif n1 > n2: # make sure n1 < n2
         n1, n2 = n2, n1
     dn = n2-n1
 
