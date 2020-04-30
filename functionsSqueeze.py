@@ -25,8 +25,6 @@ def wQP(t, args):
     freq += dwP*np.sin(2*w0*(t-delay))*np.heaviside(t-delay,1)*np.heaviside(dtP-(t-delay),1) # parametric
     return(freq)
 
-
-
 def wQPdot(t, args):
     """calculates the time derivative of w(t, args) at time t
     check help(wQP) for further information on args"""
@@ -36,8 +34,6 @@ def wQPdot(t, args):
     freqD = - dwQ*np.exp(-0.5*(t/dtQ)**2) * t/(dtQ**2) # quench
     freqD += 2*w0*dwP*np.cos(2*w0*t)*np.heaviside(t-delay,1)*np.heaviside(dtP-(t-delay),1) # parametric
     return(freqD)
-
-
 
 def wQQ(t, args):
     """calculates and returns the modulated (two quenches) frequency like in "Lit early universe"
@@ -56,8 +52,6 @@ def wQQ(t, args):
     freq += dw2*np.exp(-0.5*((t-delay)/dt2)**2)
     return(freq)
 
-
-
 def wQQdot(t, args):
     """calculates the time derivative of wQQ(t, args) at time t
     check help(wQQ) for further information on args"""
@@ -66,28 +60,6 @@ def wQQdot(t, args):
     freqD = - dw1*np.exp(-0.5*(t/dt1)**2) * t/(dt1**2)
     freqD += - dw2*np.exp(-0.5*((t-delay)/dt2)**2) * (t-delay)/(dt2**2)
     return(freqD)
-
-
-
-def RabiTPSR(omega0,  n_LD, n1, n2 = -1):
-    """calculates the rabi rate corresponding to |down, n1> -> |up, n2> when doing TPSR
-    arguments:
-        omega0: rabi frequency of the carrier
-        n_LD: Lamb Dicke factor
-        n1, n2: motional states, default for n2 is n2 = n1+1
-    """
-    if n2 == -1:
-        n2 = n1+1
-    elif n1 > n2: # make sure n1 < n2
-        n1, n2 = n2, n1
-    dn = n2-n1
-
-    Lpol = scs.genlaguerre(n1, dn)
-    fac1 = np.sqrt(scs.factorial(n1)/scs.factorial(n2))
-    fac2 = Lpol(n_LD**2)
-    return(omega0 * np.exp(-0.5*n_LD**2) * n_LD**dn * fac1 * fac2)
-
-
 
 # defining the spin phonon coupling hamiltonian
 def H_spin_phonon_coupling(w0, wz, Omega, n_LD, n):
@@ -110,8 +82,6 @@ def H_spin_phonon_coupling(w0, wz, Omega, n_LD, n):
     H_ps += w0*tensor(qeye(2), ad*a) # spin part
     H_ps += 0.5*Omega*(tensor(sUp, C) + tensor(sDown, C.dag())) # coupling
     return(H_ps)
-
-
 
 # defining the hamiltonian of the phonon evolution for vaiable w(t)
 def H(t, args):
@@ -144,6 +114,41 @@ def H(t, args):
     ham += (9*10**-9)/(10**6)*(f0/(omega(t, omegaArgs)**2) - f0/(omegaArgs[0]**2))*(ad + a)
     # ham += (9*10**-9)/(10**6)*(f0/(omega(t, omegaArgs)**2))*(ad + a)
     return(ham)
+
+def eval_H_QQ(psi, times, args):
+    n = args['n']
+    ad = create(n)
+    a = destroy(n)
+    # the following string describes the time dependant frequency
+    strWQQ = 'w0 + dw1*exp(-0.5*(t/dt1)**2) + dw2*exp(-0.5*((t-delay)/dt2)**2)'
+    # time derivative of the time depandant frequency
+    strDWQQ = '- dw1*exp(-0.5*(t/dt1)**2) * t/(dt1**2) + - dw2*exp(-0.5*((t-delay)/dt2)**2) * (t-delay)/(dt2**2)'
+
+    # Hamiltonian in string format, see Silveri 2017 Quantum_systems_under_frequency_modulation
+    H = [[ad*a+0.5*qeye(n), strWQQ], [a*a-ad*ad, '1j/4*(' + strDWQQ + ')/(' + strWQQ + ')'], [ad+a, '(9*10**-9)/(10**6)*(f0/(' + strWQQ + ') - f0/(w0**2))']]
+
+    # do the time evolution
+    results = mesolve(H, psi, times, args = args)
+    return(results)
+
+
+def RabiTPSR(omega0,  n_LD, n1, n2 = -1):
+    """calculates the rabi rate corresponding to |down, n1> -> |up, n2> when doing TPSR
+    arguments:
+        omega0: rabi frequency of the carrier
+        n_LD: Lamb Dicke factor
+        n1, n2: motional states, default for n2 is n2 = n1+1
+    """
+    if n2 == -1:
+        n2 = n1+1
+    elif n1 > n2: # make sure n1 < n2
+        n1, n2 = n2, n1
+    dn = n2-n1
+
+    Lpol = scs.genlaguerre(n1, dn)
+    fac1 = np.sqrt(scs.factorial(n1)/scs.factorial(n2))
+    fac2 = Lpol(n_LD**2)
+    return(omega0 * np.exp(-0.5*n_LD**2) * n_LD**dn * fac1 * fac2)
 
 
 
