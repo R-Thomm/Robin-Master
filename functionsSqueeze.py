@@ -111,24 +111,30 @@ def H(t, args):
     ham += 1j/4*omegaDt(t, omegaArgs)/omega(t, omegaArgs)*(a*a-ad*ad)
     # Force term (9**10^-9 = x0, extent of ground state wave function), see Wittmann diss
     # with compensation term -f0/w0^2 (e.g. no force in the case of no modulation)
-    ham += (9*10**-9)/(10**6)*(f0/(omega(t, omegaArgs)**2) - f0/(omegaArgs[0]**2))*(ad + a)
+    ham += 9*(f0/(omega(t, omegaArgs)**2) - f0/(omegaArgs[0]**2))*(ad + a)
     # ham += (9*10**-9)/(10**6)*(f0/(omega(t, omegaArgs)**2))*(ad + a)
     return(ham)
 
-def eval_H_QQ(psi, times, args):
+def eval_H_QQ(psi, times, args, options=0):
     n = args['n']
     ad = create(n)
     a = destroy(n)
     # the following string describes the time dependant frequency
     strWQQ = 'w0 + dw1*exp(-0.5*(t/dt1)**2) + dw2*exp(-0.5*((t-delay)/dt2)**2)'
     # time derivative of the time depandant frequency
-    strDWQQ = '- dw1*exp(-0.5*(t/dt1)**2) * t/(dt1**2) + - dw2*exp(-0.5*((t-delay)/dt2)**2) * (t-delay)/(dt2**2)'
+    strDWQQ = '- dw1*exp(-0.5*(t/dt1)**2) * t/(dt1**2) - dw2*exp(-0.5*((t-delay)/dt2)**2) * (t-delay)/(dt2**2)'
 
     # Hamiltonian in string format, see Silveri 2017 Quantum_systems_under_frequency_modulation
-    H = [[ad*a+0.5*qeye(n), strWQQ], [a*a-ad*ad, '1j/4*(' + strDWQQ + ')/(' + strWQQ + ')'], [ad+a, '(9*10**-9)/(10**6)*(f0/(' + strWQQ + ') - f0/(w0**2))']]
+    H = [[ad*a+0.5*qeye(n), strWQQ]]
+    H.append([a*a-ad*ad, '1j/4*(' + strDWQQ + ')/(' + strWQQ + ')'])
+    H.append([ad+a, '9*(f0/((' + strWQQ + ')**2) - f0/(w0**2))'])
 
     # do the time evolution
-    results = mesolve(H, psi, times, args = args)
+    if options==0:
+        results = mesolve(H, psi, times, args = args)
+    else:
+        results = mesolve(H, psi, times, args = args, options=options)
+
     return(results)
 
 
