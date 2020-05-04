@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import qutip
-import scipy.special as scs
+import scipy.special as spe
 from qutip import *
 import time
 
@@ -11,14 +11,20 @@ def wQP(t, args):
     """calculates and returns the modulated frequency like in "Lit early universe"
 
     t time at which the frequency is calculated
-    args: a list {w0, dwQ, dtQ, dwP, dtP, delay} with necessary arguments
+    args: a list {w0, dwQ, dtQ, dwP, dtP, delay} or a dictionary with the following keys:
         w0 the unmodulated frequency
         dwQ (strength) and dtQ (duration) of a gaussian shaped quench centered around t=0
         dwP (strength) and dtP (duration) of a parametric modulation of frequency 2 w0 which starts at t = delay
         dtP shoud be an integer multiple of pi/(2 w0) to avoid uncontinuity at t=delay+dtP
 
     units: all frequencies are circular frequencies with unit MHz, times have unit \mu s"""
-    w0, dwQ, dtQ, dwP, dtP, delay = args[0], args[1], args[2], args[3], args[4], args[5]
+
+    if type(args) == list:
+        w0, dwQ, dtQ, dwP, dtP, delay = args[0], args[1], args[2], args[3], args[4], args[5]
+    elif type(args) == dict:
+        w0, dwQ, dtQ, dwP, dtP, delay = args['w0'], args['dwQ'], args['dtQ'], args['dwP'], args['dtP'], args['delay']
+    else:
+        return("wrong input form for args, list or dict")
 
     # freq += dwQ/(np.sqrt(2*np.pi)*dtQ)*np.exp(-0.5*(t/dtQ)**2)
     freq = w0 + dwQ*np.exp(-0.5*(t/dtQ)**2) # quench
@@ -28,24 +34,35 @@ def wQP(t, args):
 def wQPdot(t, args):
     """calculates the time derivative of w(t, args) at time t
     check help(wQP) for further information on args"""
-    w0, dwQ, dtQ, dwP, dtP, delay = args[0], args[1], args[2], args[3], args[4], args[5]
+    if type(args) == list:
+        w0, dwQ, dtQ, dwP, dtP, delay = args[0], args[1], args[2], args[3], args[4], args[5]
+    elif type(args) == dict:
+        w0, dwQ, dtQ, dwP, dtP, delay = args['w0'], args['dwQ'], args['dtQ'], args['dwP'], args['dtP'], args['delay']
+    else:
+        return("wrong input form for args, list or dict")
 
     # freqD = - dwQ/(np.sqrt(2*np.pi)*dtQ)*np.exp(-0.5*(t/dtQ)**2) * t/(dtQ**2)
     freqD = - dwQ*np.exp(-0.5*(t/dtQ)**2) * t/(dtQ**2) # quench
-    freqD += 2*w0*dwP*np.cos(2*w0*t)*np.heaviside(t-delay,1)*np.heaviside(dtP-(t-delay),1) # parametric
+    freqD += 2*w0*dwP*np.cos(2*w0*(t-delay))*np.heaviside(t-delay,1)*np.heaviside(dtP-(t-delay),1) # parametric
     return(freqD)
 
 def wQQ(t, args):
-    """calculates and returns the modulated (two quenches) frequency like in "Lit early universe"
+    """calculates and returns the modulated (two quenches) frequency like in 'Lit early universe'
 
     t time at which the frequency is calculated
-    args: a list {w0, dw1, dt1, dw2, dt2, delay} with necessary arguments
+    args: a list {w0, dw1, dt1, dw2, dt2, delay} or a dictionary with the following keys:
         w0 the unmodulated frequency
         dw1/2 (strength) and dt1/2 (duration) of the first/second gaussian shaped quench
         delay: time between the two quenches
 
     units: all frequencies are circular frequencies with unit MHz, times have unit \mu s"""
-    w0, dw1, dt1, dw2, dt2, delay = args[0], args[1], args[2], args[3], args[4], args[5]
+
+    if type(args) == list:
+        w0, dw1, dt1, dw2, dt2, delay = args[0], args[1], args[2], args[3], args[4], args[5]
+    elif type(args) == dict:
+        w0, dw1, dt1, dw2, dt2, delay = args['w0'], args['dw1'], args['dt1'], args['dw2'], args['dt2'], args['delay']
+    else:
+        return("wrong input form for args, list or dict")
 
     freq = w0
     freq += dw1*np.exp(-0.5*(t/dt1)**2)
@@ -55,33 +72,16 @@ def wQQ(t, args):
 def wQQdot(t, args):
     """calculates the time derivative of wQQ(t, args) at time t
     check help(wQQ) for further information on args"""
-    w0, dw1, dt1, dw2, dt2, delay = args[0], args[1], args[2], args[3], args[4], args[5]
+    if type(args) == list:
+        w0, dw1, dt1, dw2, dt2, delay = args[0], args[1], args[2], args[3], args[4], args[5]
+    elif type(args) == dict:
+        w0, dw1, dt1, dw2, dt2, delay = args['w0'], args['dw1'], args['dt1'], args['dw2'], args['dt2'], args['delay']
+    else:
+        return("wrong input form for args, list or dict")
 
     freqD = - dw1*np.exp(-0.5*(t/dt1)**2) * t/(dt1**2)
     freqD += - dw2*np.exp(-0.5*((t-delay)/dt2)**2) * (t-delay)/(dt2**2)
     return(freqD)
-
-# defining the spin phonon coupling hamiltonian
-def H_spin_phonon_coupling(w0, wz, Omega, n_LD, n):
-    # taken from "time resolved thermalization"
-    """returns the Hamiltonian for the spin phonon coupling
-    arguments:
-        w0: circular frequency of the gap between the two spin levels
-        wz: circular frequency of the phonon harmonic oscillator (= trap frequency)
-        Omega: rabi frequency
-        n_LD: Lamb Dicke parameter
-        n: dimension of the phonon hilbert space (or cutoff dimension for the numerical calculations)
-    """
-    a = destroy(n)
-    ad = a.dag()
-    sUp = 0.5*(sigmax() + 1j*sigmay())
-    sDown = 0.5*(sigmax() - 1j*sigmay())
-    C = (1j*n_LD*(ad + a)).expm() - qeye(n)
-
-    H_ps = 0.5*wz*tensor(sigmaz(), qeye(n)) # phonon part
-    H_ps += w0*tensor(qeye(2), ad*a) # spin part
-    H_ps += 0.5*Omega*(tensor(sUp, C) + tensor(sDown, C.dag())) # coupling
-    return(H_ps)
 
 # defining the hamiltonian of the phonon evolution for vaiable w(t)
 def H(t, args):
@@ -115,7 +115,68 @@ def H(t, args):
     # ham += (9*10**-9)/(10**6)*(f0/(omega(t, omegaArgs)**2))*(ad + a)
     return(ham)
 
+def eval_H_QP(psi, times, args, options=0):
+    """evaluates the time evolution of the state psi in a harmonic oscillator with modulated frequency
+    frequency modulation is a combination of a quench and a parametric modulation
+    the hamiltonian has an additional term which takes a force proportional to 1/w^2 into account
+
+    parameters:
+        psi: initial state for the time evolution (should have dimension n, see below)
+        times: list of times for which the state should be calculated
+        args: a dictionary with the following entries:
+            n: dimension of the hilbert space (or cutoff dimension for the numerical calculations)
+            w0: the unmodulated frequency
+            dwQ, dtQ: strength and duration of a gaussian shaped quench centered around t=0
+            dwP, dtP, delay: strength and duration of a parametric modulation of frequency 2 w0 which starts at t = delay
+                dtP shoud be an integer multiple of pi/(2 w0) to avoid uncontinuity at t=delay+dtP
+            f0: proportionality constant of the additional force (unit 10^-15 N MHz^2)
+        options: possible options for the solver (mesolve)
+
+    returns:
+        a list of states (evolution of psi, one for each t in times)"""
+
+    n = args['n']
+    ad = create(n)
+    a = destroy(n)
+    # the following string describes the time dependant frequency
+    strWQP = 'w0 + dwQ*exp(-0.5*(t/dtQ)**2) + (dwP*sin(2*w0*(t-delay)) if t > delay and t < delay+dtP else 0)'
+    #  + (dwP*sin(2*w0*(t-delay)) if t > delay and t < delay+dtP else 0)
+    # time derivative of the time depandant frequency
+    strDWQP = '- dwQ*exp(-0.5*(t/dtQ)**2) * t/(dtQ**2) + (2*w0*dwP*cos(2*w0*(t-delay)) if t > delay and t < delay+dtP else 0)'
+    #  + 2*w0*dwP*cos(2*w0*t) if t > delay and t < delay+dtP else 0)
+    # *np.heaviside(t-delay,1)*np.heaviside(dtP-(t-delay),1)
+
+    # Hamiltonian in string format, see Silveri 2017 Quantum_systems_under_frequency_modulation
+    Hc = [[ad*a+0.5*qeye(n), strWQP]]
+    Hc.append([a*a-ad*ad, '1j/4*(' + strDWQP + ')/(' + strWQP + ')'])
+    Hc.append([ad+a, '9*(f0/((' + strWQP + ')**2) - f0/(w0**2))'])
+
+    # do the time evolution
+    if options==0:
+        results = mesolve(Hc, psi, times, args = args)
+    else:
+        results = mesolve(Hc, psi, times, args = args, options=options)
+
+    return(results)
+
 def eval_H_QQ(psi, times, args, options=0):
+    """evaluates the time evolution of the state psi in a harmonic oscillator with modulated frequency
+    frequency modulation consists of two gaussian quenches
+    the hamiltonian has an additional term which takes a force proportional to 1/w^2 into account
+
+    parameters:
+        psi: initial state for the time evolution (should have dimension n, see below)
+        times: list of times for which the state should be calculated
+        args: a dictionary with the following entries:
+            n: dimension of the hilbert space (or cutoff dimension for the numerical calculations)
+            w0: the unmodulated frequency
+            dw1, dt1: strength and duration of the first quench centered around t=0
+            dw2, dt2, delay: strength and duration of the second quench centered around t=delay
+            f0: proportionality constant of the additional force (unit 10^-15 N MHz^2)
+        options: possible options for the solver (mesolve)
+
+    returns:
+        a list of states (evolution of psi, one for each t in times)"""
     n = args['n']
     ad = create(n)
     a = destroy(n)
@@ -125,17 +186,18 @@ def eval_H_QQ(psi, times, args, options=0):
     strDWQQ = '- dw1*exp(-0.5*(t/dt1)**2) * t/(dt1**2) - dw2*exp(-0.5*((t-delay)/dt2)**2) * (t-delay)/(dt2**2)'
 
     # Hamiltonian in string format, see Silveri 2017 Quantum_systems_under_frequency_modulation
-    H = [[ad*a+0.5*qeye(n), strWQQ]]
-    H.append([a*a-ad*ad, '1j/4*(' + strDWQQ + ')/(' + strWQQ + ')'])
-    H.append([ad+a, '9*(f0/((' + strWQQ + ')**2) - f0/(w0**2))'])
+    Hc = [[ad*a+0.5*qeye(n), strWQQ]]
+    Hc.append([a*a-ad*ad, '1j/4*(' + strDWQQ + ')/(' + strWQQ + ')'])
+    Hc.append([ad+a, '9*(f0/((' + strWQQ + ')**2) - f0/(w0**2))'])
 
     # do the time evolution
     if options==0:
-        results = mesolve(H, psi, times, args = args)
+        results = mesolve(Hc, psi, times, args = args)
     else:
-        results = mesolve(H, psi, times, args = args, options=options)
+        results = mesolve(Hc, psi, times, args = args, options=options)
 
     return(results)
+
 
 
 def RabiTPSR(omega0,  n_LD, n1, n2 = -1):
@@ -149,28 +211,74 @@ def RabiTPSR(omega0,  n_LD, n1, n2 = -1):
         n2 = n1+1
     elif n1 > n2: # make sure n1 < n2
         n1, n2 = n2, n1
-    dn = n2-n1
+    dn = np.abs(n2-n1)
 
-    Lpol = scs.genlaguerre(n1, dn)
-    fac1 = np.sqrt(scs.factorial(n1)/scs.factorial(n2))
+    Lpol = spe.genlaguerre(n1, dn)
+    fac1 = np.sqrt(spe.factorial(n1)/spe.factorial(n2))
     fac2 = Lpol(n_LD**2)
     return(omega0 * np.exp(-0.5*n_LD**2) * n_LD**dn * fac1 * fac2)
 
+# defining the spin phonon coupling hamiltonian
+def H_spin_phonon_coupling(w0, wz, Omega, n_LD, n):
+    # taken from "time resolved thermalization"
+    """returns the Hamiltonian for the spin phonon coupling
+    arguments:
+        w0: circular frequency of the gap between the two spin levels
+        wz: circular frequency of the phonon harmonic oscillator (= trap frequency)
+        Omega: rabi frequency
+        n_LD: Lamb Dicke parameter
+        n: dimension of the phonon hilbert space (or cutoff dimension for the numerical calculations)
+    """
+    a = destroy(n)
+    ad = a.dag()
+    sUp = 0.5*(sigmax() + 1j*sigmay())
+    sDown = 0.5*(sigmax() - 1j*sigmay())
+    C = (1j*n_LD*(ad + a)).expm() - qeye(n)
+
+    H_sp = 0.5*wz*tensor(sigmaz(), qeye(n)) # phonon part
+    H_sp += w0*tensor(qeye(2), ad*a) # spin part
+    H_sp += 0.5*Omega*(tensor(sUp, C) + tensor(sDown, C.dag())) # coupling
+    return(H_sp)
+
+def eval_H_spin_phonon_coupling(psi, times, args, options=0, expect=None):
+    n = args['n']
+    n_LD = args['n_LD']
+    w0 = args['w0']
+    wz = args['wz']
+    Omega = args['Omega']
+
+    a = destroy(n)
+    ad = a.dag()
+    sUp = 0.5*(sigmax() + 1j*sigmay())
+    sDown = 0.5*(sigmax() - 1j*sigmay())
+    C = (1j*n_LD*(ad + a)).expm() - qeye(n)
+
+    H_sp = [[tensor(sigmaz(), qeye(n)), '0.5*wz']]
+    H_sp.append([tensor(qeye(2), ad*a), 'w0'])
+    H_sp.append([tensor(sUp, C) + tensor(sDown, C.dag()), '0.5*Omega'])
+
+    if options==0:
+        results = mesolve(H_sp, psi, times, None, expect, args = args)
+    else:
+        results = mesolve(H_sp, psi, times, None, expect, args = args, options=options)
+    return(results)
 
 
-def getParams(psi, calculate_nT = True):
-    """calculates for a given state psi:
+def getParams(psi, calculate_nT = True, order_SD = False):
+    """calculates for a given state psi (assumes that the thermal excitation is close to the vacuum):
     alpha: the coherent displacement parameter
     xi: the squeezing parameter
     nBar: the mean photon number
     nT: the photon number due to the thermal excitation DM_t
     calculate_nT: bool, decides if nT will be calculated (takes time), default set to True
         if calculate_nT = False, xi is only correct modulo complex conjugation, nT is set to 0!!!
+    order_SD: bool, changes order in displacement and squeezing
+        if True: assumes that psi can be written as DM_psi = S(xi) D(alpha) DM_t D(alpha).dag() S(xi).dag()
+            nT will automatically be calculated, regardless calculate_nT (is needed for the commutation of S and D)
+        if False: assumes that psi can be written as DM_psi = D(alpha) S(xi) DM_t S(xi).dag() D(alpha).dag()
 
-    returns alpha, xi, nBar, nT
+    returns alpha, xi, nBar, nT"""
 
-    assumes that psi can be written as DM_psi = D(alpha) S(xi) DM_t S(xi).dag() D(alpha).dag()
-    further assumes that the thermal excitation is close to the vacuum"""
     n = psi.dims[0][0]
     ad = create(n)
     a = destroy(n)
@@ -197,26 +305,28 @@ def getParams(psi, calculate_nT = True):
     nBar = np.abs(expect(num(n), psi))
     # print(nBar)
     # calculates the thermal excitation (assuming DM_psi = D S DM_t S.dag() D.dag())
-    if calculate_nT:
+
+    if calculate_nT or order_SD:
         psiT = squeeze(n, xi).dag()*displace(n, alpha).dag()*psi*displace(n, alpha)*squeeze(n, xi)
         nT = np.abs(expect(num(n), psiT))
 
         xic = np.conj(xi)
         psiTc = squeeze(n, xic).dag()*displace(n, alpha).dag()*psi*displace(n, alpha)*squeeze(n, xic)
         nTc = np.abs(expect(num(n), psiTc))
-
         if nTc < nT:
-            return(alpha, xic, nBar, nTc)
-        else:
-            return(alpha, xi, nBar, nT)
+            nT, xi = nTc, xic
+
+        # formula used to commute D and S: https://en.wikipedia.org/wiki/Squeeze_operator
+        if order_SD:
+            alpha = alpha*np.cosh(xiR) + np.conj(alpha)*xi/xiR*np.sinh(xiR)
+
+        return(alpha, xi, nBar, nT)
     else:
         return(alpha, xi, nBar, 0)
 
-
-
-def plotResults(times, result, args, calculate_nT = True, nSkipp = 1, showProgress = False):
+def plotResults(times, result, args, calculate_nT = True, order_SD = False, nSkipp = 1, showProgress = False):
     """plots the development of the coherent displacement alpha,
-    squeezing parameter r, mean excitation number nBar, thermal excitation nT
+    squeezing parameter r, mean excitation number nBar, thermal excitation nT (see help(getParams))
     together with the time dependant frequency and the force
     arguments:
         times: list of times for which the values should be calculated
@@ -226,14 +336,19 @@ def plotResults(times, result, args, calculate_nT = True, nSkipp = 1, showProgre
         nSkipp = 1: number of states that should be skipped between each plotted point (speeds it up)"""
     t1 = time.time()
     times = times[::nSkipp]
-    wList = args['omega'](times, args['omegaArgs'])
-    fList = args['f0']/wList**2 - args['f0']/args['omegaArgs'][0]**2
+
+    if 'omegaArgs' in args:
+        wList = args['omega'](times, args['omegaArgs'])
+        fList = args['f0']/wList**2 - args['f0']/args['omegaArgs'][0]**2
+    else:
+        wList = args['omega'](times, args)
+        fList = args['f0']/wList**2 - args['f0']/args['w0']**2
 
     masterList = [[],[],[],[]]
     nStates = len(result.states[::nSkipp])
     progress = 0
     for psi in result.states[::nSkipp]:
-        alpha, xi, nBar, nT = getParams(psi, calculate_nT = calculate_nT)
+        alpha, xi, nBar, nT = getParams(psi, calculate_nT = calculate_nT, order_SD = order_SD)
         masterList[0].append(np.abs(alpha))
         masterList[1].append(np.abs(xi))
         masterList[2].append(nBar)
