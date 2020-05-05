@@ -159,6 +159,7 @@ def eval_H_QP(psi, times, args, options=0):
 
     return(results)
 
+
 def eval_H_QQ(psi, times, args, options=0):
     """evaluates the time evolution of the state psi in a harmonic oscillator with modulated frequency
     frequency modulation consists of two gaussian quenches
@@ -214,7 +215,10 @@ def RabiTPSR(omega0,  n_LD, n1, n2 = -1):
     dn = np.abs(n2-n1)
 
     Lpol = spe.genlaguerre(n1, dn)
-    fac1 = np.sqrt(spe.factorial(n1)/spe.factorial(n2))
+    if n2==n1+1:
+        fac1 = np.sqrt(1/n2)
+    else:
+        fac1 = np.sqrt(spe.factorial(n1)/spe.factorial(n2))
     fac2 = Lpol(n_LD**2)
     return(omega0 * np.exp(-0.5*n_LD**2) * n_LD**dn * fac1 * fac2)
 
@@ -240,7 +244,7 @@ def H_spin_phonon_coupling(w0, wz, Omega, n_LD, n):
     H_sp += 0.5*Omega*(tensor(sUp, C) + tensor(sDown, C.dag())) # coupling
     return(H_sp)
 
-def eval_H_spin_phonon_coupling(psi, times, args, options=0, expect=None):
+def eval_H_spin_phonon_coupling(psi, times, args, options=0, expect=None, n_LD_small = False):
     n = args['n']
     n_LD = args['n_LD']
     w0 = args['w0']
@@ -251,7 +255,10 @@ def eval_H_spin_phonon_coupling(psi, times, args, options=0, expect=None):
     ad = a.dag()
     sUp = 0.5*(sigmax() + 1j*sigmay())
     sDown = 0.5*(sigmax() - 1j*sigmay())
-    C = (1j*n_LD*(ad + a)).expm() - qeye(n)
+    if n_LD_small:
+        C = 1j*n_LD*(ad + a)
+    else:
+        C = (1j*n_LD*(ad + a)).expm() - qeye(n)
 
     H_sp = [[tensor(sigmaz(), qeye(n)), '0.5*wz']]
     H_sp.append([tensor(qeye(2), ad*a), 'w0'])
