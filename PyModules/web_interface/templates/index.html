@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EIOS web interface</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <script type="text/javascript" src="{{url_for('static',filename='script.js')}}"></script>
+    </head>
+
+    <body>
+        {% if form_ip %}
+        <div class="div_ip">
+            <hr />
+            <h2>Ion Properties List</h2>
+            <div class="row">
+                <div class="btn">
+                    <input class="text_ip" type="text" id="ip_value"><br>
+                </div>
+                <div class='btn'>
+                    <input class="ok" name="ok" type="submit" value="Set value">
+                </div>
+                <div class='btn' id='result_ip'></div>
+            </div>
+            
+            <div class="div_table_ip">{{ form_ip|safe }}</div>
+            <hr />
+        </div>
+        {% endif %}
+        {% if form_script %}
+        <div class="div_script">
+            <hr />
+            <h2>Scripts</h2>
+            <div class="row">
+                <div>
+                <select class="select_script" id="select_script">{{ form_script|safe }}</select>
+                </div>
+                <div class="btn">
+                    <button type="submit" id="run_button" onclick="run_script()">Run</button>
+                </div>
+                <div class='btn'>
+                    <button type="submit" id="stop_button" onclick="stop_script()">Stop</button>
+                </div>
+                <div class='btn' id='result_script'></div>
+            </div>
+            <div class="div_graph" id="graph_script"></div>
+            <hr />
+        </div>
+        {% endif %}
+    </body>
+</html>

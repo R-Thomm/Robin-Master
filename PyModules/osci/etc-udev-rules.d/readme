@@ -1,0 +1,25 @@
+# list all groups
+cat /etc/group
+#list all groups of user
+groups
+
+
+# Oscilloscope: usbtmc
+# add group 'usbtmc'
+sudo groupadd usbtmc
+# add current user to groub 'usbtmc'
+sudo usermod -G usbtmc -a $USER
+
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+
+ls -la /dev/usbtmc*
+
+
+
+
+# PDQ usb
+# add group 'usbusers'
+sudo groupadd usbusers
+# add current user to groub 'usbusers'
+sudo usermod -G usbusers -a $USER
