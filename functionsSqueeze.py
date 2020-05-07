@@ -366,7 +366,7 @@ def plotResults(times, result, args, calculate_nT = True, order_SD = False, nSki
 
     fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(5)
     fig.set_size_inches(15.5, 7.5, forward=True)
-    ax1.plot(times, masterList[0], label = "np.abs(alpha)")
+    ax1.plot(times, masterList[0], label = r'$|\alpha |$')
     ax1.legend()
     ax2.plot(times, masterList[1], label = "r")
     ax2.legend()
@@ -376,7 +376,7 @@ def plotResults(times, result, args, calculate_nT = True, order_SD = False, nSki
     ax3.legend()
     ax4.plot(times, wList, label = "w(t)")
     ax4.legend()
-    ax5.plot(times, fList, label = "F/hbar in N/(Js)")
+    ax5.plot(times, fList, label = r'$10^{-15} F/\hbar$ in N/(Js)')
     ax5.legend()
     plt.show()
     return(0)
