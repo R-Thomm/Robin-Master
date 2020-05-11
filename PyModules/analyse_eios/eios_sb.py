@@ -216,6 +216,10 @@ def fit_dist_fock(fock_n, fock_p, fock_e, initparams, fixparams, ntrot):
             m.values.values(), m.errors.values(), \
             fit_fockdist_norm, [fit_fock_n, fit_fock_p]
 
+def test_von_Rob(x):
+    # test if import funct
+    return(x*2)
+
 def fit_flop_sb(redflop, blueflop, LD, nmax, initparams, fixparams, ntrot):
     [tdatabsb, flopdatabsb, errsbsb] = blueflop;
     [tdatarsb, flopdatarsb, errsrsb] = redflop;

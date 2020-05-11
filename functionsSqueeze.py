@@ -213,6 +213,8 @@ def RabiTPSR(omega0,  n_LD, n1, n2 = -1):
     elif n1 > n2: # make sure n1 < n2
         n1, n2 = n2, n1
     dn = np.abs(n2-n1)
+    if n1 < 0:
+        return(0)
 
     Lpol = spe.genlaguerre(n1, dn)
     if n2==n1+1:
@@ -244,7 +246,26 @@ def H_spin_phonon_coupling(w0, wz, Omega, n_LD, n):
     H_sp += 0.5*Omega*(tensor(sUp, C) + tensor(sDown, C.dag())) # coupling
     return(H_sp)
 
-def eval_H_spin_phonon_coupling(psi, times, args, options=0, expect=None, n_LD_small = False):
+def eval_H_spin_phonon_coupling(psi, times, args, options=0, expect=None, n_LD_small = False, crb=1):
+    """evaluates the time evolution of the state psi of internal spin coupled with a harmonic oscillator
+    the hamiltonian has an additional term which takes a force proportional to 1/w^2 into account
+
+    parameters:
+        psi: initial state for the time evolution (should have dimension n, see below)
+            of the form tensor(state1, state2), state1 spin state (2-dim), state2 state harm. osc. (n-dim)
+        times: list of times for which the state should be calculated
+        args: a dictionary with the following entries:
+            n: dimension of the phonon hilbert space (or cutoff dimension for the numerical calculations)
+            n_LD: Lamb Dicke parameter
+            w0: spin frequency
+            wz: harm. osc. frequency
+            Omega: Rabi frequency (= coupling strength)
+        options: possible options for the solver (mesolve)
+        expect: operator, for which the expectation value should be calculated for all t in times
+        n_LD_small: assumes n_LD is close to zero (so that C can be calculated without exp)
+
+    returns:
+        a list of states (evolution of psi, one for each t in times)"""
     n = args['n']
     n_LD = args['n_LD']
     w0 = args['w0']
@@ -262,12 +283,18 @@ def eval_H_spin_phonon_coupling(psi, times, args, options=0, expect=None, n_LD_s
 
     H_sp = [[tensor(sigmaz(), qeye(n)), '0.5*wz']]
     H_sp.append([tensor(qeye(2), ad*a), 'w0'])
-    H_sp.append([tensor(sUp, C) + tensor(sDown, C.dag()), '0.5*Omega'])
+    if crb == 1:
+        H_sp.append([tensor(sUp, C) + tensor(sDown, C.dag()), '0.5*Omega'])
+    elif crb == -1:
+        H_sp.append([tensor(sDown, C) + tensor(sUp, C.dag()), '0.5*Omega'])
+    elif crb == 0:
+        H_sp.append([tensor(qeye(2), C) + tensor(qeye(2), C.dag()), '0.5*Omega'])
 
     if options==0:
         results = mesolve(H_sp, psi, times, None, expect, args = args)
     else:
         results = mesolve(H_sp, psi, times, None, expect, args = args, options=options)
+
     return(results)
 
 
@@ -381,6 +408,25 @@ def plotResults(times, result, args, calculate_nT = True, order_SD = False, nSki
     plt.show()
     return(0)
 
+
+def simulate_QPN(values, n_samples, n_skipp = 1):
+    """simulates an experiment by doing the projections on one quantum state with each measurement
+    parameters:
+        values: list of occupation probabilities for the quantum state
+        n_samples: number of measurements for each point
+        n_skipp: number of values between each point"""
+    
+    yVals = []
+    yErrs = []
+    values = values[::n_skipp]
+    for val in values:
+        Pys = np.full(n_samples, val)
+        rs = np.random.rand(n_samples)
+        ys = rs < Pys # check which random numbers are lower than val (keep in mind: True = 1, False = 0)
+        yVals.append(np.mean(ys))
+        yErrs.append(np.sqrt(np.var(ys)/n_samples))
+
+    return(yVals, yErrs)
 
 
 def scanAlphaXiN(H, psi0, times, args, valueList, whichVal, showProgress = True, skippInLoop = 0):
