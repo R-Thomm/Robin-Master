@@ -283,12 +283,7 @@ def eval_H_spin_phonon_coupling(psi, times, args, options=0, expect=None, n_LD_s
 
     H_sp = [[tensor(sigmaz(), qeye(n)), '0.5*wz']]
     H_sp.append([tensor(qeye(2), ad*a), 'w0'])
-    if crb == 1:
-        H_sp.append([tensor(sUp, C) + tensor(sDown, C.dag()), '0.5*Omega'])
-    elif crb == -1:
-        H_sp.append([tensor(sDown, C) + tensor(sUp, C.dag()), '0.5*Omega'])
-    elif crb == 0:
-        H_sp.append([tensor(qeye(2), C) + tensor(qeye(2), C.dag()), '0.5*Omega'])
+    H_sp.append([tensor(sUp, C) + tensor(sDown, C.dag()), '0.5*Omega'])
 
     if options==0:
         results = mesolve(H_sp, psi, times, None, expect, args = args)
@@ -415,7 +410,7 @@ def simulate_QPN(values, n_samples, n_skipp = 1):
         values: list of occupation probabilities for the quantum state
         n_samples: number of measurements for each point
         n_skipp: number of values between each point"""
-    
+
     yVals = []
     yErrs = []
     values = values[::n_skipp]
