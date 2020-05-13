@@ -5,6 +5,8 @@ import scipy.special as spe
 from qutip import *
 import time
 
+# testing atom on new pc
+
 
 
 def wQP(t, args):
