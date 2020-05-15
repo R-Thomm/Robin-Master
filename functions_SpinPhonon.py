@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import qutip
+import multiprocessing as mp
 import scipy.special as spe
 from qutip import *
 import time
@@ -51,6 +52,7 @@ def H_spin_phonon_coupling(w0, wz, Omega, n_LD, n):
     H_sp += 0.5*Omega*(tensor(sUp, C) + tensor(sDown, C.dag())) # coupling
     return(H_sp)
 
+# there is an updated version in the squeezed notebook!!!
 def eval_H_spin_phonon_coupling(psi, times, args, options=0, expect=None, n_LD_small = False, crb=1):
     """evaluates the time evolution of the state psi of internal spin coupled with a harmonic oscillator
     the hamiltonian has an additional term which takes a force proportional to 1/w^2 into account
@@ -115,7 +117,15 @@ def T_l_n(t, l, n, d, Omega, n_LD):
     Orabi = RabiTPSR(Omega, n_LD, n, n+l)
     f = np.sqrt(d**2 + Orabi**2)
 
-    if f == 0: # avoid dividung by zero (calculated using Hopital)
+    if f == 0 and d==0: # avoid dividung by zero (calculated using Hopital) and speed calculation up
+        mat = np.identity(2)
+    elif d == 0: # speed calculation up
+        mat[(0,0)] = np.cos(0.5*f*t)
+        mat[(0,1)] = -1j*Orabi/f*np.exp(1j*(np.abs(l)*np.pi*0.5))*np.sin(0.5*f*t)
+        mat[(1,0)] = -1j*Orabi/f*np.exp(-1j*np.abs(l)*np.pi*0.5)*np.sin(0.5*f*t)
+        mat[(1,1)] = np.cos(0.5*f*t)
+
+    elif f == 0: # avoid dividung by zero (calculated using Hopital)
         mat[(0,0)] = np.exp(-1j*0.5*d*t) + 1j*d*0.5*t
         mat[(0,1)] = -1j*Orabi*np.exp(1j*(np.abs(l)*np.pi*0.5-0.5*d*t))*0.5*t
         mat[(1,0)] = -1j*Orabi*np.exp(-1j*(np.abs(l)*np.pi*0.5-0.5*d*t))*0.5*t
@@ -128,21 +138,60 @@ def T_l_n(t, l, n, d, Omega, n_LD):
     return(mat)
 
 
-def evolution_spinState(times, spin_init, spin_probe, phonon_init, sideband, Omega, n_LD, d = 0):
 
+def mp_helper_essa(t, sb, d, Omega, n_LD, cList, spin_probe, n):
+    """helper function for parallelizing the calculatino in evolution_spinState_Analytical(...)"""
+
+    # calculate the coefficients c of the state at time t in the fock basis
+    cts = [np.matmul(T_l_n(t, sb, i, d, Omega, n_LD), cList[i]) for i in range(n)]
+
+    # get the ground or excited spin state probability
+    pgs = [np.abs(ct[spin_probe])**2 for ct in cts]
+    return(np.sum(pgs))
+
+def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Omega, n_LD, sb = +1, d = 0, parallel = True):
+    """calculates the timeevolutin of the occupation probability of one spin state.
+    The calculation is based on Formula (83) in LBM+03.
+    Returns for each time point in times the occupation probability of the choosen spin state.
+    parameters:
+        times: timepoints for which the occupation probability should be calculated
+        spin_init: initial spin state, 0 for ground state (down), 1 for excited state (up)
+        spin_probe: spin state for which the occupation probability should be calculated, 0 ground, 1 excited
+        phonon_init: initial phonon state (=> total initial state: |ini> = |spin_init>|phonon_init>)
+        sb: which sideband is driven (+1 first blue, -1 first red, 0 carrier, +2 second blue, ...)
+        Omega: Rabi frequency
+        n_LD: Lamb Dicke parameter
+        d: detuning of the laser from sideband (default = 0)
+        parallel: if parallel computing should be used (may be much faster)
+    """
     # get dimension of Hilbert space
     n = phonon_init.dims[0][0]
 
-    # get the full initial state cList[i] = (c(i, g), c(i, e))
-    cList = np.full((n, 2), 0.j)
-    for i in range(n):
-        cList[(i, spin_init)] = np.sqrt(np.diag(phonon_init.full())[i])
+    # get the full initial state, cList[i] = (c(i, g), c(i, e), i phonon fock state, g/e spin ground/excited state)
+    if spin_init == 0:
+        cList = [[np.sqrt(np.diag(phonon_init.full())[i]), 0j] for i in range(n)]
+    elif spin_init == 1:
+        cList = [[0j, np.sqrt(np.diag(phonon_init.full())[i])] for i in range(n)]
+    else:
+        return("spin_init must be 1 or 0")
 
     # get the probabilities for ground/excited state populations
-    pList = []
-    for t in times:
-        cts = [np.matmul(T_l_n(t, sideband, i, d, Omega, n_LD),cList[i]) for i in range(n)]
-        pgs = [np.abs(ct[spin_probe])**2 for ct in cts]
-        pList.append(np.sum(pgs))
+    if parallel:
+        # prepare the arguments for the starmap function
+        args = [(t, sb, d, Omega, n_LD, cList, spin_probe, n) for t in times]
 
-    return(pList)
+        # calculate pList using multiprocessing
+        if __name__ == "functions_SpinPhonon":
+            pool = mp.Pool(mp.cpu_count())
+            pList = pool.starmap(mp_helper_essa, args)
+            return(pList)
+    else:
+        pList = []
+        for t in times:
+            # calculate the coefficients c of the state at time t in the fock basis
+            cts = [np.matmul(T_l_n(t, sb, i, d, Omega, n_LD), cList[i]) for i in range(n)]
+            # get the ground or excited spin state probability
+            pgs = [np.abs(ct[spin_probe])**2 for ct in cts]
+            pList.append(np.sum(pgs))
+
+        return(pList)
