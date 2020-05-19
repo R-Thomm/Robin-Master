@@ -244,7 +244,7 @@ def fit_flop_sb(redflop, blueflop, LD, nmax, initparams, fixparams, ntrot):
     nsq_error = 0.001
     errorvals=[Rabi_error,dec_error,limb_error,limr_error,nth_error,ncoh_error,nsq_error]
     rabi=initparams[0]
-    limits = [(0.5*rabi,1.5*rabi),(0.05*rabi,.2*rabi),(0.,0.7),(0.0,nmax),(0,nmax),(0,nmax),(0,None)]
+    limits = [(0.5*rabi,1.5*rabi),(0.0*rabi,.2*rabi),(0.,0.7),(0.0,nmax),(0,nmax),(0,nmax),(0,None)] # entry (1, 0) was 0.05*rabi
     names = ["Rabi","dec","limb","limr","nth","ncoh","nsq"]
 
     n_param = np.sum(np.array(fixparams)<1.)

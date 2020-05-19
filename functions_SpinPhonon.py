@@ -17,18 +17,18 @@ def RabiTPSR(omega0,  n_LD, n1, n2):
 
     if n1 > n2: # make sure n1 < n2
         n1, n2 = n2, n1
-    dn = np.abs(n2-n1)
 
     if n1 < 0:
         return(0)
 
-    Lpol = spe.genlaguerre(n1, dn)
     if n2==n1+1:
-        fac1 = np.sqrt(1/n2)
+        return(omega0 * np.exp(-0.5*n_LD**2) * n_LD * np.sqrt(1/n2) * spe.eval_genlaguerre(n1, 1, n_LD**2))
+    elif n2==n1:
+        return(omega0 * np.exp(-0.5*n_LD**2) * spe.eval_genlaguerre(n1, 0, n_LD**2))
     else:
-        fac1 = np.sqrt(spe.factorial(n1)/spe.factorial(n2))
-    fac2 = Lpol(n_LD**2)
-    return(omega0 * np.exp(-0.5*n_LD**2) * n_LD**dn * fac1 * fac2)
+        dn = np.abs(n2-n1)
+        return(omega0 * np.exp(-0.5*n_LD**2) * n_LD**dn * np.sqrt(spe.factorial(n1)/spe.factorial(n2)) * spe.eval_genlaguerre(n1, dn, n_LD**2))
+
 
 # defining the spin phonon coupling hamiltonian
 def H_spin_phonon_coupling(w0, wz, Omega, n_LD, n):
