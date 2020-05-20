@@ -146,7 +146,7 @@ def mp_helper_essa(t, sb, d, Omega, n_LD, cList, spin_probe, n):
     cts = [np.matmul(T_l_n(t, sb, i, d, Omega, n_LD), cList[i]) for i in range(n)]
 
     # get the ground or excited spin state probability
-    pgs = [np.abs(ct[spin_probe])**2 for ct in cts]
+    pgs = [np.abs(ct[1-spin_probe])**2 for ct in cts]
     return(np.sum(pgs))
 
 def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Omega, n_LD, sb = +1, d = 0, parallel = True):
@@ -167,10 +167,10 @@ def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Om
     # get dimension of Hilbert space
     n = phonon_init.dims[0][0]
 
-    # get the full initial state, cList[i] = (c(i, g), c(i, e), i phonon fock state, g/e spin ground/excited state)
-    if spin_init == 0:
+    # get the full initial state, cList[i] = (c(i, e), c(i, g)), i phonon fock state, g/e spin ground/excited state)
+    if spin_init == 1:
         cList = [[np.sqrt(np.diag(phonon_init.full())[i]), 0j] for i in range(n)]
-    elif spin_init == 1:
+    elif spin_init == 0:
         cList = [[0j, np.sqrt(np.diag(phonon_init.full())[i])] for i in range(n)]
     else:
         return("spin_init must be 1 or 0")
@@ -190,8 +190,8 @@ def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Om
         for t in times:
             # calculate the coefficients c of the state at time t in the fock basis
             cts = [np.matmul(T_l_n(t, sb, i, d, Omega, n_LD), cList[i]) for i in range(n)]
-            # get the ground or excited spin state probability
-            pgs = [np.abs(ct[spin_probe])**2 for ct in cts]
+            # get the ground or excited spin state probability (remember ct = (c(e), c(g)))
+            pgs = [np.abs(ct[1-spin_probe])**2 for ct in cts]
             pList.append(np.sum(pgs))
 
         return(pList)

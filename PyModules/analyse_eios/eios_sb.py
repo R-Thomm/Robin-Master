@@ -85,7 +85,7 @@ def normalizefockdist(fockdist):
 
 from iminuit import Minuit
 
-def fit_flop_sb_fock(redflop, blueflop, LD, nmax, initparams, fixparams):
+def fit_flop_sb_fock_old(redflop, blueflop, LD, nmax, initparams, fixparams):
     [tdatabsb, flopdatabsb, errsbsb] = blueflop;
     [tdatarsb, flopdatarsb, errsrsb] = redflop;
 
@@ -140,7 +140,10 @@ def fit_flop_sb_fock(redflop, blueflop, LD, nmax, initparams, fixparams):
 
     # fit it
     print('migrad started at',time.asctime( time.localtime(time.time()) ) )
+
+    # @jit(nopython=True, parallel=True)
     fmin, param = m.migrad(ncall=1000000);
+
     print('migrad finished at',time.asctime( time.localtime(time.time()) ) )
     red_chi = fmin.fval / (len(flopdatabsb)+len(flopdatarsb) - n_param)
     #print(red_chi)
@@ -178,6 +181,128 @@ def fit_flop_sb_fock(redflop, blueflop, LD, nmax, initparams, fixparams):
             [fit_rabi, fit_dec, fit_limb, fit_limr], \
             [fit_rabi_err, fit_dec_err, fit_limb_err, fit_limr_err], \
             fit_fockdist_norm, [fit_fock_n, fit_fock_p, fit_fock_e]
+
+# from rob
+from functions_SpinPhonon import T_l_n
+def make_Mat_fit(tdata, sb, spin_init, nmax, LD, Omega):
+    """
+        spin_init: initial spin state, 0 for ground state (down), 1 for excited state (up)
+    """
+    mat = []
+    for tt in tdata:
+        vec_t = [np.abs(T_l_n(tt, sb, i, 0, Omega, LD)[(1, 1-spin_init)])**2 for i in range(nmax)]
+        mat.append(vec_t)
+
+    return(mat)
+
+# from numba import jit
+
+# from rob, surprise surprise
+def fit_flop_sb_fock(redflop, blueflop, LD, nmax, initparams, fixparams, M_red = False, M_blue = False, show_Log = True):
+    [tdatabsb, flopdatabsb, errsbsb] = blueflop;
+    [tdatarsb, flopdatarsb, errsrsb] = redflop;
+
+    if type(M_blue)==bool:
+        M_blue = make_Mat_fit(tdatabsb, 1, 0, nmax, LD, initparams[0])
+
+    if type(M_red)==bool:
+        M_red = make_Mat_fit(tdatarsb, -1, 0, nmax, LD, initparams[0])
+
+    def fit_function_freepops(par):
+        Rabi = par[0]
+        dec = par[1]
+        limb = par[2]
+        limr = par[3]
+
+        fockdist = [[tp-4,par[tp]] for tp in range(4,len(par))]
+
+        # modelBSB = OCFlop1Mdec(LD, fockdist, Rabi, dec, limb, 1, tdatabsb);
+        # modelRSB = OCFlop1Mdec(LD, fockdist, Rabi, dec, limr, -1, tdatarsb);
+
+        modelBSB = [np.dot(M_blue[i], np.array(fockdist)[:,1]) for i in range(len(tdatabsb))]
+        modelRSB = [np.dot(M_red[i], np.array(fockdist)[:,1]) for i in range(len(tdatarsb))]
+
+        residBSB = (flopdatabsb - modelBSB)**2/errsbsb**2
+        residRSB = (flopdatarsb - modelRSB)**2/errsrsb**2
+        return sum(residBSB)+sum(residRSB)
+
+    Rabi_init, dec_init, limb_init, limr_init = initparams[0], initparams[1], initparams[2], initparams[3]
+
+    p0_init = 0.9
+    p1_init = 0.05
+    p2_init = 0.05
+    Rabi_error = 0.0
+    dec_error = 0.0
+    limb_error = 0.0
+    limr_error = 0.0
+    pn_error = 0.0
+
+    initvals = [Rabi_init,dec_init,limb_init,limr_init]
+    errorvals = [Rabi_error,dec_error,limb_error,limr_error]
+    limits = [(0,None),(0,None),(0,1),(0,1)]
+    names = ["Rabi","dec","limb","limr"]
+    fixes = [fixparams[0],fixparams[1],fixparams[2],fixparams[3]]
+    for i in range(4,nmax+4):
+        initvals.append(0.1)
+        errorvals.append(pn_error)
+        names.append('p%i'%(i-4))
+        limits.append(tuple([0.,1.]))
+        fixes.append(0)
+
+    n_param = np.sum(np.array(fixes)<1.)
+    if show_Log:
+        print('Free parameter count',n_param)
+
+    m = Minuit.from_array_func(fit_function_freepops,
+                           tuple(initvals), error = tuple(errorvals), fix = tuple(fixes),
+                           limit = tuple(limits), name = tuple(names),
+                           errordef=1)
+
+    # fit it
+    if show_Log:
+        print('migrad started at',time.asctime( time.localtime(time.time()) ) )
+    # @jit(nopython=True, parallel=True)
+    fmin, param = m.migrad(ncall=1000000);
+    if show_Log:
+        print('migrad finished at',time.asctime( time.localtime(time.time()) ) )
+    red_chi = fmin.fval / (len(flopdatabsb)+len(flopdatarsb) - n_param)
+    #print(red_chi)
+    fit_rabi=m.values[0]
+    fit_dec=m.values[1]
+    fit_limb=m.values[2]
+    fit_limr=m.values[3]
+
+    fit_rabi_err=m.errors[0]
+    fit_dec_err=m.errors[1]
+    fit_limb_err=m.errors[2]
+    fit_limr_err=m.errors[3]
+
+    fit_fockdist = []
+    for tn in range(4,len(m.values)):
+        fit_fockdist.append([tn-4,m.values[tn]])
+
+    fit_fockdist_norm = normalizefockdist(fit_fockdist)
+    fit_fock_n = [item[0] for item in fit_fockdist_norm]
+    fit_fock_p = [item[1] for item in fit_fockdist_norm]
+
+    fit_fockdist_sum = sum([item[1] for item in fit_fockdist])
+    #print(m.values)
+    #print(m.errors)
+    fit_fock_e = []
+    for tn in range(4,len(m.errors)):
+        fit_fock_e.append(m.errors[tn]/fit_fockdist_sum)
+
+    flop_func_rsb = lambda t: OCFlop1Mdec(LD, fit_fockdist_norm, fit_rabi, fit_dec, fit_limr, -1, t)
+    flop_func_bsb = lambda t: OCFlop1Mdec(LD, fit_fockdist_norm, fit_rabi, fit_dec, fit_limb, 1, t)
+    flop_func_list = [flop_func_rsb, flop_func_bsb]
+
+    return red_chi, fmin, param, m,\
+            flop_func_list, \
+            [fit_rabi, fit_dec, fit_limb, fit_limr], \
+            [fit_rabi_err, fit_dec_err, fit_limb_err, fit_limr_err], \
+            fit_fockdist_norm, [fit_fock_n, fit_fock_p, fit_fock_e]
+
+
 
 def fit_dist_fock(fock_n, fock_p, fock_e, initparams, fixparams, ntrot):
     nmax = len(fock_n)-1
