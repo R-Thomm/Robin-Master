@@ -262,7 +262,7 @@ def fit_flop_sb_fock(redflop, blueflop, LD, nmax, initparams, fixparams, M_red =
     if show_Log:
         print('migrad started at',time.asctime( time.localtime(time.time()) ) )
     # @jit(nopython=True, parallel=True)
-    fmin, param = m.migrad(ncall=1000000);
+    fmin, param = m.migrad(ncall=100000);
     if show_Log:
         print('migrad finished at',time.asctime( time.localtime(time.time()) ) )
     red_chi = fmin.fval / (len(flopdatabsb)+len(flopdatarsb) - n_param)
