@@ -142,10 +142,10 @@ def fit_flop_sb_fock_old(redflop, blueflop, LD, nmax, initparams, fixparams):
     print('migrad started at',time.asctime( time.localtime(time.time()) ) )
 
     # @jit(nopython=True, parallel=True)
-    fmin, param = m.migrad(ncall=1000000);
+    fmin, param = m.migrad(ncall=10000, resume=False);
 
     print('migrad finished at',time.asctime( time.localtime(time.time()) ) )
-    red_chi = fmin.fval / (len(flopdatabsb)+len(flopdatarsb) - n_param)
+    red_chi = fmin.fval
     #print(red_chi)
     fit_rabi=m.values[0]
     fit_dec=m.values[1]
@@ -262,7 +262,8 @@ def fit_flop_sb_fock(redflop, blueflop, LD, nmax, initparams, fixparams, M_red =
     if show_Log:
         print('migrad started at',time.asctime( time.localtime(time.time()) ) )
     # @jit(nopython=True, parallel=True)
-    fmin, param = m.migrad(ncall=100000);
+    fmin, param = m.migrad(ncall=10000, resume=False);
+    time.sleep(1)
     if show_Log:
         print('migrad finished at',time.asctime( time.localtime(time.time()) ) )
     red_chi = fmin.fval / (len(flopdatabsb)+len(flopdatarsb) - n_param)
@@ -345,7 +346,7 @@ def test_von_Rob(x):
     # test if import funct
     return(x*2)
 
-def fit_flop_sb(redflop, blueflop, LD, nmax, initparams, fixparams, ntrot):
+def fit_flop_sb(redflop, blueflop, LD, nmax, initparams, fixparams, ntrot, show_Log = True):
     [tdatabsb, flopdatabsb, errsbsb] = blueflop;
     [tdatarsb, flopdatarsb, errsrsb] = redflop;
 
@@ -373,7 +374,8 @@ def fit_flop_sb(redflop, blueflop, LD, nmax, initparams, fixparams, ntrot):
     names = ["Rabi","dec","limb","limr","nth","ncoh","nsq"]
 
     n_param = np.sum(np.array(fixparams)<1.)
-    print('Free parameter count',n_param)
+    if show_Log:
+        print('Free parameter count',n_param)
 
     m = Minuit.from_array_func(fit_function_par,
                            tuple(initparams), error=tuple(errorvals), fix=tuple(fixparams),
@@ -381,9 +383,11 @@ def fit_flop_sb(redflop, blueflop, LD, nmax, initparams, fixparams, ntrot):
                            errordef=1)
 
     # fit it
-    print('migrad started at',time.asctime( time.localtime(time.time()) ) )
+    if show_Log:
+        print('migrad started at',time.asctime( time.localtime(time.time()) ) )
     fmin, param = m.migrad(ncall=100000);
-    print('migrad finished at',time.asctime( time.localtime(time.time()) ) )
+    if show_Log:
+        print('migrad finished at',time.asctime( time.localtime(time.time()) ) )
     red_chi = fmin.fval / (len(flopdatabsb)+len(flopdatarsb) - n_param)
 
     [fit_rabi, fit_dec, fit_limb, fit_limr, fit_nth, fit_ncoh, fit_nsq] = m.values.values()

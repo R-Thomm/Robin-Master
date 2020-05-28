@@ -658,7 +658,7 @@ def hist_plot(fhists,mu1,mu2,pup):
 	cnt_bins = np.arange(-0.5, 15.5, 1)
 	plt.figure('\lambda_1 = %.2e \lambda_1 = %.2e P = %f' % (mu1,mu2,pup))
 	plt.plot(x,poisson_pdf(x, pup, mu1, mu2))
-	plt.hist(fhists, bins=cnt_bins, density=True)
+	plt.hist(fhists, bins=cnt_bins, density=True, rwidth=0.85)
 	plt.plot(x,((pup*poisson.pmf(x, mu2))))
 	plt.plot(x,(((1.-pup)*poisson.pmf(x, mu1))))
 

@@ -195,3 +195,76 @@ def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Om
             pList.append(np.sum(pgs))
 
         return(pList)
+
+
+def simulate_QPN(values, n_samples, n_skipp = 1):
+    """simulates an experiment by doing the projections on one quantum state with each measurement
+    parameters:
+        values: list of occupation probabilities for the quantum state
+        n_samples: number of measurements for each point
+        n_skipp: number of values between each point"""
+
+    yVals = []
+    yErrs = []
+    values = values[::n_skipp]
+    for val in values:
+        Pys = np.full(n_samples, val)
+        rs = np.random.rand(n_samples)
+        ys = rs < Pys # check which random numbers are lower than val (keep in mind: True = 1, False = 0)
+        yVals.append(np.mean(ys))
+        yErrs.append(np.sqrt(np.var(ys)/n_samples))
+
+    return(yVals, yErrs)
+
+
+def simulate_rb_sb_flop(times, state, Omega, n_LD, n_samples):
+    """simulates the red/blue sideband flops for a given state using QPN
+    parameters:
+        times: list of times, at which datapoints should be simulated
+        state: initial phonon state
+            (initial spin state is |g> for redflop, |e> for blueflop)
+        Omega: Rabi frequency
+        n_LD: Lamb Dicke parameter
+        n_samples: number of single measurements for each datapoint
+
+    returns:
+        redflop: list of times, simulated datapoints and errors (one for each t in times)
+        blueflop: the same as redflop
+        these are ready to go into the various fit funcitons in eios_sb
+    """
+    # get the expected ground state probability for red and blue sidebands
+    probs_RSB = evolution_spinState_Analytical(times, 0, 0, state, Omega, n_LD, sb = -1, parallel = True)
+    probs_BSB = evolution_spinState_Analytical(times, 1, 0, state, Omega, n_LD, sb = 1, parallel = True)
+
+    # simulate QPN
+    points_RSB, errs_RSB = simulate_QPN(probs_RSB, n_samples)
+    points_BSB, errs_BSB = simulate_QPN(probs_BSB, n_samples)
+
+    # avoiding zeros
+    errs_RSB = [np.max([err, 0.0000001]) for err in errs_RSB]
+    errs_BSB = [np.max([err, 0.0000001]) for err in errs_BSB]
+
+    # preparing data
+    redflop = [times, np.array(points_RSB), np.array(errs_RSB)]
+    blueflop = [times, np.array(points_BSB), np.array(errs_BSB)]
+    return redflop, blueflop
+
+
+def diff_fock_state(state, fock, f_ok = True):
+    """calculates the L2 difference of the fock states between a state and a fock state distribution
+    returns sqrt(sum((n_state - n_fock)^2))
+    parameters:
+        state: a quantum state given as qutip object
+        fock: a fock state distribution of the form [[0, n_0], [1, n_1], ...], should have the same length as state has dimension
+        f_ok: bool, checks if the difference should be calculated (return -1 if f_ok = False)
+    """
+    n = state.dims[0][0]
+    if f_ok: # only if fit not failed
+        # get fock state distribution for fit
+        fock = np.array(fock)[:,1]
+        # get fock state distribution for original state
+        fock_state = np.abs(np.diag(state.full()))
+        # calculate the difference between the two
+        return(np.sum([(fock[i] - fock_state[i])**2 for i in range(len(fock))]))
+    else: # if fit failed
+        return(-1)

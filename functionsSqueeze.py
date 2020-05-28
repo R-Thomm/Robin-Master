@@ -313,24 +313,7 @@ def plotResults(times, result, args, calculate_nT = True, order_SD = False, nSki
     return(0)
 
 
-def simulate_QPN(values, n_samples, n_skipp = 1):
-    """simulates an experiment by doing the projections on one quantum state with each measurement
-    parameters:
-        values: list of occupation probabilities for the quantum state
-        n_samples: number of measurements for each point
-        n_skipp: number of values between each point"""
 
-    yVals = []
-    yErrs = []
-    values = values[::n_skipp]
-    for val in values:
-        Pys = np.full(n_samples, val)
-        rs = np.random.rand(n_samples)
-        ys = rs < Pys # check which random numbers are lower than val (keep in mind: True = 1, False = 0)
-        yVals.append(np.mean(ys))
-        yErrs.append(np.sqrt(np.var(ys)/n_samples))
-
-    return(yVals, yErrs)
 
 
 def scanAlphaXiN(H, psi0, times, args, valueList, whichVal, showProgress = True, skippInLoop = 0):
