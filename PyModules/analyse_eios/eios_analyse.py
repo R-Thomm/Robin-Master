@@ -190,15 +190,38 @@ def unpack_sorted(data):
 ############ FIT FUNCTIONS ############
 
 # from rob
-def fit_poisson_hist_rob(hist):
+def fit_poisson_hist_rob(hist, optimizer='scipy'):
     """fits a two-poissonian distribution (see mLL) to a sample hist, using the scipy minimize function
+    optimizer: choose if the optimization should be done with:
+        'scipy': like the old function, returns the full scipy optimization result, but errors may not be correct (check the "success" flag), may give problems if values reach their bounds
+        'iminuit': more robust optimizer (especially if you want to reuse the errors), returns dictionary of fit results 'x' and their errors 'x_err'
     """
-    # check mLL for further information on the arguments
-    func = lambda args: mLL(np.array(hist), args[0], args[1], args[2])
+    if optimizer=='scipy':
+        # check mLL for further information on the arguments
+        func = lambda args: mLL(np.array(hist), args[0], args[1], args[2])
 
-    # important: first two bounds are not allowed to include zero
-    fit = minimize(func, [1, 10, 0.5], bounds=((0.01, 10), (0.1, 50), (0, 1)), tol=1e-10)
-    return fit
+        # important: first two bounds are not allowed to include zero
+        fit = minimize(func, [1, 10, 0.5], bounds=((0.01, 10), (0.1, 50), (0, 1)), tol=1e-10)
+        return fit
+
+    elif optimizer=='iminuit':
+        def func(mu1, mu2, p_up):
+            return mLL(np.array(hist), mu1, mu2, p_up)
+
+        m = iminuit.Minuit(func, mu1 = 0.1, mu2 = 10., p_up = 0.5,
+                    # initial stepsize
+                   error_mu1 = 0.01, error_mu2 = 1., error_p_up = 0.05, errordef = 0.5,
+                    # bounds
+                   limit_mu1 = (0., 20), limit_mu2 = (0., 20), limit_p_up=(0.,1.))
+        m.migrad()
+        res = {
+            'x': [m.values[0], m.values[1], m.values[2]],
+            'x_err': [m.errors[0], m.errors[1], m.errors[2]]
+        }
+        return res
+
+    else:
+        raise ValueError("choose optimizer 'scipy' or 'iminuit'")
 
 
 
@@ -260,7 +283,7 @@ def fit_hist_rob(hists, pre_fit, parallel = False, remove_nan = True):
     """
     # take variables from prefit
     fit_mu1, fit_mu2, fit_p_up = pre_fit['x']
-    fit_p_up_err = np.sqrt(np.diag(pre_fit['hess_inv'].matmat(np.eye(3)))[-1])
+    # fit_p_up_err = np.sqrt(np.diag(pre_fit['hess_inv'].matmat(np.eye(3)))[-1])
 
     if parallel:
         args = [(hist, fit_mu1, fit_mu2) for hist in hists]
@@ -488,6 +511,7 @@ def fit_multi_freq(func,x,y,y_err,N=None, width_scale=.2, peak_window=5):
     C_lim = [C-y_width, C+y_width]
     C_lower = np.min(C_lim)
     C_upper = np.max(C_lim)
+
 
     # peak position
     peaks = np.array(find_peaks(y,width=peak_window,strict=False)) #5, 7
