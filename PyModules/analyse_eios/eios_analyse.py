@@ -3,6 +3,11 @@ import math
 import iminuit
 import inspect
 
+# included from rob
+import multiprocessing as mp
+import time
+
+
 import matplotlib.pyplot as plt
 
 from scipy.stats import poisson
@@ -37,6 +42,20 @@ def func_decay_reciprocal(x, bndwdth):
 
 def poisson_pdf(x, p, mu1, mu2):
     return (1.-p)*poisson.pmf(x, mu1)+p*poisson.pmf(x, mu2)
+
+# from rob
+def mLL(data, mu1, mu2, p_up):
+    """returns the negative log likelihood functin of a two-poissonian distribution with:
+        means mu1 and mu2
+        weights (1-p_up) and fit_p_up
+        data: an array filled with random numbers from the two-poissonian distribution
+    """
+    # make sure that p_up \in [0, 1]
+    if not (0<= p_up <= 1):
+        p_up = np.max([p_up, 0])
+        p_up = np.min([p_up, 1])
+
+    return -np.sum(np.log((1-p_up)*poisson.pmf(data, mu1) + p_up*poisson.pmf(data, mu2)))
 
 def sin_squared(x, A, freq, phi, gamma):
     x = np.array(x)
@@ -170,6 +189,19 @@ def unpack_sorted(data):
 
 ############ FIT FUNCTIONS ############
 
+# from rob
+def fit_poisson_hist_rob(hist):
+    """fits a two-poissonian distribution (see mLL) to a sample hist, using the scipy minimize function
+    """
+    # check mLL for further information on the arguments
+    func = lambda args: mLL(np.array(hist), args[0], args[1], args[2])
+
+    # important: first two bounds are not allowed to include zero
+    fit = minimize(func, [1, 10, 0.5], bounds=((0.01, 10), (0.1, 50), (0, 1)), tol=1e-10)
+    return fit
+
+
+
 def fit_poisson_hist(fhists, lowcount=0., highcount=4.):
 	def llikelihood(data, mu1, mu2, pup, regulate=False):
 		if regulate:
@@ -191,6 +223,68 @@ def fit_poisson_hist(fhists, lowcount=0., highcount=4.):
 	#print('fit2:',fitresult['x'])
 
 	return fitresult
+
+
+
+# helper function for fit_hist_rob, from rob
+def helper_fit_hist(hist, fit_mu1, fit_mu2):
+    """fits the weights of a two-poissonian distribution (with fixed means fit_mu1, fit_mu2) to the sample given in hists
+    returns the weight and its error
+    """
+    if len(hist) == 0: # make sure the hist is not empty
+        return np.nan, np.nan
+    else:
+        # make a helper function to throw into minuit
+        func = lambda p_up: mLL(np.array(hist), fit_mu1, fit_mu2, p_up)
+        # make a minuit object
+        m = iminuit.Minuit(func, p_up = 0.5, error_p_up = 0.05, errordef = 0.5, limit_p_up=(0.,1.))
+        # minimize the funciton
+        m.migrad()
+        # return the parameter and error (not sure about second summand, taken from original function in eios)
+        return m.values[0], np.sqrt(m.errors[0]**2+(0.1/np.sqrt(len(hist)))**2.)
+
+# my function for all hist fits (needs pre fit), from rob
+def fit_hist_rob(hists, pre_fit, parallel = False, remove_nan = True):
+    """fits the weights of a two-poissonian distribution to the samples given in hists
+    parameters:
+        hists: array of arrays, each one a sample of a two-poissonian distribution
+            should a sample be empty, the corresponding y, y_err are set to nan
+        pre_fit: fit result from a fit on all histograms in hists combined
+            (the expectation values mu1, mu2 are taken and fixed in the fits done here)
+            (scipy optimize result, from fit_poisson_hist or fit_poisson_hist_rob)
+        parallel: bool, default False, if parallel computing should be used (better performance, if the mp module works)
+        remove_nan: bool, default True, sets if nans (from empty lists in hists) should be removed in the output
+    returns y, y_err
+        y: a list of weights for the two-poissonian distribution (weight corresponding to mu2, mu2 > mu1)
+        y_err: errors of the weights
+    """
+    # take variables from prefit
+    fit_mu1, fit_mu2, fit_p_up = pre_fit['x']
+    fit_p_up_err = np.sqrt(np.diag(pre_fit['hess_inv'].matmat(np.eye(3)))[-1])
+
+    if parallel:
+        args = [(hist, fit_mu1, fit_mu2) for hist in hists]
+        pool = mp.Pool(mp.cpu_count())
+        res_y = pool.starmap(helper_fit_hist, args)
+        time.sleep(0.01)
+        pool.close()
+    else:
+        res_y = []
+        for hist in hists:
+            res_y.append(helper_fit_hist(hist, fit_mu1, fit_mu2))
+
+    # unpack results
+    y = [i[0] for i in res_y]
+    y_err = [i[1] for i in res_y]
+
+    # remove nans if remove_nan==True
+    if remove_nan:
+        y = np.array(y)[~np.isnan(y)]
+        y_err = np.array(y_err)[~np.isnan(y_err)]
+
+    return y, y_err
+
+
 
 def fit_hist(hists,pre_fit,do_plot=False):
 	def stateprob(data, p0,mu1, mu2, dmu1, dmu2):
@@ -218,7 +312,7 @@ def fit_hist(hists,pre_fit,do_plot=False):
 	for i, hist in enumerate(hists):
 		if len(hist)!=0:
 			y[i], y_err[i] = stateprob(hist, pup, mu1, mu2, dmu1, dmu2)
-		else:
+		else: # whyyyyyyy, you are going to delete all nan points in the next step - rob
 			y[i] = np.nan
 			y_err[i] = np.nan
 
