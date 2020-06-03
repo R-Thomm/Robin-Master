@@ -190,18 +190,22 @@ def unpack_sorted(data):
 ############ FIT FUNCTIONS ############
 
 # from rob
-def fit_poisson_hist_rob(hist, optimizer='scipy'):
+def fit_poisson_hist(hist, optimizer='iminuit'):
     """fits a two-poissonian distribution (see mLL) to a sample hist, using the scipy minimize function
     optimizer: choose if the optimization should be done with:
         'scipy': like the old function, returns the full scipy optimization result, but errors may not be correct (check the "success" flag), may give problems if values reach their bounds
         'iminuit': more robust optimizer (especially if you want to reuse the errors), returns dictionary of fit results 'x' and their errors 'x_err'
     """
+    # if hist is a list of histograms, merge them into one hist
+    if len(np.shape(hist)) > 1:
+        hist = np.append([],hist)
+
     if optimizer=='scipy':
         # check mLL for further information on the arguments
         func = lambda args: mLL(np.array(hist), args[0], args[1], args[2])
 
         # important: first two bounds are not allowed to include zero
-        fit = minimize(func, [1, 10, 0.5], bounds=((0.01, 10), (0.1, 50), (0, 1)), tol=1e-10)
+        fit = minimize(func, [1, 10, 0.5], bounds=((0.01, 10), (0.1, 50), (0, 1)), tol=1e-10, method='L-BFGS-B')
         return fit
 
     elif optimizer=='iminuit':
@@ -225,7 +229,7 @@ def fit_poisson_hist_rob(hist, optimizer='scipy'):
 
 
 
-def fit_poisson_hist(fhists, lowcount=0., highcount=4.):
+def fit_poisson_hist_old(fhists, lowcount=0., highcount=4.):
 	def llikelihood(data, mu1, mu2, pup, regulate=False):
 		if regulate:
 			if not (0.<=pup<=1.):
@@ -267,7 +271,7 @@ def helper_fit_hist(hist, fit_mu1, fit_mu2):
         return m.values[0], np.sqrt(m.errors[0]**2+(0.1/np.sqrt(len(hist)))**2.)
 
 # my function for all hist fits (needs pre fit), from rob
-def fit_hist_rob(hists, pre_fit, parallel = False, remove_nan = True):
+def fit_hist(hists, pre_fit, parallel = False, remove_nan = True):
     """fits the weights of a two-poissonian distribution to the samples given in hists
     parameters:
         hists: array of arrays, each one a sample of a two-poissonian distribution
@@ -309,7 +313,7 @@ def fit_hist_rob(hists, pre_fit, parallel = False, remove_nan = True):
 
 
 
-def fit_hist(hists,pre_fit,do_plot=False):
+def fit_hist_old(hists,pre_fit,do_plot=False):
 	def stateprob(data, p0,mu1, mu2, dmu1, dmu2):
 		ullh=UnbinnedLH(poisson_pdf, data)
 		minuit=iminuit.Minuit(ullh, p=p0,
