@@ -754,6 +754,7 @@ class EPOS(EIOS_META_SCRIPT):
             fit_fockdist_norm, [fock_n, fock_p, fock_e] = \
                 fit_flop_sb_fock(redflop, blueflop, LD, nmax, init_sb, fix[0:4])
         fit_sb_valid = fmin['is_valid']
+        print("ssss")
 
         if self.do_plot:
             if fit_sb_valid:

@@ -672,6 +672,7 @@ class EPOS_V:
 
         if fock:
             func = self.single_fit_sb_fock_data
+            # hier gehts rein
         else:
             func = self.single_fit_sb_data
 

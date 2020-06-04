@@ -139,7 +139,7 @@ def T_l_n(t, l, n, d, Omega, n_LD):
 
 
 
-def mp_helper_essa(t, sb, d, Omega, n_LD, cList, spin_probe, n):
+def mp_helper_essa(t, sb, d, Omega, n_LD, cList, spin_probe, n, dec = 0, lim = 0.5):
     """helper function for parallelizing the calculatino in evolution_spinState_Analytical(...)"""
 
     # calculate the coefficients c of the state at time t in the fock basis
@@ -147,9 +147,9 @@ def mp_helper_essa(t, sb, d, Omega, n_LD, cList, spin_probe, n):
 
     # get the ground or excited spin state probability
     pgs = [np.abs(ct[1-spin_probe])**2 for ct in cts]
-    return(np.sum(pgs))
+    return(np.exp(-dec*t)*(np.sum(pgs)-lim) + lim)
 
-def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Omega, n_LD, sb = +1, d = 0, parallel = True):
+def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Omega, n_LD, dec = 0, lim = 0.5, sb = +1, d = 0, parallel = True):
     """calculates the timeevolutin of the occupation probability of one spin state.
     The calculation is based on Formula (83) in LBM+03.
     Returns for each time point in times the occupation probability of the choosen spin state.
@@ -173,12 +173,15 @@ def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Om
     elif spin_init == 0:
         cList = [[0j, np.sqrt(np.diag(phonon_init.full())[i])] for i in range(n)]
     else:
-        return("spin_init must be 1 or 0")
+        raise ValueError("spin_init must be 1 or 0")
+
+    if spin_probe != 0 and spin_probe !=1:
+        raise ValueError("spin_probe must be 1 or 0")
 
     # get the probabilities for ground/excited state populations
     if parallel:
         # prepare the arguments for the starmap function
-        args = [(t, sb, d, Omega, n_LD, cList, spin_probe, n) for t in times]
+        args = [(t, sb, d, Omega, n_LD, cList, spin_probe, n, dec, lim) for t in times]
 
         # calculate pList using multiprocessing
         if __name__ == "functions_SpinPhonon":
@@ -192,7 +195,7 @@ def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Om
             cts = [np.matmul(T_l_n(t, sb, i, d, Omega, n_LD), cList[i]) for i in range(n)]
             # get the ground or excited spin state probability (remember ct = (c(e), c(g)))
             pgs = [np.abs(ct[1-spin_probe])**2 for ct in cts]
-            pList.append(np.sum(pgs))
+            pList.append(np.exp(-dec*t)*(np.sum(pgs)-lim) + lim)
 
         return(pList)
 
