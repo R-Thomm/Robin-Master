@@ -189,6 +189,18 @@ def unpack_sorted(data):
 
 ############ FIT FUNCTIONS ############
 
+
+# def fit_poisson_from_file(path):
+#     data = eios_data.read(path)
+#
+#     n_data = len(data[0])
+#
+#     x, y, y_err = [],[],[]
+#     for i in n_data:
+#
+#
+#     return x, y, y_err
+
 # from rob
 def fit_poisson_hist(hist, optimizer='iminuit'):
     """fits a two-poissonian distribution (see mLL) to a sample hist, using the scipy minimize function
@@ -252,6 +264,28 @@ def fit_poisson_hist_old(fhists, lowcount=0., highcount=4.):
 	return fitresult
 
 
+from PyModules.analyse_eios import eios_data
+def fit_poisson_from_file(path, prefit = None):
+    data = eios_data.read(path)
+
+    n_data = len(data[0])
+
+    hists = [data[0][i]['hists'] for i in range(n_data)]
+
+    if prefit == None:
+        MasterHist = np.append([], hists)
+        prefit = fit_poisson_hist(MasterHist)
+
+    res = []
+    for i in range(n_data):
+        pass
+        x = data[0][i]['x']
+        y, y_err = fit_hist(hists[i], prefit)
+
+        res.append([x, y, y_err])
+
+    return res
+
 
 # helper function for fit_hist_rob, from rob
 def helper_fit_hist(hist, fit_mu1, fit_mu2):
@@ -271,7 +305,7 @@ def helper_fit_hist(hist, fit_mu1, fit_mu2):
         return m.values[0], np.sqrt(m.errors[0]**2+(0.1/np.sqrt(len(hist)))**2.)
 
 # my function for all hist fits (needs pre fit), from rob
-def fit_hist(hists, pre_fit, parallel = False, remove_nan = True):
+def fit_hist(hists, pre_fit, parallel = True, remove_nan = True):
     """fits the weights of a two-poissonian distribution to the samples given in hists
     parameters:
         hists: array of arrays, each one a sample of a two-poissonian distribution
