@@ -271,3 +271,55 @@ def diff_fock_state(state, fock, f_ok = True):
         return(np.sum([(fock[i] - fock_state[i])**2 for i in range(len(fock))]))
     else: # if fit failed
         return(-1)
+
+
+
+def plot_fit_fock_sb_res(times, res, n_LD, compare_state = False, phonon_init = fock_dm(2, 0), compare_data = False, data = [], figsize=(15, 7)):
+    """plots the sideband flop for the result of a fit of fock sates, and compares it to the data of the fit, and/or to the sideband flop of some initial state
+    parameters:
+        times: time points, where the sideband fit should be calculated
+        res: result of the fit (should be the full returnvalue of the fit funciton from eios, make sure to fit the fock states, not params)
+    optional parameters:
+        compare_state: bool, if the sb flop of a state (= phonon_init) should be plotted as well (for comparison)
+        compare_data: bool, if the sb flop should be compared to the data which go into the fit
+        data: fit data, in the form daa = [redflop, blueflop], redflop = [times, flopdata, floperror]"""
+
+    _,fmin,_,_,_,params,_,_,focks = res
+
+    if not fmin['is_valid']:
+        raise ValueError("fit failed")
+
+    Om = params[0]*2*np.pi
+    dec = params[1]
+    limB = params[2]
+    limR = params[3]
+
+    focks = focks[1]
+    nFock = len(focks)
+    # print(focks)
+
+    psi_re = focks[0] * fock_dm(nFock, 0)
+    for i in range(nFock-1):
+        psi_re += focks[i+1]*fock_dm(nFock, i+1)
+
+    probs_RSB_re = evolution_spinState_Analytical(times, 0, 0, psi_re, Om, n_LD, dec=dec, lim=limR, sb = -1, parallel = True)
+    probs_BSB_re = evolution_spinState_Analytical(times, 1, 0, psi_re, Om, n_LD, dec=dec, lim=limB, sb = 1, parallel = True)
+
+    if compare_state:
+        probs_RSB_in = evolution_spinState_Analytical(times, 0, 0, phonon_init, Om, n_LD, dec=dec, lim=limR, sb = -1, parallel = True)
+        probs_BSB_in = evolution_spinState_Analytical(times, 1, 0, phonon_init, Om, n_LD, dec=dec, lim=limB, sb = 1, parallel = True)
+
+    plt.figure(figsize = figsize)
+    plt.plot(times, probs_RSB_re, "r--", label="RSB, fit")
+    plt.plot(times, probs_BSB_re, "b--", label="BSB, fit")
+
+    if compare_state:
+        plt.plot(times, probs_RSB_in, "r:", label="RSB, initial state")
+        plt.plot(times, probs_BSB_in, "b:", label="BSB, initial state")
+
+    if compare_data:
+        plt.errorbar(data[0][0], data[0][1], yerr=data[0][2], fmt = 'ro', capsize = 2, label="RSB, data")
+        plt.errorbar(data[1][0], data[1][1], yerr=data[1][2], fmt = 'bo', capsize = 2, label="BSB, data")
+
+    plt.legend()
+    plt.show()

@@ -219,8 +219,8 @@ def fit_flop_sb_fock(redflop, blueflop, LD, nmax, initparams, fixparams, M_red =
         # modelBSB = OCFlop1Mdec(LD, fockdist, Rabi, dec, limb, 1, tdatabsb);
         # modelRSB = OCFlop1Mdec(LD, fockdist, Rabi, dec, limr, -1, tdatarsb);
 
-        modelBSB = [np.dot(M_blue[i], np.array(fockdist)[:,1]) for i in range(len(tdatabsb))]
-        modelRSB = [np.dot(M_red[i], np.array(fockdist)[:,1]) for i in range(len(tdatarsb))]
+        modelBSB = [ (np.dot(make_Mat_fit(tdatabsb, 1, 0, nmax, LD, Rabi)[i], np.array(fockdist)[:,1]) - limb)*np.exp(-dec*tdatabsb[i]) + limb for i in range(len(tdatabsb))]
+        modelRSB = [ (np.dot(make_Mat_fit(tdatarsb, -1, 0, nmax, LD, Rabi)[i], np.array(fockdist)[:,1]) - limr)*np.exp(-dec*tdatarsb[i]) + limr for i in range(len(tdatarsb))]
 
         residBSB = (flopdatabsb - modelBSB)**2/errsbsb**2
         residRSB = (flopdatarsb - modelRSB)**2/errsrsb**2
