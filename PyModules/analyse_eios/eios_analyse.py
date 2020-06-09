@@ -407,8 +407,8 @@ def get_goodness_PMP(file, full_flop = True, pre_fit = None, do_plot = False, pr
         do_plot: plots the data with the fitted sine (only if full_flop = True)
         print_res: prints the propability of detecting the bright/dark stat
 
-    returns:
-        P_bright, error P_bright, P_dark, error P_dark
+    returns (t_pi and error t_pi are set to zero for full_flop = False)
+        P_bright, error P_bright, P_dark, error P_dark, t_pi, error t_pi
     """
 
     # get the poisson fits
@@ -451,14 +451,16 @@ def get_goodness_PMP(file, full_flop = True, pre_fit = None, do_plot = False, pr
             print("Population of bright state: ", np.round(m.values['Up'], 3), "error: ", np.round(m.errors['Up'], 3))
             print("Population of dark state:   ", np.round(1-m.values['Low'], 3), "error: ", np.round(m.errors['Low'], 3))
 
-        return m.values['Up'], m.errors['Up'], 1-m.values['Low'], m.errors['Low']
+        # calculate pi time
+        t_pi, t_pi_err = freq_to_pi_time( m.values['freq'], m.errors['freq'],  m.values['phi'], m.errors['phi'])
+        return m.values['Up'], m.errors['Up'], 1-m.values['Low'], m.errors['Low'], t_pi[0], t_pi_err[0]
 
     else:
         if print_res:
             print("Population of bright state: ", np.round(yDat[0], 3), "error: ", np.round(eDat[0], 3))
-            print("Population of dark state:   ", 1-np.round(yDat[1], 3), "error: ", np.round(eDat[1], 3))
+            print("Population of dark state:   ", np.round(1-yDat[1], 3), "error: ", np.round(eDat[1], 3))
 
-        return yDat[0], eDat[0], 1-yDat[1], eDat[1]
+        return yDat[0], eDat[0], 1-yDat[1], eDat[1], 0, 0
 
 def fit_func(func, x, y, y_err, start, limits=None, max_eval=10000, absolute_sigma=False):
     np.seterr(divide='ignore', invalid='ignore')
@@ -654,12 +656,12 @@ def freq_to_pi_time(freq, freq_err, phase, phase_error):
     t_shift = T*phase/(2.*np.pi)
     t_flip = T/2.-t_shift
     t_flip_err = abs(.5-phase/(2.*np.pi))*T_err + abs(T/(2.*np.pi))*phase_error
-
-    #print(phase/(2.*np.pi))
-    #print(T,T_err)
-    #print(freq,freq_err)
-    #print(phase,t_shift)
-    #print(t_flip,t_flip_err)
+    print(phase_error)
+    print(phase/(2.*np.pi))
+    print(T,T_err)
+    print(freq,freq_err)
+    print(phase,t_shift)
+    print(t_flip,t_flip_err)
 
     t_pi = [t_flip]
     t_pi_err = [t_flip_err]
