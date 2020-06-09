@@ -188,21 +188,30 @@ def unpack_sorted(data):
     return x,y,y_err
 
 ############ FIT FUNCTIONS ############
+from PyModules.analyse_eios import eios_data
+def fit_poisson_from_file(path, prefit = None):
+    data = eios_data.read(path)
 
+    n_data = len(data[0])
 
-# def fit_poisson_from_file(path):
-#     data = eios_data.read(path)
-#
-#     n_data = len(data[0])
-#
-#     x, y, y_err = [],[],[]
-#     for i in n_data:
-#
-#
-#     return x, y, y_err
+    hists = [data[0][i]['hists'] for i in range(n_data)]
+
+    if prefit == None:
+        MasterHist = np.append([], hists)
+        prefit = fit_poisson_hist(MasterHist)
+
+    res = []
+    for i in range(n_data):
+        pass
+        x = data[0][i]['x']
+        y, y_err = fit_hist(hists[i], prefit)
+
+        res.append([x, y, y_err])
+    return res
+    
 
 # from rob
-def fit_poisson_hist(hist, optimizer='iminuit'):
+def fit_poisson_hist(hist, lowcount=1., highcount=8., optimizer='iminuit'):
     """fits a two-poissonian distribution (see mLL) to a sample hist, using the scipy minimize function
     optimizer: choose if the optimization should be done with:
         'scipy': like the old function, returns the full scipy optimization result, but errors may not be correct (check the "success" flag), may give problems if values reach their bounds
@@ -217,14 +226,14 @@ def fit_poisson_hist(hist, optimizer='iminuit'):
         func = lambda args: mLL(np.array(hist), args[0], args[1], args[2])
 
         # important: first two bounds are not allowed to include zero
-        fit = minimize(func, [1, 10, 0.5], bounds=((0.01, 10), (0.1, 50), (0, 1)), tol=1e-10, method='L-BFGS-B')
+        fit = minimize(func, [lowcount, highcount, 0.5], bounds=((0.01, 10), (0.1, 50), (0, 1)), tol=1e-10, method='L-BFGS-B')
         return fit
 
     elif optimizer=='iminuit':
         def func(mu1, mu2, p_up):
             return mLL(np.array(hist), mu1, mu2, p_up)
 
-        m = iminuit.Minuit(func, mu1 = 0.1, mu2 = 10., p_up = 0.5,
+        m = iminuit.Minuit(func, mu1 = lowcount, mu2 = highcount, p_up = 0.5,
                     # initial stepsize
                    error_mu1 = 0.01, error_mu2 = 1., error_p_up = 0.05, errordef = 0.5,
                     # bounds
@@ -264,29 +273,6 @@ def fit_poisson_hist_old(fhists, lowcount=0., highcount=4.):
 	return fitresult
 
 
-from PyModules.analyse_eios import eios_data
-def fit_poisson_from_file(path, prefit = None):
-    data = eios_data.read(path)
-
-    n_data = len(data[0])
-
-    hists = [data[0][i]['hists'] for i in range(n_data)]
-
-    if prefit == None:
-        MasterHist = np.append([], hists)
-        prefit = fit_poisson_hist(MasterHist)
-
-    res = []
-    for i in range(n_data):
-        pass
-        x = data[0][i]['x']
-        y, y_err = fit_hist(hists[i], prefit)
-
-        res.append([x, y, y_err])
-
-    return res
-
-
 # helper function for fit_hist_rob, from rob
 def helper_fit_hist(hist, fit_mu1, fit_mu2):
     """fits the weights of a two-poissonian distribution (with fixed means fit_mu1, fit_mu2) to the sample given in hists
@@ -306,6 +292,7 @@ def helper_fit_hist(hist, fit_mu1, fit_mu2):
 
 # my function for all hist fits (needs pre fit), from rob
 def fit_hist(hists, pre_fit, parallel = True, remove_nan = True):
+    t1 = time.time()
     """fits the weights of a two-poissonian distribution to the samples given in hists
     parameters:
         hists: array of arrays, each one a sample of a two-poissonian distribution
@@ -343,6 +330,7 @@ def fit_hist(hists, pre_fit, parallel = True, remove_nan = True):
         y = np.array(y)[~np.isnan(y)]
         y_err = np.array(y_err)[~np.isnan(y_err)]
 
+    print("fit hists:", np.round(time.time()-t1, 3))
     return y, y_err
 
 
@@ -373,7 +361,7 @@ def fit_hist_old(hists,pre_fit,do_plot=False):
 	for i, hist in enumerate(hists):
 		if len(hist)!=0:
 			y[i], y_err[i] = stateprob(hist, pup, mu1, mu2, dmu1, dmu2)
-		else: # whyyyyyyy, you are going to delete all nan points in the next step - rob
+		else:
 			y[i] = np.nan
 			y_err[i] = np.nan
 
@@ -384,7 +372,6 @@ def fit_hist_old(hists,pre_fit,do_plot=False):
 		y=y[idx]
 		y_err=y_err[idx]
 	return y, y_err
-
 
 def fit_direct(hists, lowcount=0.2, highcount=6., do_plot=True, pre_fit=None):
     np.seterr(divide='ignore', invalid='ignore')
