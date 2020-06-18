@@ -187,6 +187,8 @@ def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Om
         if __name__ == "functions_SpinPhonon":
             pool = mp.Pool(mp.cpu_count())
             pList = pool.starmap(mp_helper_essa, args)
+            time.sleep(0.1)
+            pool.close()
             return(pList)
     else:
         pList = []

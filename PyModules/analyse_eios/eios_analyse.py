@@ -153,7 +153,7 @@ def fit_hist_2I(hists, pre_fit, parallel = True):
     # print("fit hists:", np.round(time.time()-t1, 3))
     return y_dd, y_du, y_uu, y_err_dd, y_err_du, y_err_uu
 
-def plot_hist_res_2I(hist, res):
+def plot_hist_res_2I(hist, mus, pops):
     xx = np.linspace(0, 30, 31)
     mu_dd, mu_du, mu_uu = res['x'][0], res['x'][1], res['x'][2]
     p_dd, p_du, p_uu = res['x'][3], res['x'][4], res['x'][5]
@@ -164,7 +164,7 @@ def plot_hist_res_2I(hist, res):
     plt.hist(hist, bins=range(30), rwidth=0.8, align='left', density=True)
     plt.plot(xx, y/np.sum(y))
     plt.show()
-    
+
 ############ FUNCTIONS ############
 
 def func_decay_exponential(x, tau, exponent):

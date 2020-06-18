@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import qutip
 import scipy.special as spe
+# import multiprocessing as mp
+from joblib import Parallel, delayed
 from qutip import *
 import time
 
@@ -361,3 +363,55 @@ def scanAlphaXiN(H, psi0, times, args, valueList, whichVal, showProgress = True,
             print('\r', "Progress: ", round(100*(val-valueList[0])/(valueList[-1]-valueList[0])), "%, processing time:", round(time.time() - t1), "s", end = '')
 
     return(alphaList, xiList, nList)
+
+
+# make a function to generate a random number of a two-poissonian distribution
+def rand_2Poisson(mu1, mu2, P_down=0.5, G_leak=0.):
+    """simulates the counts after one single experiment of probing the spin state of one single ion
+    assumes a two poissonian distribution P(k) = P_down P_mu2(k) + (1-P_down) P_mu1(k)
+    parameters:
+        mu1: expected counts for the dark state
+        mu2: expected counts for the bright state (=> mu1 < mu2)
+        P_down: probability of being in the bright state
+        G_leak: rate of leaking from the dark state into the bright state (default 0, no leaking)
+            (P(leak) = exp(-G_leak))
+    """
+    ru = np.random.rand()
+    rleak = np.random.rand()
+
+    if P_down < ru:
+        # poisson for low counts
+        if rleak < 1-np.exp(-G_leak):
+            return -np.log(1-rleak)/G_leak*np.random.poisson(mu1) + (1+np.log(1-rleak)/G_leak)*np.random.poisson(mu2)
+        else:
+            return np.random.poisson(mu1)
+    else:
+        # poisson for high counts
+        return np.random.poisson(mu2)
+
+# make a function to generate a random number of a two-poissonian distribution
+def rand_4Poisson(mu_U, mu_D, alpha=0, P_D1=0.5, P_D2=0.5, sup = 1, G_leak=0.):
+    """generates a random count, taken two bright ions, each emitting light following a two poissonian distribution
+    parameters:
+        mu_U: low count rate (when the ion is in its dark, spin up state)
+        mu_D: high count rate (when the ion is in its bright, spin down state)
+        alpha: counts, by which the counts of the two bright states differ
+        P_D1/P_D2: probability of ion one/two to be in the down (bright) state
+        sup: factor, by which the count rate of ion 1 is suppressed"""
+    ret = 0
+    # counts by ion 1
+    ret += sup*rand_2Poisson(mu_U, mu_D - 0.5*alpha, P_down=P_D1, G_leak=G_leak)
+    # counts by ion 2
+    ret += rand_2Poisson(mu_U, mu_D + 0.5*alpha, P_down=P_D2, G_leak=G_leak)
+    return ret
+
+
+def rand_4Poisson_hist(mu_U, mu_D, alpha=0, P_D1=0.5, P_D2=0.5, sup = 1, G_leak=0., repetitions=1000, parallel=False):
+    """gives a list of random numbers (default 1000) distributed by rand_4Poisson"""
+    # print("ddd")
+    if parallel:
+        hist = Parallel(n_jobs=8)(delayed(rand_4Poisson)(mu_U, mu_D, alpha, P_D1, P_D2, sup, G_leak) for i in range(repetitions))
+        return hist
+    else:
+        hist = [rand_4Poisson(mu_U, mu_D, alpha, P_D1, P_D2, sup, G_leak) for i in range(repetitions)]
+        return hist
