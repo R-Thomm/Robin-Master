@@ -85,7 +85,7 @@ def normalizefockdist(fockdist):
 
 from iminuit import Minuit
 
-def fit_flop_sb_fock_old(redflop, blueflop, LD, nmax, initparams, fixparams):
+def fit_flop_sb_fock(redflop, blueflop, LD, nmax, initparams, fixparams):
     [tdatabsb, flopdatabsb, errsbsb] = blueflop;
     [tdatarsb, flopdatarsb, errsrsb] = redflop;
 
@@ -198,7 +198,7 @@ def make_Mat_fit(tdata, sb, spin_init, nmax, LD, Omega):
 # from numba import jit
 
 # from rob, surprise surprise
-def fit_flop_sb_fock(redflop, blueflop, LD, nmax, initparams, fixparams, M_red = False, M_blue = False, show_Log = True):
+def fit_flop_sb_fock_rob(redflop, blueflop, LD, nmax, initparams, fixparams, M_red = False, M_blue = False, show_Log = True):
     [tdatabsb, flopdatabsb, errsbsb] = blueflop;
     [tdatarsb, flopdatarsb, errsrsb] = redflop;
 
