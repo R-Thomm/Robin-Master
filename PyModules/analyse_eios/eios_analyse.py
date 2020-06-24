@@ -344,7 +344,7 @@ def fit_poisson_from_file(path, prefit = None):
 
 
 # from rob
-def fit_poisson_hist(hist, lowcount=1., highcount=8., optimizer='iminuit'):
+def fit_poisson_hist(hist, lowcount=1., highcount=8., optimizer='iminuit', limit = 50):
     """fits a two-poissonian distribution (see mLL) to a sample hist, using the scipy minimize function
     optimizer: choose if the optimization should be done with:
         'scipy': like the old function, returns the full scipy optimization result, but errors may not be correct (check the "success" flag), may give problems if values reach their bounds
@@ -359,7 +359,7 @@ def fit_poisson_hist(hist, lowcount=1., highcount=8., optimizer='iminuit'):
         func = lambda args: mLL(np.array(hist), args[0], args[1], args[2])
 
         # important: first two bounds are not allowed to include zero
-        fit = minimize(func, [lowcount, highcount, 0.5], bounds=((0.01, 10), (0.1, 50), (0, 1)), tol=1e-10, method='L-BFGS-B')
+        fit = minimize(func, [lowcount, highcount, 0.5], bounds=((0.01, limit), (0.1, limit), (0, 1)), tol=1e-10, method='L-BFGS-B')
         return fit
 
     elif optimizer=='iminuit':
@@ -370,7 +370,7 @@ def fit_poisson_hist(hist, lowcount=1., highcount=8., optimizer='iminuit'):
                     # initial stepsize
                    error_mu1 = 0.01, error_mu2 = 1., error_p_up = 0.05, errordef = 0.5,
                     # bounds
-                   limit_mu1 = (0., 20), limit_mu2 = (0., 20), limit_p_up=(0.,1.))
+                   limit_mu1 = (0., limit), limit_mu2 = (0., limit), limit_p_up=(0.,1.))
         m.migrad()
         res = {
             'x': [m.values[0], m.values[1], m.values[2]],
@@ -412,6 +412,7 @@ def helper_fit_hist(hist, fit_mu1, fit_mu2):
     returns the weight and its error
     """
     if len(hist) == 0: # make sure the hist is not empty
+        print("hist empty")
         return np.nan, np.nan
     else:
         # make a helper function to throw into minuit
@@ -419,7 +420,8 @@ def helper_fit_hist(hist, fit_mu1, fit_mu2):
         # make a minuit object
         m = iminuit.Minuit(func, p_up = 0.5, error_p_up = 0.05, errordef = 0.5, limit_p_up=(0.,1.))
         # minimize the funciton
-        m.migrad()
+        fmin,_ = m.migrad()
+        # print(fmin['is_valid'], m.values[0])
         # return the parameter and error (not sure about second summand, taken from original function in eios)
         return m.values[0], np.sqrt(m.errors[0]**2+(0.1/np.sqrt(len(hist)))**2.)
 
