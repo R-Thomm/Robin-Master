@@ -39,11 +39,19 @@ def mLL_2I(data, mu_dd, mu_du, mu_uu, p_dd, p_du, p_uu):
         data: an array filled with random numbers from the three-poissonian distribution
     """
 
-    return -np.sum(np.log(p_dd/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_dd) + p_du/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_du)
-                         + p_uu/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_uu)))
+    list = np.log(p_dd/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_dd)
+                        + p_du/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_du)
+                        + p_uu/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_uu))
+
+    # remove inf's
+    if True:
+        l = np.isinf(list)
+        list = np.array(list)[~np.isinf(list)]
+
+    return(-np.sum(list) + np.sum(l)*np.abs(np.sum(list)))
 
 
-def fit_poisson_hist_2I(hist, lowcount=1., highcount=16.):
+def fit_poisson_hist_2I(hist, lowcount=1., highcount=16., limit=50):
     """fits a sum of two two-poissonian distributions (see mLL) to a sample hist
     """
     # if hist is a list of histograms, merge them into one hist
@@ -58,7 +66,8 @@ def fit_poisson_hist_2I(hist, lowcount=1., highcount=16.):
                error_mu_dd = 1., error_mu_du = 0.5, error_mu_uu = 0.1, error_p_dd = 0.05, error_p_du = 0.05, error_p_uu = 0.05,
                errordef = 0.5,
                 # bounds
-               limit_mu_dd = (0., 50), limit_mu_du = (0., 50), limit_mu_uu = (0., 50.), limit_p_dd=(0.,1.), limit_p_du=(0.,1.), limit_p_uu=(0.,1.))
+               limit_mu_dd = (0., limit), limit_mu_du = (0., limit), limit_mu_uu = (0., limit),
+               limit_p_dd=(0.,1.), limit_p_du=(0.,1.), limit_p_uu=(0.,1.))
     m.migrad()
 
     # make sure the probabilities add up to 1
