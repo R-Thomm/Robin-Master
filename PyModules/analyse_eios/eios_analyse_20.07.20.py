@@ -31,7 +31,9 @@ def round_sig(par,par_err):
         par[i] = round(par[i],sd)
         par_err[i] = round(par_err[i],sd)
     return par, par_err
-############ two ions #################
+
+    
+############ two ions  ############
 def mLL_2I(data, mu_dd, mu_du, mu_uu, p_dd, p_du, p_uu):
     """returns the negative log likelihood functin of a three-poissonian distribution with:
         means mu_dd, mu_du, mu_uu
@@ -51,67 +53,7 @@ def mLL_2I(data, mu_dd, mu_du, mu_uu, p_dd, p_du, p_uu):
     return(-np.sum(list) + np.sum(l)*np.abs(np.sum(list)))
 
 
-def fit_poisson_from_file_2I(path, prefit = None, ret_prefit = False, onlyFirst = False):
-    """fits three poissonians on the histograms
-    parameters:
-        path: directory of file for which the poisson fits should be calculated
-        prefit: you can give a prefit, to set the count levels for both bright, both dark, one bright one dark
-        ret_prefit: if the prefit should be returned (instead of the population probabilities)
-        onlyFirst: considers only the first measurement series (is for example in the MW Flop the case)
-
-    returns:
-        for each measurement series:
-            x, y_dd, y_du, y_uu, y_err_dd, y_err_du, y_err_uu
-
-            x: x-values corresponding to following data_ctr
-            y_dd, y_du, y_uu: probability for both ions bright, one dark one bright, both ions dark
-            y_err_dd, y_err_du, y_err_uu: corresponding errors (they are way too large!!!)
-    """
-    data = eios_data.read(path)
-
-    n_data = len(data[0])
-
-    if onlyFirst:
-        hists = data[0][0]['hists']
-    else:
-        hists = [data[0][i]['hists'] for i in range(n_data)]
-
-    if prefit == None:
-        MasterHist = np.append([], hists)
-        prefit = fit_poisson_hist_2I(MasterHist)
-        if ret_prefit:
-            return prefit
-
-    res = []
-    if onlyFirst:
-        x = data[0][0]['x']
-        y_dd, y_du, y_uu, y_err_dd, y_err_du, y_err_uu = fit_hist_2I(hists, prefit)
-        res.append([x, y_dd, y_du, y_uu, y_err_dd, y_err_du, y_err_uu])
-    else:
-        for i in range(n_data):
-            x = data[0][i]['x']
-            y_dd, y_du, y_uu, y_err_dd, y_err_du, y_err_uu = fit_hist_2I(hists[i], prefit)
-
-            res.append([x, y_dd, y_du, y_uu, y_err_dd, y_err_du, y_err_uu])
-
-    return res
-
-# def mLL_2I(data, mu_dd, mu_du, mu_uu, p_dd, p_du, p_uu):
-#     """returns the negative log likelihood functin of a two-poissonian distribution with:
-#         means mu1 and mu2
-#         weights (1-p_up) and fit_p_up
-#         data: an array filled with random numbers from the two-poissonian distribution
-#     """
-#
-#     # make sure that p_up \in [0, 1]
-# #     if not (0<= p_up <= 1):
-# #         p_up = np.max([p_up, 0])
-# #         p_up = np.min([p_up, 1])
-#
-#     return -np.sum(np.log(p_dd/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_dd) + p_du/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_du)
-#                          + p_uu/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_uu)))
-
-def fit_poisson_hist_2I(hist, lowcount=1., highcount=16.):
+def fit_poisson_hist_2I(hist, lowcount=1., highcount=16., limit=50):
     """fits a sum of two two-poissonian distributions (see mLL) to a sample hist
     """
     # if hist is a list of histograms, merge them into one hist
@@ -126,7 +68,8 @@ def fit_poisson_hist_2I(hist, lowcount=1., highcount=16.):
                error_mu_dd = 1., error_mu_du = 0.5, error_mu_uu = 0.1, error_p_dd = 0.05, error_p_du = 0.05, error_p_uu = 0.05,
                errordef = 0.5,
                 # bounds
-               limit_mu_dd = (0., 50), limit_mu_du = (0., 50), limit_mu_uu = (0., 50.), limit_p_dd=(0.,1.), limit_p_du=(0.,1.), limit_p_uu=(0.,1.))
+               limit_mu_dd = (0., limit), limit_mu_du = (0., limit), limit_mu_uu = (0., limit),
+               limit_p_dd=(0.,1.), limit_p_du=(0.,1.), limit_p_uu=(0.,1.))
     m.migrad()
 
     # make sure the probabilities add up to 1
@@ -137,6 +80,7 @@ def fit_poisson_hist_2I(hist, lowcount=1., highcount=16.):
         'x_err': [m.errors[0], m.errors[1], m.errors[2], m.errors[3]/norm, m.errors[4]/norm, m.errors[5]/norm]
     }
     return res
+
 
 def helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu):
     """fits the weights of a three-poissonian distribution (with fixed means fit_mu_dd, fit_mu_du, fit_mu_uu) to the sample given in hists
@@ -220,6 +164,14 @@ def fit_hist_2I(hists, pre_fit, parallel = True):
     # print("fit hists:", np.round(time.time()-t1, 3))
     return y_dd, y_du, y_uu, y_err_dd, y_err_du, y_err_uu
 
+def plot_hist_res_2I(hist, mus, pops, maxrange=30):
+    xx = np.linspace(0, maxrange, maxrange+1)
+
+    y = pops[0]*poisson.pmf(xx, mus[0]) + pops[1]*poisson.pmf(xx, mus[1]) + pops[2]*poisson.pmf(xx, mus[2])
+
+    plt.hist(hist, bins=range(maxrange), rwidth=0.8, align='left', density=True)
+    plt.plot(xx, y/np.sum(y))
+    plt.show()
 
 ############ FUNCTIONS ############
 
@@ -233,7 +185,7 @@ def poisson_pdf(x, p, mu1, mu2):
     return (1.-p)*poisson.pmf(x, mu1)+p*poisson.pmf(x, mu2)
 
 # from rob
-def mLL(data, mu1, mu2, p_up):
+def mLL(data, mu1, mu2, p_up, remove_inf=False):
     """returns the negative log likelihood functin of a two-poissonian distribution with:
         means mu1 and mu2
         weights (1-p_up) and fit_p_up
@@ -244,7 +196,18 @@ def mLL(data, mu1, mu2, p_up):
         p_up = np.max([p_up, 0])
         p_up = np.min([p_up, 1])
 
-    return -np.sum(np.log((1-p_up)*poisson.pmf(data, mu1) + p_up*poisson.pmf(data, mu2)))
+    # print(len(data))
+    list = np.log((1-p_up)*poisson.pmf(data, mu1) + p_up*poisson.pmf(data, mu2))
+
+    # remove inf's
+    if True:
+        l = np.isinf(list)
+        list = np.array(list)[~np.isinf(list)]
+        # print(np.sum(l))
+    # print(np.max(np.abs(list)))
+    return(-np.sum(list) + np.sum(l)*np.abs(np.sum(list)))
+
+    # return -np.sum(np.log((1-p_up)*poisson.pmf(data, mu1) + p_up*poisson.pmf(data, mu2)))
 
 def sin_squared(x, A, freq, phi, gamma):
     x = np.array(x)
@@ -376,90 +339,19 @@ def unpack_sorted(data):
     x = x[idx]; y = y[idx]; y_err = y_err[idx]
     return x,y,y_err
 
-
-
-
-
-# my function for all hist fits (needs pre fit), from rob
-def fit_hist_2I(hists, pre_fit, parallel = True):
-    t1 = time.time()
-#     """fits the weights of a two-poissonian distribution to the samples given in hists
-#     parameters:
-#         hists: array of arrays, each one a sample of a two-poissonian distribution
-#             should a sample be empty, the corresponding y, y_err are set to nan
-#         pre_fit: fit result from a fit on all histograms in hists combined
-#             (the expectation values mu1, mu2 are taken and fixed in the fits done here)
-#             (scipy optimize result, from fit_poisson_hist or fit_poisson_hist_rob)
-#         parallel: bool, default False, if parallel computing should be used (better performance, if the mp module works)
-#         remove_nan: bool, default True, sets if nans (from empty lists in hists) should be removed in the output
-#     returns y, y_err
-#         y: a list of weights for the two-poissonian distribution (weight corresponding to mu2, mu2 > mu1)
-#         y_err: errors of the weights
-#     """
-
-    # take variables from prefit
-    fit_mu_1, fit_mu_2, fit_mu_3,_,_,_ = pre_fit['x']
-    [fit_mu_uu, fit_mu_du, fit_mu_dd] = np.sort([fit_mu_1, fit_mu_2, fit_mu_3])
-#     print(fit_mu_uu, fit_mu_du, fit_mu_dd)
-
-    if parallel:
-        args = [(hist, fit_mu_dd, fit_mu_du, fit_mu_uu) for hist in hists]
-        pool = mp.Pool(mp.cpu_count())
-        res_y = pool.starmap(helper_fit_hist_2I, args)
-        time.sleep(0.01)
-        pool.close()
-    else:
-        res_y = []
-        for hist in hists:
-            res_y.append(helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu))
-
-    # unpack results
-    y_dd, y_du, y_uu = [i[0] for i in res_y], [i[1] for i in res_y], [i[2] for i in res_y]
-    y_err_dd, y_err_du, y_err_uu = [i[3] for i in res_y], [i[4] for i in res_y], [i[5] for i in res_y]
-
-    # print("fit hists:", np.round(time.time()-t1, 3))
-    return y_dd, y_du, y_uu, y_err_dd, y_err_du, y_err_uu
-
-def plot_hist_res_2I(hist, res, maxcounts = 22):
-    xx = np.linspace(0, maxcounts, maxcounts+1)
-    mu_dd, mu_du, mu_uu = res['x'][0], res['x'][1], res['x'][2]
-    p_dd, p_du, p_uu = res['x'][3], res['x'][4], res['x'][5]
-
-    y = p_dd*poisson.pmf(xx, mu_dd) + p_du*poisson.pmf(xx, mu_du) + p_uu*poisson.pmf(xx, mu_uu)
-#     y = [(res['x'][2]+res['x'][3])*poisson.pmf(i, res['x'][0]) + (2-res['x'][2]-res['x'][3])*poisson.pmf(i, res['x'][1]) for i in xx]
-
-    plt.hist(hist, bins=range(maxcounts), rwidth=0.8, align='left', density=True)
-    plt.plot(xx, y/np.sum(y))
-    plt.xlabel("counts")
-    plt.ylabel("percantage of occurence")
-    plt.show()
-
-def plot_hist_res_2I_old(hist, mus, pops, maxrange=30):
-    xx = np.linspace(0, maxrange, maxrange+1)
-
-    y = pops[0]*poisson.pmf(xx, mus[0]) + pops[1]*poisson.pmf(xx, mus[1]) + pops[2]*poisson.pmf(xx, mus[2])
-
-    plt.hist(hist, bins=range(maxrange), rwidth=0.8, align='left', density=True)
-    plt.plot(xx, y/np.sum(y))
-    plt.show()
-
-
 ############ FIT FUNCTIONS ############
 from PyModules.analyse_eios import eios_data
 
-def fit_poisson_from_file(path, prefit = None, ret_prefit = False):
+def fit_poisson_from_file(path, prefit = None):
     data = eios_data.read(path)
 
     n_data = len(data[0])
 
     hists = [data[0][i]['hists'] for i in range(n_data)]
 
-
     if prefit == None:
         MasterHist = np.append([], hists)
         prefit = fit_poisson_hist(MasterHist)
-        if ret_prefit:
-            return prefit
 
     res = []
     for i in range(n_data):
@@ -469,52 +361,9 @@ def fit_poisson_from_file(path, prefit = None, ret_prefit = False):
         res.append([x, y, y_err])
     return res
 
-def fit_poisson_from_files(paths, prefit = None, ret_prefit = False, onlyFirst=False, show_hist=False):
-    hists = []
-    for path in paths:
-        data = eios_data.read(path)
-        n_data = len(data[0])
-
-        if onlyFirst:
-            hists.append(data[0][0]['hists'])
-        else:
-            for i in range(n_data):
-                hists.append(data[0][i]['hists'])
-
-    if show_hist:
-        print(np.shape(hists))
-        for hist in hists:
-            plt.hist(hist, bins=range(int(np.max(hist))))
-            plt.show()
-
-    if prefit == None:
-        MasterHist = np.append([], hists)
-        prefit = fit_poisson_hist(MasterHist)
-        # print(prefit)
-        if ret_prefit:
-            return prefit
-
-    res = []
-    for i, path in enumerate(paths):
-        data = eios_data.read(path)
-        n_data = len(data[0])
-
-        if onlyFirst:
-            x = data[0][0]['x']
-            y, y_err = fit_hist(hists[i], prefit)
-            res.append([x, y, y_err])
-
-        else:
-            for j in range(n_data):
-                x = data[0][j]['x']
-                y, y_err = fit_hist(data[0][j]['hists'], prefit)
-
-                res.append([x, y, y_err])
-    return res
-
 
 # from rob
-def fit_poisson_hist(hist, lowcount=1., highcount=8., optimizer='iminuit'):
+def fit_poisson_hist(hist, lowcount=1., highcount=8., optimizer='iminuit', limit = 50):
     """fits a two-poissonian distribution (see mLL) to a sample hist, using the scipy minimize function
     optimizer: choose if the optimization should be done with:
         'scipy': like the old function, returns the full scipy optimization result, but errors may not be correct (check the "success" flag), may give problems if values reach their bounds
@@ -524,12 +373,14 @@ def fit_poisson_hist(hist, lowcount=1., highcount=8., optimizer='iminuit'):
     if len(np.shape(hist)) > 1:
         hist = np.append([],hist)
 
+    # print(len(hist))
+
     if optimizer=='scipy':
         # check mLL for further information on the arguments
         func = lambda args: mLL(np.array(hist), args[0], args[1], args[2])
 
         # important: first two bounds are not allowed to include zero
-        fit = minimize(func, [lowcount, highcount, 0.5], bounds=((0.01, 10), (0.1, 50), (0, 1)), tol=1e-10, method='L-BFGS-B')
+        fit = minimize(func, [lowcount, highcount, 0.5], bounds=((0.01, limit), (0.1, limit), (0, 1)), tol=1e-10, method='L-BFGS-B')
         return fit
 
     elif optimizer=='iminuit':
@@ -537,12 +388,15 @@ def fit_poisson_hist(hist, lowcount=1., highcount=8., optimizer='iminuit'):
             return mLL(np.array(hist), mu1, mu2, p_up)
 
         m = iminuit.Minuit(func, mu1 = lowcount, mu2 = highcount, p_up = 0.5,
+        # m = iminuit.Minuit(func, mu1 = 1., mu2 = 8., p_up = 0.5,
                     # initial stepsize
                    error_mu1 = 0.01, error_mu2 = 1., error_p_up = 0.05, errordef = 0.5,
                     # bounds
-                   limit_mu1 = (0., 200), limit_mu2 = (0., 200),
-                   limit_p_up=(0.,1.))
-        m.migrad()
+                   limit_mu1 = (0., limit), limit_mu2 = (0., limit), limit_p_up=(0.,1.))
+        fmin,_ = m.migrad()
+
+        # print(fmin['is_valid'])
+        # print(m.values)
         res = {
             'x': [m.values[0], m.values[1], m.values[2]],
             'x_err': [m.errors[0], m.errors[1], m.errors[2]]
@@ -583,6 +437,7 @@ def helper_fit_hist(hist, fit_mu1, fit_mu2):
     returns the weight and its error
     """
     if len(hist) == 0: # make sure the hist is not empty
+        print("hist empty")
         return np.nan, np.nan
     else:
         # make a helper function to throw into minuit
@@ -590,7 +445,8 @@ def helper_fit_hist(hist, fit_mu1, fit_mu2):
         # make a minuit object
         m = iminuit.Minuit(func, p_up = 0.5, error_p_up = 0.05, errordef = 0.5, limit_p_up=(0.,1.))
         # minimize the funciton
-        m.migrad()
+        fmin,_ = m.migrad()
+        # print(fmin['is_valid'], m.values[0])
         # return the parameter and error (not sure about second summand, taken from original function in eios)
         return m.values[0], np.sqrt(m.errors[0]**2+(0.1/np.sqrt(len(hist)))**2.)
 
@@ -692,15 +548,6 @@ def fit_direct(hists, lowcount=0.2, highcount=6., do_plot=True, pre_fit=None):
     return fit_hist(hists,pre_fit)
 
 
-def cal_fidelity(t_pi, print_fit = False):
-    nameB,_ = paula.run(xxx)
-    nameD,_ = paula.run(xxx)
-
-    dataB
-    dataD
-
-
-
 def get_goodness_PMP(file, full_flop = True, pre_fit = None, do_plot = False, print_res = False):
     """returns the probability of detecting the bright/dark state after state preparation and manipulation (= MW Flop)
     Two modes:
@@ -758,8 +605,6 @@ def get_goodness_PMP(file, full_flop = True, pre_fit = None, do_plot = False, pr
             # do the plot
             plt.errorbar(xDat, yDat, eDat, fmt = 'bo', capsize = 2)
             plt.plot(xFlop, yFlop)
-            plt.xlabel(r'Time ($\mu$s)')
-            plt.ylabel(r'$P_{dark}$')
             plt.show()
 
         if print_res:
@@ -768,15 +613,14 @@ def get_goodness_PMP(file, full_flop = True, pre_fit = None, do_plot = False, pr
 
         # calculate pi time
         t_pi, t_pi_err = freq_to_pi_time( m.values['freq'], m.errors['freq'],  m.values['phi'], m.errors['phi'])
-        t_pi, t_pi_err = [0.5/m.values['freq']], [0.5*m.errors['freq']/m.values['freq']**2]
         return m.values['Up'], m.errors['Up'], 1-m.values['Low'], m.errors['Low'], t_pi[0], t_pi_err[0]
 
     else:
         if print_res:
-            print("Population of bright state after 2*t_pi: ", np.round(yDat[1], 3), "error: ", np.round(eDat[1], 3))
-            print("Population of dark state after t_pi:   ", np.round(1-yDat[0], 3), "error: ", np.round(eDat[0], 3))
+            print("Population of bright state: ", np.round(yDat[0], 3), "error: ", np.round(eDat[0], 3))
+            print("Population of dark state:   ", np.round(1-yDat[1], 3), "error: ", np.round(eDat[1], 3))
 
-        return yDat[1], eDat[1], 1-yDat[0], eDat[0], 0, 0
+        return yDat[0], eDat[0], 1-yDat[1], eDat[1], 0, 0
 
 def fit_func(func, x, y, y_err, start, limits=None, max_eval=10000, absolute_sigma=False):
     np.seterr(divide='ignore', invalid='ignore')
@@ -972,12 +816,12 @@ def freq_to_pi_time(freq, freq_err, phase, phase_error):
     t_shift = T*phase/(2.*np.pi)
     t_flip = T/2.-t_shift
     t_flip_err = abs(.5-phase/(2.*np.pi))*T_err + abs(T/(2.*np.pi))*phase_error
-    #print(phase_error)
-    #print(phase/(2.*np.pi))
-    #print(T,T_err)
-    #print(freq,freq_err)
-    #print(phase,t_shift)
-    #print(t_flip,t_flip_err)
+    print(phase_error)
+    print(phase/(2.*np.pi))
+    print(T,T_err)
+    print(freq,freq_err)
+    print(phase,t_shift)
+    print(t_flip,t_flip_err)
 
     t_pi = [t_flip]
     t_pi_err = [t_flip_err]
