@@ -11,6 +11,7 @@ import time
 import matplotlib.pyplot as plt
 
 from scipy.stats import poisson
+# from scipy.stats.chi2 import cdf as chi2cdf
 from scipy.optimize import minimize
 from scipy.optimize import curve_fit
 
@@ -138,7 +139,7 @@ def fit_poisson_hist_2I(hist, lowcount=1., highcount=16.):
     }
     return res
 
-def helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu):
+def helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu, as_err = False):
     """fits the weights of a three-poissonian distribution (with fixed means fit_mu_dd, fit_mu_du, fit_mu_uu) to the sample given in hists
     returns the weight and its error
     """
@@ -159,6 +160,13 @@ def helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu):
 
         # minimize the funciton
         m.migrad()
+        if as_err:
+
+            m.minos()
+            err = m.np_merrors()
+
+            print(m.minos())
+            print(err)
 
         # calculate the populations p_dd, p_du, p_uu
         p_dd, p_du, p_uu = m.values[0]*(1-m.values[1]), (1-m.values[0]), m.values[0]*m.values[1]
@@ -173,16 +181,14 @@ def helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu):
         err1 = m.errors[0]
         err2 = np.sqrt((m.errors[0]*m.values[1])**2 + (m.values[0]*m.errors[1])**2)
 
-#         err0 = np.min([err0, np.sqrt(err1**2+err2**2)])
-#         err1 = np.min([err1, np.sqrt(err2**2+err0**2)])
-#         err2 = np.min([err2, np.sqrt(err0**2+err1**2)])
+
 
         # return the parameter and error
         return p_dd, p_du, p_uu, err0, err1, err2
 
 
 # my function for all hist fits (needs pre fit), from rob
-def fit_hist_2I(hists, pre_fit, parallel = True):
+def fit_hist_2I(hists, pre_fit, parallel = True, as_err = False):
     t1 = time.time()
     """fits the weights of a three-poissonian distribution to the samples given in hists
     parameters:
@@ -203,7 +209,7 @@ def fit_hist_2I(hists, pre_fit, parallel = True):
     [fit_mu_uu, fit_mu_du, fit_mu_dd] = np.sort([fit_mu_1, fit_mu_2, fit_mu_3])
 
     if parallel:
-        args = [(hist, fit_mu_dd, fit_mu_du, fit_mu_uu) for hist in hists]
+        args = [(hist, fit_mu_dd, fit_mu_du, fit_mu_uu, as_err) for hist in hists]
         pool = mp.Pool(mp.cpu_count())
         res_y = pool.starmap(helper_fit_hist_2I, args)
         time.sleep(0.01)
@@ -211,7 +217,7 @@ def fit_hist_2I(hists, pre_fit, parallel = True):
     else:
         res_y = []
         for hist in hists:
-            res_y.append(helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu))
+            res_y.append(helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu, as_err))
 
     # unpack results
     y_dd, y_du, y_uu = [i[0] for i in res_y], [i[1] for i in res_y], [i[2] for i in res_y]
@@ -380,45 +386,45 @@ def unpack_sorted(data):
 
 
 
-# my function for all hist fits (needs pre fit), from rob
-def fit_hist_2I(hists, pre_fit, parallel = True):
-    t1 = time.time()
-#     """fits the weights of a two-poissonian distribution to the samples given in hists
-#     parameters:
-#         hists: array of arrays, each one a sample of a two-poissonian distribution
-#             should a sample be empty, the corresponding y, y_err are set to nan
-#         pre_fit: fit result from a fit on all histograms in hists combined
-#             (the expectation values mu1, mu2 are taken and fixed in the fits done here)
-#             (scipy optimize result, from fit_poisson_hist or fit_poisson_hist_rob)
-#         parallel: bool, default False, if parallel computing should be used (better performance, if the mp module works)
-#         remove_nan: bool, default True, sets if nans (from empty lists in hists) should be removed in the output
-#     returns y, y_err
-#         y: a list of weights for the two-poissonian distribution (weight corresponding to mu2, mu2 > mu1)
-#         y_err: errors of the weights
-#     """
-
-    # take variables from prefit
-    fit_mu_1, fit_mu_2, fit_mu_3,_,_,_ = pre_fit['x']
-    [fit_mu_uu, fit_mu_du, fit_mu_dd] = np.sort([fit_mu_1, fit_mu_2, fit_mu_3])
-#     print(fit_mu_uu, fit_mu_du, fit_mu_dd)
-
-    if parallel:
-        args = [(hist, fit_mu_dd, fit_mu_du, fit_mu_uu) for hist in hists]
-        pool = mp.Pool(mp.cpu_count())
-        res_y = pool.starmap(helper_fit_hist_2I, args)
-        time.sleep(0.01)
-        pool.close()
-    else:
-        res_y = []
-        for hist in hists:
-            res_y.append(helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu))
-
-    # unpack results
-    y_dd, y_du, y_uu = [i[0] for i in res_y], [i[1] for i in res_y], [i[2] for i in res_y]
-    y_err_dd, y_err_du, y_err_uu = [i[3] for i in res_y], [i[4] for i in res_y], [i[5] for i in res_y]
-
-    # print("fit hists:", np.round(time.time()-t1, 3))
-    return y_dd, y_du, y_uu, y_err_dd, y_err_du, y_err_uu
+# # my function for all hist fits (needs pre fit), from rob
+# def fit_hist_2I(hists, pre_fit, parallel = True):
+#     t1 = time.time()
+# #     """fits the weights of a two-poissonian distribution to the samples given in hists
+# #     parameters:
+# #         hists: array of arrays, each one a sample of a two-poissonian distribution
+# #             should a sample be empty, the corresponding y, y_err are set to nan
+# #         pre_fit: fit result from a fit on all histograms in hists combined
+# #             (the expectation values mu1, mu2 are taken and fixed in the fits done here)
+# #             (scipy optimize result, from fit_poisson_hist or fit_poisson_hist_rob)
+# #         parallel: bool, default False, if parallel computing should be used (better performance, if the mp module works)
+# #         remove_nan: bool, default True, sets if nans (from empty lists in hists) should be removed in the output
+# #     returns y, y_err
+# #         y: a list of weights for the two-poissonian distribution (weight corresponding to mu2, mu2 > mu1)
+# #         y_err: errors of the weights
+# #     """
+#
+#     # take variables from prefit
+#     fit_mu_1, fit_mu_2, fit_mu_3,_,_,_ = pre_fit['x']
+#     [fit_mu_uu, fit_mu_du, fit_mu_dd] = np.sort([fit_mu_1, fit_mu_2, fit_mu_3])
+# #     print(fit_mu_uu, fit_mu_du, fit_mu_dd)
+#
+#     if parallel:
+#         args = [(hist, fit_mu_dd, fit_mu_du, fit_mu_uu) for hist in hists]
+#         pool = mp.Pool(mp.cpu_count())
+#         res_y = pool.starmap(helper_fit_hist_2I, args)
+#         time.sleep(0.01)
+#         pool.close()
+#     else:
+#         res_y = []
+#         for hist in hists:
+#             res_y.append(helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu))
+#
+#     # unpack results
+#     y_dd, y_du, y_uu = [i[0] for i in res_y], [i[1] for i in res_y], [i[2] for i in res_y]
+#     y_err_dd, y_err_du, y_err_uu = [i[3] for i in res_y], [i[4] for i in res_y], [i[5] for i in res_y]
+#
+#     # print("fit hists:", np.round(time.time()-t1, 3))
+#     return y_dd, y_du, y_uu, y_err_dd, y_err_du, y_err_uu
 
 def plot_hist_res_2I(hist, res, maxcounts = 22):
     xx = np.linspace(0, maxcounts, maxcounts+1)
@@ -447,7 +453,7 @@ def plot_hist_res_2I_old(hist, mus, pops, maxrange=30):
 ############ FIT FUNCTIONS ############
 from PyModules.analyse_eios import eios_data
 
-def fit_poisson_from_file(path, prefit = None, ret_prefit = False):
+def fit_poisson_from_file(path, prefit = None, ret_prefit = False, as_err = False):
     data = eios_data.read(path)
 
     n_data = len(data[0])
@@ -464,12 +470,14 @@ def fit_poisson_from_file(path, prefit = None, ret_prefit = False):
     res = []
     for i in range(n_data):
         x = data[0][i]['x']
-        y, y_err = fit_hist(hists[i], prefit)
+        y, y_err = fit_hist(hists[i], prefit, as_err=as_err)
 
         res.append([x, y, y_err])
     return res
 
-def fit_poisson_from_files(paths, prefit = None, ret_prefit = False, onlyFirst=False, show_hist=False):
+
+
+def fit_poisson_from_files(paths, prefit = None, ret_prefit = False, onlyFirst=False, show_hist=False, as_err = False):
     hists = []
     for path in paths:
         data = eios_data.read(path)
@@ -501,13 +509,13 @@ def fit_poisson_from_files(paths, prefit = None, ret_prefit = False, onlyFirst=F
 
         if onlyFirst:
             x = data[0][0]['x']
-            y, y_err = fit_hist(hists[i], prefit)
+            y, y_err = fit_hist(hists[i], prefit, as_err=as_err)
             res.append([x, y, y_err])
 
         else:
             for j in range(n_data):
                 x = data[0][j]['x']
-                y, y_err = fit_hist(data[0][j]['hists'], prefit)
+                y, y_err = fit_hist(data[0][j]['hists'], prefit, as_err=as_err)
 
                 res.append([x, y, y_err])
     return res
@@ -577,8 +585,9 @@ def fit_poisson_hist_old(fhists, lowcount=0., highcount=4.):
 	return fitresult
 
 
+import scipy
 # helper function for fit_hist_rob, from rob
-def helper_fit_hist(hist, fit_mu1, fit_mu2):
+def helper_fit_hist(hist, fit_mu1, fit_mu2, as_err = False):
     """fits the weights of a two-poissonian distribution (with fixed means fit_mu1, fit_mu2) to the sample given in hists
     returns the weight and its error
     """
@@ -591,11 +600,27 @@ def helper_fit_hist(hist, fit_mu1, fit_mu2):
         m = iminuit.Minuit(func, p_up = 0.5, error_p_up = 0.05, errordef = 0.5, limit_p_up=(0.,1.))
         # minimize the funciton
         m.migrad()
+
+        # for profile likelihood analysis
+        if as_err:
+            m.minos()
+            err = m.np_merrors()
+
+            # print(m.values['p_up'])
+            # print(err)
+            #
+            # m.draw_mnprofile('p_up', subtract_min=True)
+            # plt.show()
+
         # return the parameter and error (not sure about second summand, taken from original function in eios)
-        return m.values[0], np.sqrt(m.errors[0]**2+(0.1/np.sqrt(len(hist)))**2.)
+        if as_err:
+            return m.values[0], err
+        else:
+            return m.values[0], np.sqrt(m.errors[0]**2+(0.1/np.sqrt(len(hist)))**2.)
+
 
 # my function for all hist fits (needs pre fit), from rob
-def fit_hist(hists, pre_fit, parallel = True, remove_nan = True):
+def fit_hist(hists, pre_fit, parallel = True, remove_nan = True, as_err = False):
     t1 = time.time()
     """fits the weights of a two-poissonian distribution to the samples given in hists
     parameters:
@@ -615,7 +640,7 @@ def fit_hist(hists, pre_fit, parallel = True, remove_nan = True):
     # fit_p_up_err = np.sqrt(np.diag(pre_fit['hess_inv'].matmat(np.eye(3)))[-1])
 
     if parallel:
-        args = [(hist, fit_mu1, fit_mu2) for hist in hists]
+        args = [(hist, fit_mu1, fit_mu2, as_err) for hist in hists]
         pool = mp.Pool(mp.cpu_count())
         res_y = pool.starmap(helper_fit_hist, args)
         time.sleep(0.01)
@@ -623,11 +648,21 @@ def fit_hist(hists, pre_fit, parallel = True, remove_nan = True):
     else:
         res_y = []
         for hist in hists:
-            res_y.append(helper_fit_hist(hist, fit_mu1, fit_mu2))
+            res_y.append(helper_fit_hist(hist, fit_mu1, fit_mu2, as_err))
 
     # unpack results
-    y = [i[0] for i in res_y]
-    y_err = [i[1] for i in res_y]
+    if as_err:
+        # print(res_y)
+        y = [i[0] for i in res_y]
+        y_err_d = [i[1][0][0] for i in res_y]
+        # print(y_err_d)
+        y_err_u = [i[1][1][0] for i in res_y]
+        y_err = np.array([y_err_d, y_err_u])
+        return y, [y_err_d, y_err_u]
+
+    else:
+        y = [i[0] for i in res_y]
+        y_err = [i[1] for i in res_y]
 
     # remove nans if remove_nan==True
     if remove_nan:
