@@ -97,20 +97,6 @@ def fit_poisson_from_file_2I(path, prefit = None, ret_prefit = False, onlyFirst 
 
     return res
 
-# def mLL_2I(data, mu_dd, mu_du, mu_uu, p_dd, p_du, p_uu):
-#     """returns the negative log likelihood functin of a two-poissonian distribution with:
-#         means mu1 and mu2
-#         weights (1-p_up) and fit_p_up
-#         data: an array filled with random numbers from the two-poissonian distribution
-#     """
-#
-#     # make sure that p_up \in [0, 1]
-# #     if not (0<= p_up <= 1):
-# #         p_up = np.max([p_up, 0])
-# #         p_up = np.min([p_up, 1])
-#
-#     return -np.sum(np.log(p_dd/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_dd) + p_du/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_du)
-#                          + p_uu/(p_dd+p_du+p_uu)*poisson.pmf(data, mu_uu)))
 
 def fit_poisson_hist_2I(hist, lowcount=1., highcount=16.):
     """fits a sum of two two-poissonian distributions (see mLL) to a sample hist
@@ -160,16 +146,23 @@ def helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu, as_err = False):
 
         # minimize the funciton
         m.migrad()
+
+        # calculate the populations p_dd, p_du, p_uu
+        p_dd, p_du, p_uu = m.values[0]*(1-m.values[1]), (1-m.values[0]), m.values[0]*m.values[1]
+
         if as_err:
 
             m.minos()
             err = m.np_merrors()
 
-            print(m.minos())
-            print(err)
+            # print(m.minos())
+            # print(err)
+            err_s, err_u = [err[0][0], err[1][0]], [err[0][1], err[1][1]]
+            P_s, P_u = m.values[0], m.values[1]
 
-        # calculate the populations p_dd, p_du, p_uu
-        p_dd, p_du, p_uu = m.values[0]*(1-m.values[1]), (1-m.values[0]), m.values[0]*m.values[1]
+            err_uu = [P_u*err_s[0] + P_s*err_u[0] - err_s[0]*err_u[0], P_u*err_s[1] + P_s*err_u[1] - err_s[1]*err_u[1]]
+            err_dd = [err_s[0] - P_u*err_s[0] + P_s*err_u[1] - err_s[0]*err_u[1], err_s[1] - P_u*err_s[1] + P_s*err_u[0] + err_s[1]*err_u[0]]
+            err_du = [err_s[1], err_s[0]]
 
         # make sure the probabilities add up to 1
         norm = p_dd + p_du + p_uu
@@ -177,14 +170,14 @@ def helper_fit_hist_2I(hist, fit_mu_dd, fit_mu_du, fit_mu_uu, as_err = False):
             print("probabilities not normalized!!!")
 
         # calculate the errors of p_dd, p_du, p_uu
-        err0 = np.sqrt((m.errors[0]*(1-m.values[1]))**2 + (m.values[0]*m.errors[1])**2)
-        err1 = m.errors[0]
-        err2 = np.sqrt((m.errors[0]*m.values[1])**2 + (m.values[0]*m.errors[1])**2)
-
-
+        if not as_err:
+            # print('not')
+            err_dd = np.sqrt((m.errors[0]*(1-m.values[1]))**2 + (m.values[0]*m.errors[1])**2)
+            err_du = m.errors[0]
+            err_uu = np.sqrt((m.errors[0]*m.values[1])**2 + (m.values[0]*m.errors[1])**2)
 
         # return the parameter and error
-        return p_dd, p_du, p_uu, err0, err1, err2
+        return p_dd, p_du, p_uu, err_dd, err_du, err_uu
 
 
 # my function for all hist fits (needs pre fit), from rob
@@ -598,8 +591,13 @@ def helper_fit_hist(hist, fit_mu1, fit_mu2, as_err = False):
         func = lambda p_up: mLL(np.array(hist), fit_mu1, fit_mu2, p_up)
         # make a minuit object
         m = iminuit.Minuit(func, p_up = 0.5, error_p_up = 0.05, errordef = 0.5, limit_p_up=(0.,1.))
+
+        # func = lambda x: mLL(np.array(hist), fit_mu1, fit_mu2, 1/(1+np.exp(x)))
+        # m = iminuit.Minuit(func, x = 0, error_x = 0.5, errordef = 0.5)
         # minimize the funciton
         m.migrad()
+
+        p_up = 1/(1+np.exp(m.values[0]))
 
         # for profile likelihood analysis
         if as_err:
@@ -607,14 +605,15 @@ def helper_fit_hist(hist, fit_mu1, fit_mu2, as_err = False):
             err = m.np_merrors()
 
             # print(m.values['p_up'])
-            # print(err)
+            print(err)
             #
-            # m.draw_mnprofile('p_up', subtract_min=True)
-            # plt.show()
+            m.draw_mnprofile('p_up', subtract_min=True)
+            plt.show()
 
         # return the parameter and error (not sure about second summand, taken from original function in eios)
         if as_err:
-            return m.values[0], err
+            # return m.values[0], err
+            return p_up, err
         else:
             return m.values[0], np.sqrt(m.errors[0]**2+(0.1/np.sqrt(len(hist)))**2.)
 
