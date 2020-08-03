@@ -545,6 +545,7 @@ def plot_fock_fit(fock_n, fock_p, fock_e, fit_fock_n, fit_fock_p, figsize=(9,4.5
     ax.set_ylabel('Population')
     ax.set_ylim(0,1);
 
+
 def plot_flop_fit(flop_func_list, fit_fock_n, fit_fock_p, fit_fock_e, flop_list, lbl_list, fit_status, figsize=(9,4.5)):
     fig, ax = plt.subplots(2, 2, figsize=figsize, gridspec_kw = {'width_ratios':[3, 1],'height_ratios':[4, 1]});
     ColorList=['red','navy','orange','grey','silver','black']

@@ -1,0 +1,4767 @@
+#<?xml version="1.0" encoding="ISO-8859-15"?>
+#<!-- This is the XML Dataset Meta Data. Editing these lines can cause crashes! -->
+#<metadata label="14:54:58">
+#<timestamp><time><h>14</h><m>54</m><s>58</s></time><date><d>03</d><m>08</m><y>2020</y></date></timestamp>
+#<sampling>linear</sampling>
+#<counter>0,1</counter>
+#<ionproperties>
+#<item name="A_init_spin_up"><value>0</value></item>
+#<item name="A_laserkick"><value>0</value></item>
+#<item name="A_sbc"><value>0</value></item>
+#<item name="A_squeeze"><value>0</value></item>
+#<item name="B1_dummy"><value>105</value></item>
+#<item name="B3_dummy"><value>120</value></item>
+#<item name="CC_BC0_dummy"><value>1.55</value></item>
+#<item name="CC_BC4_dummy"><value>2.3</value></item>
+#<item name="Damp2"><value>-0.025</value></item>
+#<item name="ERO"><value>25</value></item>
+#<item name="ERa"><value>24</value></item>
+#<item name="ERaO"><value>3</value></item>
+#<item name="ERaO_fine"><value>4</value></item>
+#<item name="ERaU"><value>1</value></item>
+#<item name="ERaU_fine"><value>2</value></item>
+#<item name="ERiO"><value>11</value></item>
+#<item name="ERiO_fine"><value>12</value></item>
+#<item name="ERiU"><value>9</value></item>
+#<item name="ERiU_fine"><value>10</value></item>
+#<item name="EU_416"><value>29</value></item>
+#<item name="EU_558"><value>31</value></item>
+#<item name="EU_685"><value>30</value></item>
+#<item name="EU_RF_pulses"><value>1</value></item>
+#<item name="EU_beam_conf"><value>0</value></item>
+#<item name="EU_beam_fr"><value>1774.83</value></item>
+#<item name="EU_cool"><value>20</value></item>
+#<item name="EU_cool_old"><value>36</value></item>
+#<item name="EU_init"><value>18</value></item>
+#<item name="EU_kick"><value>26</value></item>
+#<item name="EU_kick2"><value>27</value></item>
+#<item name="EU_low_RF"><value>35</value></item>
+#<item name="EU_open_LP"><value>1</value></item>
+#<item name="EU_profile_cool"><value>20</value></item>
+#<item name="EU_profile_init"><value>18</value></item>
+#<item name="EU_profile_target"><value>19</value></item>
+#<item name="EU_ramp_init"><value>1</value></item>
+#<item name="EU_ramp_target"><value>1</value></item>
+#<item name="EU_squeeze"><value>34</value></item>
+#<item name="EU_switch_RF"><value>0</value></item>
+#<item name="EU_t_RCKm_1R"><value>25</value></item>
+#<item name="EU_t_hf_1R"><value>23</value></item>
+#<item name="EU_t_lf_1R"><value>5</value></item>
+#<item name="EU_t_mf_1R"><value>60</value></item>
+#<item name="EU_t_mf_2R"><value>0</value></item>
+#<item name="EU_t_oc"><value>4.07</value></item>
+#<item name="EU_t_roc"><value>14</value></item>
+#<item name="EU_target"><value>19</value></item>
+#<item name="EU_var"><value>28</value></item>
+#<item name="EU_weakRF"><value>32</value></item>
+#<item name="EU_weakRF2"><value>33</value></item>
+#<item name="EZO"><value>7</value></item>
+#<item name="EZO_fine"><value>8</value></item>
+#<item name="EZU"><value>5</value></item>
+#<item name="EZU_fine"><value>6</value></item>
+#<item name="ExExpZ"><value>34</value></item>
+#<item name="ExExpZ_fine"><value>39</value></item>
+#<item name="EyExpZ"><value>35</value></item>
+#<item name="EyExpZ_fine"><value>40</value></item>
+#<item name="EzExpZ"><value>36</value></item>
+#<item name="EzExpZ_fine"><value>41</value></item>
+#<item name="FinestHzz"><value>38</value></item>
+#<item name="HxyExpZ_fine"><value>42</value></item>
+#<item name="Hxy_at_0._0._-9."><value>37</value></item>
+#<item name="HxzExpZ_fine"><value>43</value></item>
+#<item name="HzzExpZ_fine"><value>44</value></item>
+#<item name="LRaO"><value>18</value></item>
+#<item name="LRaU"><value>17</value></item>
+#<item name="LRiO"><value>14</value></item>
+#<item name="LRiU"><value>13</value></item>
+#<item name="LZ"><value>23</value></item>
+#<item name="LZO"><value>16</value></item>
+#<item name="LZU"><value>15</value></item>
+#<item name="NS"><value>22</value></item>
+#<item name="Prep_Fock_No"><value>1</value></item>
+#<item name="R2_dummy"><value>3.3</value></item>
+#<item name="RD_dummy"><value>0.15</value></item>
+#<item name="RP_dummy"><value>0.3</value></item>
+#<item name="STR_Tickle_Shim"><value>0</value></item>
+#<item name="adc_me_RF_amp"><value>0.5454</value></item>
+#<item name="adc_me_RF_ch13"><value>-8.57307</value></item>
+#<item name="adc_me_RF_fr"><value>-10</value></item>
+#<item name="amp"><value>0</value></item>
+#<item name="bigR"><value>75000</value></item>
+#<item name="bright_state_fidelity"><value>0.984529</value></item>
+#<item name="ch3p0"><value>30</value></item>
+#<item name="ch3p1"><value>31</value></item>
+#<item name="ch3p2"><value>32</value></item>
+#<item name="ch3p5"><value>29</value></item>
+#<item name="ch3p6"><value>28</value></item>
+#<item name="ch3p7"><value>27</value></item>
+#<item name="ch3p8"><value>26</value></item>
+#<item name="ch4p8"><value>33</value></item>
+#<item name="clk_shelf"><value>0</value></item>
+#<item name="conf_hf_rsb"><value>2</value></item>
+#<item name="conf_lf_rsb"><value>1</value></item>
+#<item name="conf_mf_rsb"><value>2</value></item>
+#<item name="cool_RCKhf"><value>0</value></item>
+#<item name="cool_RCKlf"><value>0</value></item>
+#<item name="cool_RCKmf"><value>0</value></item>
+#<item name="cool_calc_Q"><value>0</value></item>
+#<item name="cool_lf_calc_Q"><value>0</value></item>
+#<item name="cool_mode_hf"><value>0</value></item>
+#<item name="cool_mode_lf"><value>1</value></item>
+#<item name="cool_mode_mf"><value>0</value></item>
+#<item name="dERaO"><value>0</value></item>
+#<item name="dERaO_fast"><value>0</value></item>
+#<item name="dERaO_slow"><value>0</value></item>
+#<item name="dERaU"><value>0</value></item>
+#<item name="dERaU_fast"><value>0</value></item>
+#<item name="dERaU_slow"><value>0</value></item>
+#<item name="dERiO"><value>0</value></item>
+#<item name="dERiO_fast"><value>0</value></item>
+#<item name="dERiO_slow"><value>0</value></item>
+#<item name="dERiU"><value>0</value></item>
+#<item name="dERiU_fast"><value>0</value></item>
+#<item name="dERiU_slow"><value>0</value></item>
+#<item name="dEZO"><value>0</value></item>
+#<item name="dEZO_fast"><value>0</value></item>
+#<item name="dEZO_slow"><value>0</value></item>
+#<item name="dEZU"><value>0</value></item>
+#<item name="dEZU_fast"><value>0</value></item>
+#<item name="dEZU_slow"><value>0</value></item>
+#<item name="dZ"><value>20</value></item>
+#<item name="dZfine"><value>21</value></item>
+#<item name="dark_state_fidelity"><value>0.988112</value></item>
+#<item name="delay_Raman"><value>0.1</value></item>
+#<item name="det0"><value>0</value></item>
+#<item name="det1"><value>0</value></item>
+#<item name="det2"><value>1</value></item>
+#<item name="detect_ct2"><value>2</value></item>
+#<item name="dummy"><value>0</value></item>
+#<item name="dynamic_decoupling_n"><value>1</value></item>
+#<item name="exp_zone"><value>6</value></item>
+#<item name="exp_zone_2MHz"><value>7</value></item>
+#<item name="exp_zone_FC"><value>9</value></item>
+#<item name="fr_B3B1"><value>5.982</value></item>
+#<item name="fr_R1R3"><value>3.94</value></item>
+#<item name="fr_R2R1"><value>3.9718</value></item>
+#<item name="fr_R2R3"><value>7.112</value></item>
+#<item name="fr_RCKh"><value>4.585</value></item>
+#<item name="fr_RCKh_1R"><value>1770.89</value></item>
+#<item name="fr_RCKh_2R"><value>1771.2</value></item>
+#<item name="fr_RCKm"><value>2.82</value></item>
+#<item name="fr_RCKm_1R"><value>1772.54</value></item>
+#<item name="fr_RCKm_2R"><value>1770.31</value></item>
+#<item name="fr_STR_1R"><value>1772.86</value></item>
+#<item name="fr_STR_2R"><value>1779.56</value></item>
+#<item name="fr_blueshifter"><value>222</value></item>
+#<item name="fr_cc_3p1_2p0"><value>1775.1</value></item>
+#<item name="fr_cc_3p1_2p2"><value>1727.1</value></item>
+#<item name="fr_cc_3p2_2p2"><value>1704.5</value></item>
+#<item name="fr_cc_3p3_2p2"><value>1774.69</value></item>
+#<item name="fr_cc_3p3_2p2_BC4"><value>1777.11</value></item>
+#<item name="fr_det"><value>0</value></item>
+#<item name="fr_det_bd"><value>-20</value></item>
+#<item name="fr_exc"><value>1.2965</value></item>
+#<item name="fr_exc1"><value>1.2965</value></item>
+#<item name="fr_exc2"><value>0</value></item>
+#<item name="fr_hf"><value>4.4938</value></item>
+#<item name="fr_hf_1R"><value>1774.76</value></item>
+#<item name="fr_hf_2R"><value>1770.27</value></item>
+#<item name="fr_hf_3R"><value>1770</value></item>
+#<item name="fr_laser_bd"><value>5.36042e+08</value></item>
+#<item name="fr_laser_r2x"><value>5.36043e+08</value></item>
+#<item name="fr_lf"><value>1.2965</value></item>
+#<item name="fr_lf_1B"><value>1775.9</value></item>
+#<item name="fr_lf_1R"><value>1773.49</value></item>
+#<item name="fr_lf_2B"><value>1779.12</value></item>
+#<item name="fr_lf_2R"><value>1772.18</value></item>
+#<item name="fr_lf_3B"><value>1780.8</value></item>
+#<item name="fr_lf_3R"><value>1772.83</value></item>
+#<item name="fr_lf_str"><value>2.388</value></item>
+#<item name="fr_mf"><value>2.8271</value></item>
+#<item name="fr_mf_1R"><value>1776.42</value></item>
+#<item name="fr_mf_2B"><value>0</value></item>
+#<item name="fr_mf_2R"><value>1773.6</value></item>
+#<item name="fr_mf_3R"><value>1770</value></item>
+#<item name="fr_mf_sq"><value>2.8129</value></item>
+#<item name="fr_mod"><value>0.0012</value></item>
+#<item name="fr_mw_3p0_2p0"><value>1788.84</value></item>
+#<item name="fr_mw_3p0_2pm1"><value>1791.65</value></item>
+#<item name="fr_mw_3p1_2p0"><value>1786.02</value></item>
+#<item name="fr_mw_3p1_2p2"><value>1780.4</value></item>
+#<item name="fr_mw_3p3_2p2"><value>1774.75</value></item>
+#<item name="fr_mw_3pm1_2pm1"><value>1794.29</value></item>
+#<item name="fr_oc"><value>1774.78</value></item>
+#<item name="fr_r2"><value>222</value></item>
+#<item name="fr_r3"><value>220</value></item>
+#<item name="fr_roc"><value>1779.25</value></item>
+#<item name="fr_shift_sq_exc"><value>-0.0088</value></item>
+#<item name="fr_shift_sq_mf"><value>-0.0046</value></item>
+#<item name="fr_sq_exc"><value>0</value></item>
+#<item name="fr_sq_mf"><value>2.8</value></item>
+#<item name="fr_squeeze"><value>1.296</value></item>
+#<item name="fr_tickle"><value>1.2977</value></item>
+#<item name="fr_tickle_cal"><value>2</value></item>
+#<item name="fr_tickle_tf"><value>5.5</value></item>
+#<item name="fxd_phs"><value>1</value></item>
+#<item name="go_to_step"><value>4</value></item>
+#<item name="hf1_dummy"><value>22</value></item>
+#<item name="hf_tickle_dummy"><value>1000</value></item>
+#<item name="ion_loaded"><value>1.59376e+09</value></item>
+#<item name="lf1_dummy"><value>9</value></item>
+#<item name="lf_tickle_dummy"><value>0</value></item>
+#<item name="loading_time"><value>3000</value></item>
+#<item name="loading_zone"><value>1</value></item>
+#<item name="loading_zone_lowRF"><value>21</value></item>
+#<item name="mf1_dummy"><value>15</value></item>
+#<item name="mf_tickle_dummy"><value>200</value></item>
+#<item name="mw_contr_high"><value>3.17855</value></item>
+#<item name="mw_contr_low"><value>0.338867</value></item>
+#<item name="n_th_hf"><value>11.5</value></item>
+#<item name="n_th_lf"><value>0.11</value></item>
+#<item name="n_th_mf"><value>0.6</value></item>
+#<item name="nbar_per_sec_1R_hf"><value>40.0001</value></item>
+#<item name="nbar_per_sec_1R_lf"><value>102.9</value></item>
+#<item name="nbar_per_sec_1R_mf"><value>-7.59448</value></item>
+#<item name="no_kicks"><value>1</value></item>
+#<item name="no_sbc_inner_1R"><value>15</value></item>
+#<item name="no_sbc_inner_2R"><value>15</value></item>
+#<item name="no_sbc_inner_3R"><value>0</value></item>
+#<item name="no_sbc_outer"><value>2</value></item>
+#<item name="offset"><value>0.423</value></item>
+#<item name="on_ramp"><value>7.4</value></item>
+#<item name="ou"><value>19</value></item>
+#<item name="pdq_init_profile"><value>20</value></item>
+#<item name="pdq_reorder_profile"><value>18</value></item>
+#<item name="pdq_target_profile"><value>10</value></item>
+#<item name="phase"><value>0.258519</value></item>
+#<item name="phase_laserkick"><value>8.2</value></item>
+#<item name="phase_squeeze_0"><value>0</value></item>
+#<item name="phase_squeeze_1"><value>0</value></item>
+#<item name="phase_tickle_mf"><value>0.3606</value></item>
+#<item name="phs_exc"><value>0</value></item>
+#<item name="phs_exc1"><value>2.69279</value></item>
+#<item name="phs_fxd"><value>0</value></item>
+#<item name="phs_mod"><value>0</value></item>
+#<item name="phs_sq"><value>0</value></item>
+#<item name="phs_sq_exc"><value>0.02</value></item>
+#<item name="phs_tckl"><value>0</value></item>
+#<item name="phs_tckl1"><value>0.75</value></item>
+#<item name="phs_tckl2"><value>0</value></item>
+#<item name="phs_tckl_exc"><value>0.23</value></item>
+#<item name="pos_b1_H"><value>0.213</value></item>
+#<item name="pos_b1_V"><value>6.36</value></item>
+#<item name="pos_b3_H"><value>315</value></item>
+#<item name="pos_b3_V"><value>-206</value></item>
+#<item name="pos_bd_H"><value>423</value></item>
+#<item name="pos_bd_V"><value>133</value></item>
+#<item name="pos_r2_H"><value>0.346</value></item>
+#<item name="pos_r2_V"><value>0.84</value></item>
+#<item name="pwr_b1"><value>0.6</value></item>
+#<item name="pwr_b1_sbc"><value>0.6</value></item>
+#<item name="pwr_b3"><value>0.6</value></item>
+#<item name="pwr_b3_sbc"><value>0.6</value></item>
+#<item name="pwr_r1"><value>0</value></item>
+#<item name="pwr_r2"><value>0.5</value></item>
+#<item name="pwr_r2_sbc"><value>0.5</value></item>
+#<item name="rERaO"><value>0</value></item>
+#<item name="rERaO_fast"><value>0</value></item>
+#<item name="rERaO_slow"><value>0</value></item>
+#<item name="rERaU"><value>0</value></item>
+#<item name="rERaU_fast"><value>0</value></item>
+#<item name="rERaU_slow"><value>0</value></item>
+#<item name="rERiO"><value>100</value></item>
+#<item name="rERiO_fast"><value>0</value></item>
+#<item name="rERiO_slow"><value>0</value></item>
+#<item name="rERiU"><value>0</value></item>
+#<item name="rERiU_fast"><value>0</value></item>
+#<item name="rERiU_slow"><value>0</value></item>
+#<item name="rEZO"><value>0</value></item>
+#<item name="rEZO_fast"><value>0</value></item>
+#<item name="rEZO_slow"><value>0</value></item>
+#<item name="rEZU"><value>0</value></item>
+#<item name="rEZU_fast"><value>0</value></item>
+#<item name="rEZU_slow"><value>0</value></item>
+#<item name="rabi_hf"><value>0.6</value></item>
+#<item name="rabi_lf"><value>0.17</value></item>
+#<item name="rabi_mf"><value>0.04</value></item>
+#<item name="ramping_time"><value>500</value></item>
+#<item name="reorder"><value>17</value></item>
+#<item name="reorder_2"><value>11</value></item>
+#<item name="reorder_Q"><value>0</value></item>
+#<item name="rep_rate"><value>2.82</value></item>
+#<item name="repump_cycle"><value>100</value></item>
+#<item name="rf_pwr"><value>0.74489</value></item>
+#<item name="rf_pwr_gen"><value>0.544596</value></item>
+#<item name="rf_pwr_sat"><value>0.513993</value></item>
+#<item name="sbc_fact_t"><value>1</value></item>
+#<item name="shim_exc"><value>3</value></item>
+#<item name="shim_exc1"><value>3</value></item>
+#<item name="shim_exc2"><value>0</value></item>
+#<item name="shim_mod"><value>26</value></item>
+#<item name="shuttle_step_1"><value>2</value></item>
+#<item name="shuttle_step_1_lowRF"><value>22</value></item>
+#<item name="shuttle_step_2"><value>3</value></item>
+#<item name="shuttle_step_2_lowRF"><value>23</value></item>
+#<item name="shuttle_step_3"><value>4</value></item>
+#<item name="shuttle_step_3_lowRF"><value>24</value></item>
+#<item name="shuttle_step_4"><value>13</value></item>
+#<item name="shuttle_step_4_lowRF"><value>25</value></item>
+#<item name="shuttle_step_5"><value>5</value></item>
+#<item name="shuttle_step_6"><value>16</value></item>
+#<item name="shuttle_step_7"><value>8</value></item>
+#<item name="spin_up_cc"><value>0</value></item>
+#<item name="std_cool"><value>0</value></item>
+#<item name="std_ramp"><value>10</value></item>
+#<item name="std_ramp2"><value>12</value></item>
+#<item name="std_ramp3"><value>14</value></item>
+#<item name="std_ramp4"><value>15</value></item>
+#<item name="switchoften"><value>1</value></item>
+#<item name="t_RCKh_1R"><value>20</value></item>
+#<item name="t_RCKh_2R"><value>0</value></item>
+#<item name="t_RCKm_1R"><value>25</value></item>
+#<item name="t_RCKm_2R"><value>50</value></item>
+#<item name="t_Ramsey_coherence_hf"><value>1173.22</value></item>
+#<item name="t_Ramsey_coherence_lf"><value>2391.13</value></item>
+#<item name="t_Ramsey_coherence_mf"><value>505.719</value></item>
+#<item name="t_b1"><value>75</value></item>
+#<item name="t_b1_pos"><value>37.5</value></item>
+#<item name="t_b3"><value>40</value></item>
+#<item name="t_b3_pos"><value>20</value></item>
+#<item name="t_bd_cool"><value>25</value></item>
+#<item name="t_bd_cool_scan"><value>50</value></item>
+#<item name="t_bdd_cool"><value>1500</value></item>
+#<item name="t_bdd_cool_scan"><value>1000</value></item>
+#<item name="t_bdx_heat"><value>10000</value></item>
+#<item name="t_cc_3p1_2p0"><value>0.1</value></item>
+#<item name="t_cc_3p1_2p2"><value>5</value></item>
+#<item name="t_cc_3p2_2p2"><value>20</value></item>
+#<item name="t_cc_3p3_2p2"><value>0.63</value></item>
+#<item name="t_cc_3p3_2p2_BC4"><value>4.5797</value></item>
+#<item name="t_cc_pos"><value>3</value></item>
+#<item name="t_coherence_3p0_2p0"><value>1</value></item>
+#<item name="t_coherence_3p3_2p2"><value>69.0681</value></item>
+#<item name="t_coherent"><value>0</value></item>
+#<item name="t_cool_reorder"><value>700</value></item>
+#<item name="t_det"><value>30</value></item>
+#<item name="t_exc"><value>1.5</value></item>
+#<item name="t_exc1"><value>1.5</value></item>
+#<item name="t_exc2"><value>2</value></item>
+#<item name="t_excite"><value>40</value></item>
+#<item name="t_heat"><value>0</value></item>
+#<item name="t_hf_1R"><value>23</value></item>
+#<item name="t_hf_2R"><value>1</value></item>
+#<item name="t_hold"><value>0</value></item>
+#<item name="t_hold_EU"><value>2</value></item>
+#<item name="t_hold_min"><value>0.05</value></item>
+#<item name="t_kick"><value>3</value></item>
+#<item name="t_kick_wait"><value>6.36</value></item>
+#<item name="t_laserkick"><value>5</value></item>
+#<item name="t_laserkick2"><value>5</value></item>
+#<item name="t_lf_1B"><value>1</value></item>
+#<item name="t_lf_1R"><value>7.7</value></item>
+#<item name="t_lf_2B"><value>14</value></item>
+#<item name="t_lf_2R"><value>28</value></item>
+#<item name="t_lf_3R"><value>12</value></item>
+#<item name="t_lf_str_1R"><value>12</value></item>
+#<item name="t_lf_str_2R"><value>50</value></item>
+#<item name="t_lowRF"><value>99</value></item>
+#<item name="t_maxdelay"><value>0</value></item>
+#<item name="t_mf_1R"><value>60</value></item>
+#<item name="t_mf_2R"><value>1</value></item>
+#<item name="t_mod"><value>75</value></item>
+#<item name="t_mw_3p0_2p0"><value>20</value></item>
+#<item name="t_mw_3p0_2pm1"><value>30</value></item>
+#<item name="t_mw_3p1_2p0"><value>20</value></item>
+#<item name="t_mw_3p1_2p2"><value>48</value></item>
+#<item name="t_mw_3p3_2p2"><value>10.7</value></item>
+#<item name="t_mw_3p3_2p2_pos"><value>5</value></item>
+#<item name="t_mw_3pm1_2pm1"><value>34.2459</value></item>
+#<item name="t_oc"><value>3.3</value></item>
+#<item name="t_oc_pos"><value>100</value></item>
+#<item name="t_r1"><value>10</value></item>
+#<item name="t_r1_pos"><value>5.2</value></item>
+#<item name="t_r2"><value>27</value></item>
+#<item name="t_r2_pos"><value>13.5</value></item>
+#<item name="t_r3_pos"><value>150</value></item>
+#<item name="t_ramsey"><value>0</value></item>
+#<item name="t_ramsey_tickle"><value>0</value></item>
+#<item name="t_rd_cool"><value>1</value></item>
+#<item name="t_rd_pos"><value>0.5</value></item>
+#<item name="t_rd_sbc"><value>1</value></item>
+#<item name="t_recool_after_heat"><value>1000</value></item>
+#<item name="t_roc"><value>14</value></item>
+#<item name="t_rp_pos"><value>1</value></item>
+#<item name="t_sbc3_faktor"><value>1</value></item>
+#<item name="t_sbc_RCKh_1"><value>28</value></item>
+#<item name="t_sbc_RCKh_2"><value>0</value></item>
+#<item name="t_sbc_RCKm_1"><value>35</value></item>
+#<item name="t_sbc_RCKm_1R"><value>0</value></item>
+#<item name="t_sbc_RCKm_2"><value>40</value></item>
+#<item name="t_sbc_RCKm_2R"><value>0</value></item>
+#<item name="t_sbc_STR_1"><value>9</value></item>
+#<item name="t_sbc_STR_2"><value>37.5</value></item>
+#<item name="t_sbc_hf_1"><value>17.25</value></item>
+#<item name="t_sbc_hf_2"><value>0</value></item>
+#<item name="t_sbc_hf_3"><value>0</value></item>
+#<item name="t_sbc_lf_1"><value>6.93</value></item>
+#<item name="t_sbc_lf_2"><value>25.2</value></item>
+#<item name="t_sbc_lf_3"><value>30</value></item>
+#<item name="t_sbc_mf_1"><value>45</value></item>
+#<item name="t_sbc_mf_2"><value>0</value></item>
+#<item name="t_sbc_mf_3"><value>0</value></item>
+#<item name="t_shift"><value>0.01</value></item>
+#<item name="t_shift_down"><value>3</value></item>
+#<item name="t_shift_fast"><value>1</value></item>
+#<item name="t_shift_init"><value>500</value></item>
+#<item name="t_shift_reorder"><value>300</value></item>
+#<item name="t_shift_slow"><value>1</value></item>
+#<item name="t_sleep_phase_squeeze"><value>0.771605</value></item>
+#<item name="t_sq_exc"><value>75</value></item>
+#<item name="t_sq_mf"><value>75</value></item>
+#<item name="t_squeeze"><value>1.5</value></item>
+#<item name="t_tickle_RCKm"><value>50</value></item>
+#<item name="t_tickle_cal"><value>500</value></item>
+#<item name="t_tickle_hf"><value>100</value></item>
+#<item name="t_tickle_lf"><value>100</value></item>
+#<item name="t_tickle_lf_str"><value>400</value></item>
+#<item name="t_tickle_mf"><value>100</value></item>
+#<item name="t_tickle_mf_EU"><value>35</value></item>
+#<item name="t_tickle_mf_EU2"><value>10</value></item>
+#<item name="t_tickle_repos"><value>250</value></item>
+#<item name="t_wait"><value>100</value></item>
+#<item name="t_waitRF"><value>30</value></item>
+#<item name="t_wait_LP_close"><value>10</value></item>
+#<item name="t_wait_LP_open"><value>50</value></item>
+#<item name="t_wait_between"><value>0.7287</value></item>
+#<item name="t_wait_init"><value>0</value></item>
+#<item name="t_wait_slow"><value>0</value></item>
+#<item name="t_wbtw"><value>0.513</value></item>
+#<item name="tickle_detuning"><value>0</value></item>
+#<item name="tickle_shim_RCKm"><value>26</value></item>
+#<item name="tickle_shim_hf"><value>7</value></item>
+#<item name="tickle_shim_lf"><value>3</value></item>
+#<item name="tickle_shim_lf_stop"><value>5</value></item>
+#<item name="tickle_shim_lf_str"><value>38</value></item>
+#<item name="tickle_shim_mf"><value>7</value></item>
+#<item name="u_coherent"><value>0.01</value></item>
+#<item name="u_exc"><value>0.25</value></item>
+#<item name="u_exc1"><value>0.25</value></item>
+#<item name="u_exc2"><value>0</value></item>
+#<item name="u_mod"><value>1.5</value></item>
+#<item name="u_sq_exc"><value>3</value></item>
+#<item name="u_sq_mf"><value>2.5</value></item>
+#<item name="u_tickle_RCKm"><value>0</value></item>
+#<item name="u_tickle_hf"><value>1.2</value></item>
+#<item name="u_tickle_lf"><value>1</value></item>
+#<item name="u_tickle_lf_start"><value>0.15</value></item>
+#<item name="u_tickle_lf_stop"><value>0.3</value></item>
+#<item name="u_tickle_lf_str"><value>3</value></item>
+#<item name="u_tickle_mf"><value>1</value></item>
+#<item name="u_tickle_mf_EU"><value>5</value></item>
+#<item name="u_tickle_mf_EU2"><value>0.035</value></item>
+#<item name="u_tickle_repos"><value>0.8</value></item>
+#<item name="u_tickle_tf"><value>15</value></item>
+#<item name="wait_after_step"><value>50000</value></item>
+#<item name="wf_id"><value>4</value></item>
+#<item name="zero_ref"><value>-0.000258335</value></item>
+#</ionproperties>
+#<parameter>
+#<item name="t_lf_1R"><value_l>0</value_l><value_u>40</value_u><int_points>36</int_points><exp_point>100</exp_point></item>
+#</parameter>
+#<shims scanned="0" shim_number="-1">
+#<shim name="STR_Tickle_Shim">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0.05</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0.0621125</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ERaU">
+#<no0>0.05</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ERaU_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>-1</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ERaO">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0.05</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ERaO_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>-1</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="EZU">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0.05</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="EZU_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>-1</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="EZO">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0.05</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="EZO_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>-1</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ERiU">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0.05</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ERiU_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>-1</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ERiO">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0.05</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ERiO_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>-1</no35>
+#</shim>
+#<shim name="LRiU">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>1</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="LRiO">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>1</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="LZU">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>1</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="LZO">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>1</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="LRaU">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>1</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="LRaO">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>1</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ou">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>1</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="dZ">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>-0.05</no3>
+#<no4>0</no4>
+#<no5>0.05</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="dZfine">
+#<no0>-0.05</no0>
+#<no1>0</no1>
+#<no2>0.05</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>-0.05</no6>
+#<no7>0</no7>
+#<no8>0.05</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="NS">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>1</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="LZ">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>1</no12>
+#<no13>0</no13>
+#<no14>1</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ERa">
+#<no0>0.05</no0>
+#<no1>0</no1>
+#<no2>0.05</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ERO">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0.05</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0.05</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ch3p8">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>1</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ch3p7">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>1</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ch3p6">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>1</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ch3p5">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>1</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ch3p0">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>1</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ch3p1">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>1</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ch3p2">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>1</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ch4p8">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>1</no35>
+#</shim>
+#<shim name="ExExpZ">
+#<no0>-0.391591</no0>
+#<no1>0</no1>
+#<no2>0.405788</no2>
+#<no3>0.0527323</no3>
+#<no4>0</no4>
+#<no5>-0.054698</no5>
+#<no6>-0.40097</no6>
+#<no7>0</no7>
+#<no8>0.414573</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="EyExpZ">
+#<no0>0.432342</no0>
+#<no1>0</no1>
+#<no2>-0.438607</no2>
+#<no3>-0.0140982</no3>
+#<no4>0</no4>
+#<no5>0.0159491</no5>
+#<no6>0.448822</no6>
+#<no7>0</no7>
+#<no8>-0.454487</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="EzExpZ">
+#<no0>0.174925</no0>
+#<no1>0</no1>
+#<no2>0.19293</no2>
+#<no3>0.000360995</no3>
+#<no4>0</no4>
+#<no5>0.000233198</no5>
+#<no6>-0.184653</no6>
+#<no7>0</no7>
+#<no8>-0.201358</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="Hxy_at_0._0._-9.">
+#<no0>0.110849</no0>
+#<no1>0</no1>
+#<no2>0.110801</no2>
+#<no3>0.0945791</no3>
+#<no4>0</no4>
+#<no5>0.0945296</no5>
+#<no6>0.11089</no6>
+#<no7>0</no7>
+#<no8>0.110956</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="FinestHzz">
+#<no0>0.209963</no0>
+#<no1>0</no1>
+#<no2>0.22056</no2>
+#<no3>-0.232649</no3>
+#<no4>0</no4>
+#<no5>-0.237709</no5>
+#<no6>0.290826</no6>
+#<no7>0</no7>
+#<no8>0.224155</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0</no27>
+#<no28>0</no28>
+#<no29>0</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0</no33>
+#<no34>0</no34>
+#<no35>0</no35>
+#</shim>
+#<shim name="ExExpZ_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>0.00708806</no27>
+#<no28>0</no28>
+#<no29>-0.00715093</no29>
+#<no30>-0.00107183</no30>
+#<no31>0</no31>
+#<no32>0.00107332</no32>
+#<no33>0.00899986</no33>
+#<no34>0</no34>
+#<no35>-0.00905286</no35>
+#</shim>
+#<shim name="EyExpZ_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>-0.00793562</no27>
+#<no28>0</no28>
+#<no29>0.00797771</no29>
+#<no30>0.000299317</no30>
+#<no31>0</no31>
+#<no32>-0.000300279</no32>
+#<no33>-0.00979098</no33>
+#<no34>0</no34>
+#<no35>0.00982125</no35>
+#</shim>
+#<shim name="EzExpZ_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>-0.00351854</no27>
+#<no28>0</no28>
+#<no29>-0.00350914</no29>
+#<no30>1.33473e-05</no30>
+#<no31>0</no31>
+#<no32>1.29549e-05</no32>
+#<no33>0.00403657</no33>
+#<no34>0</no34>
+#<no35>0.00404092</no35>
+#</shim>
+#<shim name="HxyExpZ_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>-0.00231283</no27>
+#<no28>0</no28>
+#<no29>-0.00212013</no29>
+#<no30>-0.00189161</no30>
+#<no31>0</no31>
+#<no32>-0.00189057</no32>
+#<no33>-0.00211372</no33>
+#<no34>0</no34>
+#<no35>-0.00232314</no35>
+#</shim>
+#<shim name="HxzExpZ_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>-0.034385</no27>
+#<no28>0</no28>
+#<no29>0.0343978</no29>
+#<no30>0</no30>
+#<no31>0</no31>
+#<no32>0</no32>
+#<no33>0.0373356</no33>
+#<no34>0</no34>
+#<no35>-0.0373106</no35>
+#</shim>
+#<shim name="HzzExpZ_fine">
+#<no0>0</no0>
+#<no1>0</no1>
+#<no2>0</no2>
+#<no3>0</no3>
+#<no4>0</no4>
+#<no5>0</no5>
+#<no6>0</no6>
+#<no7>0</no7>
+#<no8>0</no8>
+#<no9>0</no9>
+#<no10>0</no10>
+#<no11>0</no11>
+#<no12>0</no12>
+#<no13>0</no13>
+#<no14>0</no14>
+#<no15>0</no15>
+#<no16>0</no16>
+#<no17>0</no17>
+#<no18>0</no18>
+#<no19>0</no19>
+#<no20>0</no20>
+#<no21>0</no21>
+#<no22>0</no22>
+#<no23>0</no23>
+#<no24>0</no24>
+#<no25>0</no25>
+#<no26>0</no26>
+#<no27>-0.0971327</no27>
+#<no28>0</no28>
+#<no29>-0.0972472</no29>
+#<no30>0.0011374</no30>
+#<no31>0</no31>
+#<no32>0.00118246</no32>
+#<no33>-0.104959</no33>
+#<no34>0</no34>
+#<no35>-0.104728</no35>
+#</shim>
+#</shims>
+#<profiles>
+#<profile name="std_cool">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.295</shim>
+#<shim name="EyExpZ">0.237</shim>
+#<shim name="EzExpZ">-0.86</shim>
+#<shim name="Hxy_at_0._0._-9.">11</shim>
+#<shim name="FinestHzz">3</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="loading_zone">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">10</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">10</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">-1</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">-1</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">10</shim>
+#<shim name="LRiO">10</shim>
+#<shim name="LZU">-1</shim>
+#<shim name="LZO">-1</shim>
+#<shim name="LRaU">10</shim>
+#<shim name="LRaO">10</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="shuttle_step_1">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">10</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">10</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">-3.5</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">-3.5</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">10</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">10</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">1.5</shim>
+#<shim name="LRiO">1.5</shim>
+#<shim name="LZU">-3.5</shim>
+#<shim name="LZO">-3.5</shim>
+#<shim name="LRaU">10</shim>
+#<shim name="LRaO">10</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="shuttle_step_2">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">10</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">10</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">10</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">10</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">10</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">10</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">-3</shim>
+#<shim name="LRiO">-3</shim>
+#<shim name="LZU">10</shim>
+#<shim name="LZO">10</shim>
+#<shim name="LRaU">10</shim>
+#<shim name="LRaO">10</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="shuttle_step_3">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">10</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">10</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">10</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">10</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">1.85</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">1.85</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">-1</shim>
+#<shim name="LRiO">-1</shim>
+#<shim name="LZU">10</shim>
+#<shim name="LZO">10</shim>
+#<shim name="LRaU">10</shim>
+#<shim name="LRaO">10</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="shuttle_step_5">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">6</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">6</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">1.58</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">1.58</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">1.85</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">1.85</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">10</shim>
+#<shim name="LRiO">10</shim>
+#<shim name="LZU">1.58</shim>
+#<shim name="LZO">1.58</shim>
+#<shim name="LRaU">6</shim>
+#<shim name="LRaO">6</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="exp_zone">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.2</shim>
+#<shim name="EyExpZ">0.043</shim>
+#<shim name="EzExpZ">-0.148</shim>
+#<shim name="Hxy_at_0._0._-9.">2.8</shim>
+#<shim name="FinestHzz">0.3</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="exp_zone_2MHz">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">36.62</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">36.62</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">-0.8</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">47.5</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">47.5</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0.205</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="shuttle_step_7">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">7</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">7</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">5</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">5</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">6</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">6</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">10</shim>
+#<shim name="LRiO">10</shim>
+#<shim name="LZU">5</shim>
+#<shim name="LZO">5</shim>
+#<shim name="LRaU">7</shim>
+#<shim name="LRaO">7</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="exp_zone_FC">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.062</shim>
+#<shim name="EyExpZ">0.094</shim>
+#<shim name="EzExpZ">0.007</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="std_ramp">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.07</shim>
+#<shim name="EyExpZ">0.07</shim>
+#<shim name="EzExpZ">-0.204</shim>
+#<shim name="Hxy_at_0._0._-9.">2</shim>
+#<shim name="FinestHzz">0.7</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="reorder_2">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.284</shim>
+#<shim name="EyExpZ">0.205</shim>
+#<shim name="EzExpZ">-0.86</shim>
+#<shim name="Hxy_at_0._0._-9.">11</shim>
+#<shim name="FinestHzz">3</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="std_ramp2">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.053</shim>
+#<shim name="EyExpZ">0.025</shim>
+#<shim name="EzExpZ">-0.045</shim>
+#<shim name="Hxy_at_0._0._-9.">0.65</shim>
+#<shim name="FinestHzz">0.1</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="shuttle_step_4">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">8</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">8</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">9</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">9.72</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">1.85</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">1.85</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">5</shim>
+#<shim name="LRiO">5</shim>
+#<shim name="LZU">9</shim>
+#<shim name="LZO">9.72</shim>
+#<shim name="LRaU">8</shim>
+#<shim name="LRaO">8</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="std_ramp3">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.028</shim>
+#<shim name="EyExpZ">0.001</shim>
+#<shim name="EzExpZ">0.001</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0.1</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="std_ramp4">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.082</shim>
+#<shim name="EyExpZ">0.015</shim>
+#<shim name="EzExpZ">-0.022</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0.7</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="shuttle_step_6">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">6</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">6</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">9</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">9.756</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">2.2</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">2.2</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">10</shim>
+#<shim name="LRiO">10</shim>
+#<shim name="LZU">9</shim>
+#<shim name="LZO">9.756</shim>
+#<shim name="LRaU">6</shim>
+#<shim name="LRaO">6</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="reorder">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">-1.24</shim>
+#<shim name="EyExpZ">0.125</shim>
+#<shim name="EzExpZ">-1.78</shim>
+#<shim name="Hxy_at_0._0._-9.">5.5</shim>
+#<shim name="FinestHzz">8.5</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_init">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">-0.0273</shim>
+#<shim name="EyExpZ">0.0509</shim>
+#<shim name="EzExpZ">-0.51</shim>
+#<shim name="Hxy_at_0._0._-9.">5.5</shim>
+#<shim name="FinestHzz">1.8</shim>
+#<shim name="ExExpZ_fine">6</shim>
+#<shim name="EyExpZ_fine">12.5</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_target">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">22.713</shim>
+#<shim name="ERaU_fine">0</shim>
+#<shim name="ERaO">18.272</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">18.735</shim>
+#<shim name="EZU_fine">0</shim>
+#<shim name="EZO">17.913</shim>
+#<shim name="EZO_fine">0</shim>
+#<shim name="ERiU">18.03</shim>
+#<shim name="ERiU_fine">0</shim>
+#<shim name="ERiO">32.039</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">2.81875</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">-0.089</shim>
+#<shim name="EyExpZ">-0.058</shim>
+#<shim name="EzExpZ">0.06</shim>
+#<shim name="Hxy_at_0._0._-9.">-0.1</shim>
+#<shim name="FinestHzz">1.8</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_cool">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">22.713</shim>
+#<shim name="ERaU_fine">0</shim>
+#<shim name="ERaO">18.272</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">18.735</shim>
+#<shim name="EZU_fine">0</shim>
+#<shim name="EZO">17.913</shim>
+#<shim name="EZO_fine">0</shim>
+#<shim name="ERiU">18.03</shim>
+#<shim name="ERiU_fine">0</shim>
+#<shim name="ERiO">32.039</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">2</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">-0.089</shim>
+#<shim name="EyExpZ">-0.058</shim>
+#<shim name="EzExpZ">0.06</shim>
+#<shim name="Hxy_at_0._0._-9.">-0.1</shim>
+#<shim name="FinestHzz">1.8</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="loading_zone_lowRF">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">3.9</shim>
+#<shim name="LRiO">5.7</shim>
+#<shim name="LZU">-0.23</shim>
+#<shim name="LZO">-0.21</shim>
+#<shim name="LRaU">4.2</shim>
+#<shim name="LRaO">2</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="shuttle_step_1_lowRF">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">10</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">10</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">-3.5</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">-3.5</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">10</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">10</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">1.5</shim>
+#<shim name="LRiO">1.5</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">10</shim>
+#<shim name="LRaO">10</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="shuttle_step_2_lowRF">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">10</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">10</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">10</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">10</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">10</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">10</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">-1</shim>
+#<shim name="LRiO">-1</shim>
+#<shim name="LZU">10</shim>
+#<shim name="LZO">10</shim>
+#<shim name="LRaU">10</shim>
+#<shim name="LRaO">10</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="shuttle_step_3_lowRF">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">10</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">10</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">10</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">10</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">1.85</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">1.85</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">10</shim>
+#<shim name="LZO">10</shim>
+#<shim name="LRaU">10</shim>
+#<shim name="LRaO">10</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="shuttle_step_4_lowRF">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">8</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">8</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">9</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">9</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">1</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">1</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">3</shim>
+#<shim name="LRiO">3</shim>
+#<shim name="LZU">9</shim>
+#<shim name="LZO">9</shim>
+#<shim name="LRaU">8</shim>
+#<shim name="LRaO">8</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0</shim>
+#<shim name="EyExpZ">0</shim>
+#<shim name="EzExpZ">0</shim>
+#<shim name="Hxy_at_0._0._-9.">0</shim>
+#<shim name="FinestHzz">0</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_kick">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">1.5</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">-0.078</shim>
+#<shim name="EyExpZ">0.019</shim>
+#<shim name="EzExpZ">-0.095</shim>
+#<shim name="Hxy_at_0._0._-9.">0.65</shim>
+#<shim name="FinestHzz">0.7</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_kick2">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">4</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">-0.078</shim>
+#<shim name="EyExpZ">0.019</shim>
+#<shim name="EzExpZ">-0.095</shim>
+#<shim name="Hxy_at_0._0._-9.">0.65</shim>
+#<shim name="FinestHzz">0.7</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_var">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">-0.045</shim>
+#<shim name="EyExpZ">0.149</shim>
+#<shim name="EzExpZ">-0.605</shim>
+#<shim name="Hxy_at_0._0._-9.">5.5</shim>
+#<shim name="FinestHzz">2.4</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_416">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.012</shim>
+#<shim name="EyExpZ">0.02</shim>
+#<shim name="EzExpZ">-0.044</shim>
+#<shim name="Hxy_at_0._0._-9.">0.15</shim>
+#<shim name="FinestHzz">0.2</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_685">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">-0.06</shim>
+#<shim name="EyExpZ">0.019</shim>
+#<shim name="EzExpZ">-0.067</shim>
+#<shim name="Hxy_at_0._0._-9.">0.15</shim>
+#<shim name="FinestHzz">0.5</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_558">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">-0.02</shim>
+#<shim name="EyExpZ">0.019</shim>
+#<shim name="EzExpZ">-0.055</shim>
+#<shim name="Hxy_at_0._0._-9.">0.15</shim>
+#<shim name="FinestHzz">0.34</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_weakRF">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">-0.045</shim>
+#<shim name="EyExpZ">0.149</shim>
+#<shim name="EzExpZ">-0.605</shim>
+#<shim name="Hxy_at_0._0._-9.">5.5</shim>
+#<shim name="FinestHzz">2.4</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_weakRF2">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0</shim>
+#<shim name="ERaU_fine">-0.1</shim>
+#<shim name="ERaO">0</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">0</shim>
+#<shim name="EZU_fine">-0.065</shim>
+#<shim name="EZO">0</shim>
+#<shim name="EZO_fine">0.081</shim>
+#<shim name="ERiU">0</shim>
+#<shim name="ERiU_fine">-0.057</shim>
+#<shim name="ERiO">0</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.1056</shim>
+#<shim name="EyExpZ">0.1667</shim>
+#<shim name="EzExpZ">-0.556</shim>
+#<shim name="Hxy_at_0._0._-9.">5.5</shim>
+#<shim name="FinestHzz">1.9</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_squeeze">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">21.863</shim>
+#<shim name="ERaU_fine">0</shim>
+#<shim name="ERaO">17.591</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">18.435</shim>
+#<shim name="EZU_fine">0</shim>
+#<shim name="EZO">17.773</shim>
+#<shim name="EZO_fine">0</shim>
+#<shim name="ERiU">17.29</shim>
+#<shim name="ERiU_fine">0</shim>
+#<shim name="ERiO">30.989</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">2.81875</shim>
+#<shim name="ch3p7">1</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">-0.089</shim>
+#<shim name="EyExpZ">-0.058</shim>
+#<shim name="EzExpZ">0.06</shim>
+#<shim name="Hxy_at_0._0._-9.">-0.1</shim>
+#<shim name="FinestHzz">1.8</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_low_RF">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0.1</shim>
+#<shim name="ERaU_fine">-0.113</shim>
+#<shim name="ERaO">1.197</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">-0.73</shim>
+#<shim name="EZU_fine">-0.069</shim>
+#<shim name="EZO">-0.5</shim>
+#<shim name="EZO_fine">0.083</shim>
+#<shim name="ERiU">1.55</shim>
+#<shim name="ERiU_fine">-0.056</shim>
+#<shim name="ERiO">0.03</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">1</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.0027</shim>
+#<shim name="EyExpZ">0.0733</shim>
+#<shim name="EzExpZ">-0.514</shim>
+#<shim name="Hxy_at_0._0._-9.">5.5</shim>
+#<shim name="FinestHzz">1.8</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#<profile name="EU_cool_old">
+#<shim name="STR_Tickle_Shim">0</shim>
+#<shim name="ERaU">0.1</shim>
+#<shim name="ERaU_fine">-0.113</shim>
+#<shim name="ERaO">1.197</shim>
+#<shim name="ERaO_fine">0</shim>
+#<shim name="EZU">-0.73</shim>
+#<shim name="EZU_fine">-0.069</shim>
+#<shim name="EZO">-0.5</shim>
+#<shim name="EZO_fine">0.083</shim>
+#<shim name="ERiU">1.55</shim>
+#<shim name="ERiU_fine">-0.056</shim>
+#<shim name="ERiO">0.03</shim>
+#<shim name="ERiO_fine">0</shim>
+#<shim name="LRiU">0</shim>
+#<shim name="LRiO">0</shim>
+#<shim name="LZU">0</shim>
+#<shim name="LZO">0</shim>
+#<shim name="LRaU">0</shim>
+#<shim name="LRaO">0</shim>
+#<shim name="ou">0</shim>
+#<shim name="dZ">0</shim>
+#<shim name="dZfine">0</shim>
+#<shim name="NS">0</shim>
+#<shim name="LZ">0</shim>
+#<shim name="ERa">0</shim>
+#<shim name="ERO">0</shim>
+#<shim name="ch3p8">3.55</shim>
+#<shim name="ch3p7">0</shim>
+#<shim name="ch3p6">0</shim>
+#<shim name="ch3p5">0</shim>
+#<shim name="ch3p0">0</shim>
+#<shim name="ch3p1">0</shim>
+#<shim name="ch3p2">0</shim>
+#<shim name="ch4p8">0</shim>
+#<shim name="ExExpZ">0.1056</shim>
+#<shim name="EyExpZ">0.1388</shim>
+#<shim name="EzExpZ">-0.545</shim>
+#<shim name="Hxy_at_0._0._-9.">5.5</shim>
+#<shim name="FinestHzz">1.9</shim>
+#<shim name="ExExpZ_fine">0</shim>
+#<shim name="EyExpZ_fine">0</shim>
+#<shim name="EzExpZ_fine">0</shim>
+#<shim name="HxyExpZ_fine">0</shim>
+#<shim name="HxzExpZ_fine">0</shim>
+#<shim name="HzzExpZ_fine">0</shim>
+#</profile>
+#</profiles>
+#<topname>OC_Axial</topname>
+#<scrname>z_axial_coh_displ_2</scrname>
+#<sourcecode>double pi = 3.14159265359;\n\n\ndouble pdq_ttl = 0;\n\n\n\n\n\n\ndouble dds_b1 = 1;\ndouble dds_tickle = 0;\ndouble dds_b3 = 2;\ndouble dds_mw = 4;\n\n\ndouble upload_status =19;\ndouble counter_trigger = 18;\ndouble counter_gate = 16;\ndouble dds_test = 15;\ndouble pdq_trigger = 14;\ndouble sw_lowRF = 21;\ndouble counter_gate_2 = 88;\n\n\ndouble sw_tickle = 12;\ndouble sw_mw = 11;\n\n\ndouble b3 = 20;\ndouble r2 = 10;\ndouble r1 = 9;\ndouble b1 = 7;\ndouble bdd = 6;\ndouble bd = 5;\ndouble bdx  = 3;\ndouble rd = 1;\ndouble rp = 0;\ndouble r3 = 17;\n\n\ndouble ctr_bd_b3 = 0;\ndouble ctr_b1_r2 = 1;\n\ndouble ax_b3_y = 0;\ndouble ax_b3_x = 1;\ndouble ax_bd_y = 2;\ndouble ax_bd_x = 3;\n\ndouble ax_b1_x = 0;\ndouble ax_b1_y = 1;\ndouble ax_r2_x = 2;\ndouble ax_r2_y = 3;\n\n\ndouble ax_r2_V = 0;\ndouble ax_r2_H = 1;\n\ndouble ax_b1_V = 2;\ndouble ax_b1_H = 3;\n\nvoid set_dds(ddsname,frequency,phase,power){\n\tif(ddsname == dds_b1){\t\t\t\n\t\t\tdac_select(0);\t\t\t\t\n\t\t\tdac_voltage(power);\t\n\t\t\tdds_select(0);\n\t\t\tdds_frequency(((frequency-((6*fr_blueshifter)))/2) MHz);\n\t\t\tdds_phase(phase);\n\t\t\tdds_update();\t\n\t}\n\tif(ddsname == dds_tickle){\n\n\n\t\t\tdds_select(1);\n\t\t\tdds_frequency(frequency MHz);\n\t\t\tdds_phase(phase);\n\t\t\tdds_update();\t\n\t}\n\tif(ddsname == dds_b3){\n\t\t\tdac_select(2);\t\t\t\n\t\t\tdac_voltage(power);\t\n\t\t\tdds_select(2);\t\t\t\n\t\t\tdds_frequency(((frequency-(6*fr_blueshifter))/2) MHz);\n\t\t\tdds_phase(phase);\n\t\t\tdds_update();\t\n\t}\n\tif(ddsname == dds_mw){\n\t\t\tdds_select(3);\n\t\t\tdds_frequency( (frequency - 1574.746715)  MHz);\n\t\t\tdds_phase(phase);\n\t\t\tdds_update();\t\n\t}\nsleep(3 us);\n}\n\nvoid turn(ttlname,status){\n\tif(ttlname == bd){\t\t\t\tttl(1,status);}\n\tif(ttlname == bdd){\t\t\t\tttl(2,status);}\n\tif(ttlname == b1){\t\t\t\t\tttl(3, status);}\t\t\t\n\tif(ttlname == upload_status){\tttl(4,status);}\n\tif(ttlname == rp){\t\t\t\t\tttl(5, status);}\n\tif(ttlname == rd){\t\t\t\t\tttl(6, status);}\n\tif(ttlname == counter_trigger){\tttl(7,status);}\n\tif(ttlname == b3){\t\t\t\t\tttl(8,status);}\t\t\t\n\n\tif(ttlname == bdx){\t\t\t\tttl(10,status);}\n\tif(ttlname == r1){\t\t\t\t\tttl(11,status);}\n\tif(ttlname == r2){\t\t\t\t\tttl(12,status);}\n\tif(ttlname == sw_mw){\n\t\tif(status == 1){\t\t\t\tttl(14,0);}\n\t\tif(status == 0){\t\t\t\tttl(14,1);}\n\t}\n\tif(ttlname == sw_lowRF){\t\tttl(13,status);}\n\n\n\n\n\n\tif(ttlname == counter_gate_2){\n\t\tif(status == 1){\t\t\t\tttl(9,0);}\n\t\tif(status == 0){\t\t\t\tttl(9,1);}\t\t\t\t\t\t\n\t}\n\tif(ttlname == counter_gate){\n\t\tif(status == 1){\t\t\t\tttl(15,0);}\n\t\tif(status == 0){\t\t\t\tttl(15,1);}\t\t\t\t\t\t\n\t}\n}\n\nvoid turn_all_off(){\n\n\tturn(sw_tickle,\t\t0); \n\tturn(sw_mw,\t\t\t0);\n\tturn(b3,\t\t\t\t0);\n\tturn(r2,\t\t\t\t0);\n\tturn(r1,\t\t\t\t0);\n\tturn(b1,\t\t\t\t0);\n\tturn(bdd,\t\t\t\t0);\n\tturn(bd,\t\t\t\t0);\n\tturn(bdx,\t\t\t\t0);\n\tturn(rd,\t\t\t\t0);\n\tturn(rp,\t\t\t\t0);\n\n\tturn(sw_lowRF,\t\t0);\n} \n\n\nvoid init_dac_dds(){\n\n\tdac_select(0);\n\tdac_voltage(0.600);\n\tdac_select(1);\n\tdac_voltage(0.000);\n\tdac_select(2);\n\tdac_voltage(0.600);\n\tdac_select(3);\n\tdac_voltage(0.600);\n\n\tdds_select(0);\n\tdds_frequency(220. MHz);\n\tdds_phase(0.);\n\tdds_update();\t\n\tdds_select(1);\n\tdds_frequency(220. MHz);\n\tdds_phase(0.);\n\tdds_update();\t\n\tdds_select(2);\n\tdds_frequency(220. MHz);\n\tdds_phase(0.);\n\tdds_update();\t\n\tdds_select(3);\n\tdds_frequency(220. MHz);\n\tdds_phase(0.);\n\tdds_update();\t\n}\n\nvoid pulse(ttlname,length){\n\tturn(ttlname, 1);\n\tsleep(length us);\n\tturn(ttlname, 0);\n}\n\nvoid init(){\n\tturn(upload_status,1);\n\tturn(counter_trigger,0);\n\tturn(counter_gate,0);\n\tturn(counter_gate_2,0);\n\tinit_dac_dds();\t\n\tturn_all_off();\n}\n\nvoid cooling_on(){\n\tturn(bdd, 1);\n\tturn(bd, 1);\n}\n\nvoid cooling_off(){\n\tturn(bd, 0);\n\tturn(bdd, 0);\n\tturn(rd, 0);\n\tturn(rp, 0);\n}\n\nvoid experiment_init(){\n\tturn_all_off();\n\n\n\ttrigger(1);\n\tttl(13,0);\n}\n\nvoid cool(t_bdd_cool_c, t_bd_cool_c,t_rd_cool_c){\n\tturn_all_off();\n\tturn(bdd, 1);\n\tturn(bd, 1);\n\tturn(rd,1);\n\tturn(rp,1);\n\tsleep(t_bdd_cool_c us);\n\tturn(bdd, 0);\n\tsleep(t_bd_cool_c us);\n\tturn(bd, 0);\n\tsleep(t_rd_cool_c us);\n\tturn(rd, 0);\n\tturn(rp, 0);\n}\n\nvoid det_ct2(){\n\tif(detect_ct2 == 1){\n\t\tsleep(1 ms);\n\t\tcool(t_bdd_cool,t_bd_cool,t_rd_cool);\n\t\tbeam_detect_ct2(t_det, bdx);\n\t}\n}\n\nvoid cool_without_BDD(t_bd_cool_c,t_rd_cool_c){\n\tturn_all_off();\n\tturn(bd, 1);\n\tturn(rd,1);\n\tturn(rp,1);\n\tsleep(t_bd_cool_c us);\n\tturn(bd, 0);\n\tsleep(t_rd_cool_c us);\n\tturn(rd, 0);\n\tturn(rp, 0);\n}\n\nvoid tickle(fr_tickle_c,t_tickle_c){\n\tset_dds(dds_tickle,fr_tickle_c,0.,0.);\n\tturn(sw_tickle,1);\n\tsleep(t_tickle_c us);\n\tturn(sw_tickle,0);\n}\n\nvoid reorder(pdq_reorder_profile_c,t_shift_reorder_c,t_cool_reorder_c){\n\tcool(t_bdd_cool,t_bd_cool,t_rd_cool);\n\tcooling_on();\n\tpdq_step_to(pdq_reorder_profile_c, 1.0 us, 2);\n\tsleep(t_cool_reorder_c us);\t\n\tpdq_step_to(pdq_init_profile, t_shift_reorder_c us,2);\n\tcooling_off();\n}\n\nvoid unorder(pdq_reorder_profile_c,t_shift_reorder_c,t_cool_reorder_c){\n\tcool(t_bdd_cool,t_bd_cool,t_rd_cool);\n\n\tpdq_step_to(pdq_reorder_profile_c, 1.0 us, 2);\n\tsleep(t_cool_reorder_c us);\t\n\tpdq_step_to(pdq_init_profile, t_shift_reorder_c us,2);\n\tcooling_off();\n}\n\nvoid beam_detect(t_detect, beam){\n\tturn_all_off();\n\tturn(beam,1);\n\tsleep(2 us);\n\tturn(counter_gate,1);\n\tsleep(t_detect us); \n\tturn(counter_gate,0);\n\tturn(beam,0);\n}\n\nvoid beam_detect_ct2(t_detect, beam){\n\tturn_all_off();\n\tturn(beam,1);\n\tsleep(2 us);\n\tturn(counter_gate_2,1);\n\tsleep(t_detect us); \n\tturn(counter_gate_2,0);\n\tturn(beam,0);\n}\n\nvoid read(){\n\tturn(counter_trigger,1);\n\tsleep(10 us);\n\ttrigger(0);\n\tturn(counter_trigger,0);\n\tcooling_on();\n}\n\nvoid close(){\n\tcooling_on();\n\tturn(upload_status,0);\n\tturn(counter_trigger,0);\n\tturn(counter_gate,0);\n\tturn(counter_gate_2,0);\n}\n\n\n\n\n\nvoid tickle_pdq(shim_c, fr_c, t_c, u_c, phase_c, phase_reset_c)\n{\n\tpdq_tickle_start(shim_c , fr_c MHz , u_c , phase_c, phase_reset_c);\n\tsleep(t_c us);\n\tpdq_tickle_stop();\n}\n\n\nvoid tickle_ultra_phase(fr_tickle_c,\tt_tickle_c,\tpwr_tickle_c,\tpwr_rf_tickle_c,\trf_tickle, phase)\n{\n\tif(rf_tickle == 1){\n\t\tset_dds(tickle,\tfr_tickle_c,\tphase,\tpwr_rf_tickle_c);\n\t\tpulse(sw_rf_tickle, \tt_tickle_c);\n\t}\n\tif(rf_tickle == 0){\n\t\tset_dds(tickle,\tfr_tickle_c,\tphase,\tpwr_tickle_c);\n\t\tpulse(sw_dc_tickle, \tt_tickle_c);\n\t}\n}\n\nvoid tickle_phase(fr_tickle_c,\tt_tickle_c,\tpwr_tickle_c,\tpwr_rf_tickle_c,\trf_tickle, phase)\n{\n\tif(rf_tickle == 1){\n\t\tset_dds(tickle,\tfr_tickle_c,\tphase,\tpwr_rf_tickle_c);\n\t\tpulse(sw_rf_tickle, \tt_tickle_c);\n\t}\n\tif(rf_tickle == 0){\n\t\tset_dds(tickle,\tfr_tickle_c,\tphase,\tpwr_tickle_c);\n\t\tpulse(sw_dc_tickle, \tt_tickle_c);\n\t}\n}\n\nvoid rtpulsehelper(bluebeam, redbeam, bluedds, bluefrequency, bluephase,  bluepower, reddds, redfrequency, redpower, status){\n\tif(status == 1){\n\t\tset_dds(bluedds,\tbluefrequency, bluephase, bluepower);\n\t\tset_dds(reddds, redfrequency, 0.0, redpower);\n\t}\n\tturn(bluebeam, status);\n\n\tturn(redbeam, status);\n\tsleep(delay_Raman us);\n}\n\nvoid rtpulse(beam_conf, fr_raman, t_pulse, phase,power, red_fr, red_power){\n\tif(beam_conf == 0){\n\t\trtpulsehelper(b1, r1, dds_b1,  fr_raman, phase, power, dds_tickle, red_fr , red_power, 1);\n\t\tsleep(t_pulse us);\n\t\trtpulsehelper(b1, r1, dds_b1,  fr_raman, phase, power, dds_tickle, red_fr , red_power, 0);\n\t}\n\tif(beam_conf == 1){\n\t\trtpulsehelper(b1, r2, dds_b1,  fr_raman, phase, power, dds_tickle, red_fr , red_power, 1);\n\t\tsleep(t_pulse us);\n\t\trtpulsehelper(b1, r2, dds_b1,  fr_raman, phase, power, dds_tickle, red_fr , red_power, 0);\n\t}\n\tif(beam_conf == 2){\n\t\trtpulsehelper(b3, r2, dds_b3,  fr_raman, phase, power, dds_tickle, red_fr , red_power, 1);\n\t\tsleep(t_pulse us);\n\t\trtpulsehelper(b3, r2, dds_b3,  fr_raman, phase, power, dds_tickle, red_fr , red_power, 0);\n\t\t\n\t}\n\tif(beam_conf == 3){\n\t\trtpulsehelper(b1, r3, dds_b1,  fr_raman, phase, power, dds_mw, red_fr+1574.746715 , red_power, 1);\n\t\tsleep(t_pulse us);\n\t\trtpulsehelper(b1, r3, dds_b1,  fr_raman, phase, power, dds_mw, red_fr+1574.746715 , red_power, 0);\n\t}\n\tif(beam_conf == 4){\n\t\trtpulsehelper(b3, r3, dds_b3,  fr_raman, phase, power, dds_mw, red_fr+1574.746715 , red_power, 1);\n\t\tsleep(t_pulse us);\n\t\trtpulsehelper(b3, r3, dds_b3,  fr_raman, phase, power, dds_mw, red_fr+1574.746715 , red_power, 0);\n\t}\n\tif(beam_conf == 5){\n\t\trtpulsehelper(b3, r1, dds_b3,  fr_raman, phase, power, dds_tickle, red_fr , red_power, 1);\n\t\tsleep(t_pulse us);\n\t\trtpulsehelper(b3, r1, dds_b3,  fr_raman, phase, power, dds_tickle, red_fr , red_power, 0);\n\t}\n\n}\n\nvoid mwpulse(fr_mw, t_mw, phase){\n\tset_dds(dds_mw,fr_mw, phase, 0.95);\n\tturn(sw_mw, 1);\n\tsleep(t_mw us);\n\tturn(sw_mw, 0);\n}\n\nvoid Laserforce(fr_mod, t_mod, power_beam1, phase1, power_beam2, phase2){\n\tset_dds(dds_tickle, 220.0 + (1.0*fr_mod),phase1, power_beam1);\n\tif(A_laserkick == 1){\n\t\tturn(r2,1);\n\t\tturn(r3,1);}\n\tif(A_laserkick == 0){\n\t\tturn(r2,0);\n\t\tturn(r3,0);}\n\tsleep(t_mod us);\n\tturn(r2,0);\n\tturn(r3,0);\n\tsleep(delay_Raman us);\n}\n\nvoid squeeze(beam_conf, fr_squeezing, t_squeezing, power_beam1, power_beam2){\n\tif(beam_conf == 12){\n\t\tset_dds(dds_tickle, 220.0 + fr_squeezing, 0.0, power_beam1);\n\t\tturn(r1,1);\n\t\tturn(r2,1);\n\t\tsleep(t_squeezing us);\n\t\tturn(r1,0);\n\t\tturn(r2,0);\n\t\tsleep(delay_Raman us);\n\t}\n\tif(beam_conf == 13){\n\t\tdac_select(0);\t\t\t\n\t\tdac_voltage(power_beam1);\t\n\t\tdds_select(0);\n\t\tdds_frequency((220.0 + (0.5* fr_squeezing)) MHz);\n\t\tdds_update();\n\t\tdac_select(2);\t\t\t\n\t\tdac_voltage(power_beam2);\t\n\t\tdds_select(2);\n\t\tdds_frequency((220.0 - (0.5* fr_squeezing)) MHz);\n\t\tdds_update();\n\t\tturn(b1,1);\n\t\tturn(b3,1);\n\t\tsleep(t_squeezing us);\n\t\tturn(b1,0);\n\t\tturn(b3,0);\n\t\tsleep(delay_Raman us);\n\t}\n\tif(beam_conf == 23){\n\n\n\n\n\n\n\n\n\t\tset_dds(dds_tickle, 220.0 + (1.0*fr_squeezing), 0.0, power_beam1);\n\n\t\tif(A_squeeze == 1){\n\t\t\tturn(r2,1);\n\t\t\tturn(r3,1);}\n\t\tif(A_squeeze == 0){\n\t\t\tturn(r2,0);\n\t\t\tturn(r3,0);}\n\t\tsleep(t_squeezing us);\n\t\tturn(r2,0);\n\t\tturn(r3,0);\n\t\tsleep(delay_Raman us);\n\t}\n\tif(beam_conf == 31){\n\n\n\n\n\n\n\n\n\t\tset_dds(dds_mw, 220.0+1574.746715 +fr_squeezing, 0.0, power_beam1);\n\t\tturn(r1,1);\n\t\tturn(r3,1);\n\t\tsleep(t_squeezing us);\n\t\tturn(r1,0);\n\t\tturn(r3,0);\n\t\tsleep(delay_Raman us);\n\t}\n\tsleep(3. us);\n}\nvoid sb_cool_cycle(fr_rsb1_c, t_oc_c, conf){\n\tif(conf == 1){\n\t\trtpulse(conf, fr_rsb1_c, t_oc_c, 0., pwr_b1_sbc, fr_r2, pwr_r2_sbc);\n\t}\n\tif(conf == 2){\n\t\trtpulse(conf, fr_rsb1_c, t_oc_c, 0., pwr_b3_sbc, fr_r2, pwr_r2_sbc);\n\t}\n\tturn(rd, 1);\n\tturn(rp, 1);\n\tsleep(t_rd_sbc us);\n\tturn(rd, 0);\n\tturn(rp, 0);\n}\n\nvoid sb_cool_block(cool_Q, fr_raman_carrier, fr_raman_mode, fr_mode, t_pulse, beamconf, calc_Q){\n\tif(cool_Q == 1){\n\t\tif(t_pulse &gt; 0 ){\n\t\t\tif(calc_Q == 1){\n\t\t\t\tsb_cool_cycle(fr_raman_carrier - fr_mode, t_pulse, beamconf);\n\t\t\t}\n\t\t\tif(calc_Q == 0){\n\t\t\t\tsb_cool_cycle(fr_raman_mode, t_pulse, beamconf);\n\t\t\t}\n\t\t}\n\t\tif(t_pulse == 0){\n\t\t\tsleep(0);\n\t\t}\n\t}\n\tsleep(0);\n}\n\nvoid old_sb_cooling(){\nif(A_sbc == 1){\n\tloop(no_sbc_outer){\n\tloop(no_sbc_inner_3R){\n\t\tif(cool_mode_lf == 1){\n\t\t\tsb_cool_cycle(fr_lf_3R,t_sbc_lf_3, conf_lf_rsb);\n\t\t}\n\n\n\n\n\n\n\t\tsleep(0);\n\t}\n\tloop(no_sbc_inner_2R){\n\t\tif(cool_mode_lf == 1){\n\t\t\tsb_cool_cycle(fr_lf_2R,t_sbc_lf_2, conf_lf_rsb);\n\t\t}\n\t\tif(cool_mode_mf == 1){\n\t\t\tsb_cool_cycle(fr_mf_2R,t_sbc_mf_2, conf_mf_rsb);\n\t\t}\n\t\tif(cool_mode_hf == 1){\n\t\t\tsb_cool_cycle(fr_hf_2R,t_sbc_hf_2, conf_hf_rsb);\n\t\t}\n\t\tsleep(0);\n\t}\n\tloop(no_sbc_inner_1R){\n\t\tif(cool_mode_lf == 1){\n\t\t\tsb_cool_cycle(fr_lf_1R,t_sbc_lf_1, conf_lf_rsb);\n\t\t}\n\t\tif(cool_mode_mf == 1){\n\t\t\tsb_cool_cycle(fr_mf_1R,t_sbc_mf_1, conf_mf_rsb);\n\t\t}\n\t\tif(cool_mode_hf == 1){\n\n\t\t\tsb_cool_cycle(fr_hf_1R,t_sbc_hf_1, conf_hf_rsb);\n\t\t}\n\t\tsleep(0);\n\t}\n\tturn(rd, 1);\n\tturn(rp, 1);\n\tsleep((3*t_rd_sbc) us);\n\tturn(rd, 0);\n\tturn(rp, 0);\n\t}\n}\nsleep(0);\n}\n\n\nvoid new_sb_cooling(){\nif(A_sbc == 1){\n\tloop(3){\n\t\tloop(10){\n\t\t\tif(cool_mode_lf == 1){\n\t\t\tsb_cool_cycle(fr_oc - 1.732*2*fr_lf,t_sbc_lf_str_2, conf_lf_rsb);\n\t\t\t}\n\t\t}\n\t\tloop(10){\n\t\t\tif(cool_mode_lf == 1){\n\t\t\tsb_cool_cycle(fr_oc - 2*fr_lf,t_sbc_lf_2, conf_lf_rsb);\n\t\t\t}\n\t\t}\n\t\tloop(15){\n\t\t\tif(cool_mode_lf == 1){\n\t\t\tsb_cool_cycle(fr_oc - 1.732*1*fr_lf,t_sbc_lf_str_1, conf_lf_rsb);\n\t\t\t}\n\t\t}\n\t\tloop(15){\n\t\t\tif(cool_mode_lf == 1){\n\t\t\tsb_cool_cycle(fr_oc - 1*fr_lf,t_sbc_lf_1, conf_lf_rsb);\n\t\t\t}\n\t\t}\n\tturn(rd, 1);\n\tturn(rp, 1);\n\tsleep((3*t_rd_sbc) us);\n\tturn(rd, 0);\n\tturn(rp, 0);\n\t}\n}\nsleep(0);\n}\n\n\nvoid working_sb_cooling(){\nif(A_sbc == 1){\n\n\tloop(no_sbc_outer){\n\t\tloop(no_sbc_inner_2R){\n\t\t\tif(cool_mode_hf == 1){\n\n\t\t\t\tif(cool_calc_Q == 1){\n\t\t\t\tsb_cool_cycle(fr_roc - (2*fr_hf),sbc_fact_t*t_sbc_hf_2, conf_hf_rsb);\t\t\t\t\n\t\t\t\t}\n\t\t\t\tif(cool_calc_Q == 0){\n\t\t\t\tsb_cool_cycle(fr_hf_2R,sbc_fact_t*t_sbc_hf_2, conf_hf_rsb);\t\t\t\t\n\t\t\t\t}\n\t\t\t}\n\t\t\tif(cool_RCKhf == 1){\n\n\t\t\t\tif(cool_calc_Q == 1){\n\t\t\t\tsb_cool_cycle(fr_roc - (2*fr_RCKh),sbc_fact_t*t_sbc_RCKh_2, conf_hf_rsb);\t\t\t\t\n\t\t\t\t}\n\t\t\t\tif(cool_calc_Q == 0){\n\t\t\t\tsb_cool_cycle(fr_RCKh_2R,sbc_fact_t*t_sbc_RCKh_2R, conf_hf_rsb);\t\t\t\t\n\t\t\t\t}// bis hier ok\n\t\t\t}\n\t\t\tif(cool_mode_mf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (2*fr_mf),sbc_fact_t*t_sbc_mf_2, conf_mf_rsb);\n\t\t\t}\n\t\t\tif(cool_RCKmf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (2*fr_RCKm),sbc_fact_t*t_sbc_RCKm_2R, conf_mf_rsb);\n\t\t\t}\n\t\t\tif(cool_mode_lf == 1){\n\t\t\t\tif(cool_lf_calc_Q == 1){\n\t\t\t\tsb_cool_cycle(fr_oc - (2*fr_lf),sbc_fact_t*t_sbc_lf_2, conf_lf_rsb);\t\t\t\t\n\t\t\t\t}\n\t\t\t\tif(cool_lf_calc_Q == 0){\n\t\t\t\tsb_cool_cycle(fr_lf_2R,sbc_fact_t*t_sbc_lf_2, conf_lf_rsb);\t\t\t\t\n\t\t\t\t}\n\t\t\t}\n\t\t\tif(cool_RCKlf == 1){\n\t\t\t\tif(cool_lf_calc_Q == 1){\n\t\t\t\tsb_cool_cycle(fr_oc - (2*1.732*fr_lf),sbc_fact_t*t_sbc_lf_str_2, conf_lf_rsb);\n\t\t\t\t}\n\t\t\t\tif(cool_lf_calc_Q == 0){\n\t\t\t\tsb_cool_cycle(fr_lf_str_2R,sbc_fact_t*t_sbc_lf_str_2, conf_lf_rsb);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tloop(no_sbc_inner_1R){\n\t\t\tif(cool_mode_hf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (1*fr_hf),sbc_fact_t*t_sbc_hf_1, conf_hf_rsb);\n\t\t\t}\n\t\t\tif(cool_RCKhf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (1*fr_RCKh),sbc_fact_t*t_sbc_RCKh_1R, conf_hf_rsb);\n\t\t\t}\n\t\t\tif(cool_mode_mf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (1*fr_mf),sbc_fact_t*t_sbc_mf_1, conf_mf_rsb);\n\t\t\t}\n\t\t\tif(cool_RCKmf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (1*fr_RCKm),sbc_fact_t*t_sbc_RCKm_1R, conf_mf_rsb);\n\t\t\t}\n\t\t\tif(cool_mode_lf == 1){\n\t\t\t\tif(cool_lf_calc_Q == 1){\n\t\t\t\tsb_cool_cycle(fr_oc - (1*fr_lf),sbc_fact_t*t_sbc_lf_1, conf_lf_rsb);\t\t\t\t\n\t\t\t\t}\n\t\t\t\tif(cool_lf_calc_Q == 0){\n\t\t\t\tsb_cool_cycle(fr_lf_1R,sbc_fact_t*t_sbc_lf_1, conf_lf_rsb);\t\t\t\t\n\t\t\t\t}\n\t\t\t}\n\t\t\tif(cool_RCKlf == 1){\n\t\t\t\tif(cool_lf_calc_Q == 1){\n\t\t\t\tsb_cool_cycle(fr_oc - (1*1.732*fr_lf),sbc_fact_t*t_sbc_lf_str_1, conf_lf_rsb);\n\t\t\t\t}\n\t\t\t\tif(cool_lf_calc_Q == 0){\n\t\t\t\tsb_cool_cycle(fr_lf_str_1R,sbc_fact_t*t_sbc_lf_str_1, conf_lf_rsb);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\tturn(rd, 1);\n\tturn(rp, 1);\n\tsleep((3*t_rd_sbc) us);\n\tturn(rd, 0);\n\tturn(rp, 0);\n\t}\n\n\tloop(no_sbc_outer){\n\t\tloop(no_sbc_inner_2R){\n\t\t\tif(cool_mode_hf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (2*fr_hf),t_sbc_hf_2, conf_hf_rsb);\n\t\t\t}\n\t\t\tif(cool_RCKhf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (2*fr_RCKh),t_sbc_RCKh_2R, conf_hf_rsb);\n\t\t\t}\n\t\t\tif(cool_mode_mf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (2*fr_mf),t_sbc_mf_2, conf_mf_rsb);\n\t\t\t}\n\t\t\tif(cool_RCKmf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (2*fr_RCKm),t_sbc_RCKm_2R, conf_mf_rsb);\n\t\t\t}\n\t\t\tif(cool_mode_lf == 1){\n\t\t\t\tif(cool_lf_calc_Q == 1){\n\t\t\t\tsb_cool_cycle(fr_oc - (2*fr_lf),t_sbc_lf_2, conf_lf_rsb);\t\t\t\t\n\t\t\t\t}\n\t\t\t\tif(cool_lf_calc_Q == 0){\n\t\t\t\tsb_cool_cycle(fr_lf_2R,t_sbc_lf_2, conf_lf_rsb);\t\t\t\t\n\t\t\t\t}\n\t\t\t}\n\t\t\tif(cool_RCKlf == 1){\n\t\t\t\tif(cool_lf_calc_Q == 1){\n\t\t\t\tsb_cool_cycle(fr_oc - (2*1.732*fr_lf),t_sbc_lf_str_2, conf_lf_rsb);\n\t\t\t\t}\n\t\t\t\tif(cool_lf_calc_Q == 0){\n\t\t\t\tsb_cool_cycle(fr_lf_str_2R,t_sbc_lf_str_2, conf_lf_rsb);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tloop(no_sbc_inner_1R){\n\t\t\tif(cool_mode_hf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (1*fr_hf),t_sbc_hf_1, conf_hf_rsb);\n\t\t\t}\n\t\t\tif(cool_RCKhf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (1*fr_RCKh),t_sbc_RCKh_1R, conf_hf_rsb);\n\t\t\t}\n\t\t\tif(cool_mode_mf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (1*fr_mf),t_sbc_mf_1, conf_mf_rsb);\n\t\t\t}\n\t\t\tif(cool_RCKmf == 1){\n\t\t\tsb_cool_cycle(fr_roc - (1*fr_RCKm),t_sbc_RCKm_1R, conf_mf_rsb);\n\t\t\t}\n\t\t\tif(cool_mode_lf == 1){\n\t\t\t\tif(cool_lf_calc_Q == 1){\n\t\t\t\tsb_cool_cycle(fr_oc - (1*fr_lf),t_sbc_lf_1, conf_lf_rsb);\t\t\t\t\n\t\t\t\t}\n\t\t\t\tif(cool_lf_calc_Q == 0){\n\t\t\t\tsb_cool_cycle(fr_lf_1R,t_sbc_lf_1, conf_lf_rsb);\t\t\t\t\n\t\t\t\t}\n\t\t\t}\n\t\t\tif(cool_RCKlf == 1){\n\t\t\t\tif(cool_lf_calc_Q == 1){\n\t\t\t\tsb_cool_cycle(fr_oc - (1*1.732*fr_lf),t_sbc_lf_str_1, conf_lf_rsb);\n\t\t\t\t}\n\t\t\t\tif(cool_lf_calc_Q == 0){\n\t\t\t\tsb_cool_cycle(fr_lf_str_1R,t_sbc_lf_str_1, conf_lf_rsb);\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\tturn(rd, 1);\n\tturn(rp, 1);\n\tsleep((3*t_rd_sbc) us);\n\tturn(rd, 0);\n\tturn(rp, 0);\n\t}\n}\nsleep(0);\n}\n\nvoid sb_cooling(){\nif(A_sbc == 1){\n\n\tloop(no_sbc_outer){\n\t\tloop(no_sbc_inner_3R){\n\n\n\n\n\t\t\tsb_cool_block(cool_mode_lf,fr_oc, fr_lf_3R, 3*fr_lf, sbc_fact_t*t_sbc_lf_3, conf_lf_rsb, cool_calc_Q);\n\n\t\t}\n\t\tloop(no_sbc_inner_2R){\n\t\t\tsb_cool_block(cool_mode_hf,fr_roc, fr_hf_2R, 2*fr_hf, sbc_fact_t*t_sbc_hf_2, conf_hf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKhf,fr_roc, fr_RCKh_2R, 2*fr_RCKh, sbc_fact_t*t_sbc_RCKh_2, conf_hf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_mode_mf,fr_roc, fr_mf_2R, 2*fr_mf, sbc_fact_t*t_sbc_mf_2, conf_mf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKmf,fr_roc, fr_RCKm_2R, 2*fr_RCKm, sbc_fact_t*t_sbc_RCKm_2, conf_mf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_mode_lf,fr_oc, fr_lf_2R, 2*fr_lf, sbc_fact_t*t_sbc_lf_2, conf_lf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKlf,fr_oc, fr_STR_2R, 2*fr_lf_str, sbc_fact_t*t_sbc_STR_2, conf_lf_rsb, cool_calc_Q);\n\t\t}\n\t\tloop(no_sbc_inner_1R){\n\t\t\tsb_cool_block(cool_mode_hf,fr_roc, fr_hf_1R, fr_hf, sbc_fact_t*t_sbc_hf_1, conf_hf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKhf,fr_roc, fr_RCKh_1R, fr_RCKh, sbc_fact_t*t_sbc_RCKh_1, conf_hf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_mode_mf,fr_roc, fr_mf_1R, fr_mf, sbc_fact_t*t_sbc_mf_1, conf_mf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKmf,fr_roc, fr_RCKm_1R, fr_RCKm, sbc_fact_t*t_sbc_RCKm_1, conf_mf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_mode_lf,fr_oc, fr_lf_1R, fr_lf, sbc_fact_t*t_sbc_lf_1, conf_lf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKlf,fr_oc, fr_STR_1R, fr_lf_str, sbc_fact_t*t_sbc_STR_1, conf_lf_rsb, cool_calc_Q);\n\t\t}\n\tturn(rd, 1);\n\tturn(rp, 1);\n\tsleep((3*t_rd_sbc) us);\n\tturn(rd, 0);\n\tturn(rp, 0);\n\t}\n\n\tloop(no_sbc_outer){\n\t\tloop(no_sbc_inner_2R){\n\t\t\tsb_cool_block(cool_mode_hf,fr_roc, fr_hf_2R, 2*fr_hf, t_sbc_hf_2, conf_hf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKhf,fr_roc, fr_RCKh_2R, 2*fr_RCKh, t_sbc_RCKh_2, conf_hf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_mode_mf,fr_roc, fr_mf_2R, 2*fr_mf, t_sbc_mf_2, conf_mf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKmf,fr_roc, fr_RCKm_2R, 2*fr_RCKm, t_sbc_RCKm_2, conf_mf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_mode_lf,fr_oc, fr_lf_2R, 2*fr_lf, t_sbc_lf_2, conf_lf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKlf,fr_oc, fr_STR_2R, 2*fr_lf_str, t_sbc_STR_2, conf_lf_rsb, cool_calc_Q);\n\t\t}\n\t\tloop(no_sbc_inner_1R){\n\t\t\tsb_cool_block(cool_mode_hf,fr_roc, fr_hf_1R, fr_hf, t_sbc_hf_1, conf_hf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKhf,fr_roc, fr_RCKh_1R, fr_RCKh, t_sbc_RCKh_1, conf_hf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_mode_mf,fr_roc, fr_mf_1R, fr_mf, t_sbc_mf_1, conf_mf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKmf,fr_roc, fr_RCKm_1R, fr_RCKm, t_sbc_RCKm_1, conf_mf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_mode_lf,fr_oc, fr_lf_1R, fr_lf, t_sbc_lf_1, conf_lf_rsb, cool_calc_Q);\n\t\t\tsb_cool_block(cool_RCKlf,fr_oc, fr_STR_1R, fr_lf_str, t_sbc_STR_1, conf_lf_rsb, cool_calc_Q);\t\n\t\t}\n\tturn(rd, 1);\n\tturn(rp, 1);\n\tsleep((3*t_rd_sbc) us);\n\tturn(rd, 0);\n\tturn(rp, 0);\n\t}\n}\nsleep(0);\n}\n\n\n\n\n\n\nvoid pdq_shuttle_to(target_profile, t_ramp, t_wait, special){\n\tpdq_step_to(target_profile, t_ramp us, special);\n\tsleep(t_wait us);\n}\n\nvoid pdq_single_pulse(select_shim, wvf_id, wvf_amp,wvf_offset){\n\tpdq_pulse(select_shim, wvf_id, wvf_amp, wvf_offset, 0, 0);\n\tsleep(1 us);\n}\n\nvoid tickle_pdq_pulse(shim_c, fr_c, t_c, u_c, phase_c, phase_reset_c, pulse_shape_c) {\n\n\n\tif(pulse_shape == 0){//rect 1 * t_tickle\n\t\tpdq_tickle_pulse(shim_c , fr_c MHz , u_c, t_c, phase_c, phase_reset_c, pulse_shape_c);\n\t\tsleep(t_c us);\n\t}\n\tif(pulse_shape == 1){//gauss 4 * t_tickle\n\t\tpdq_tickle_pulse(shim_c , fr_c MHz , u_c, t_c, phase_c, phase_reset_c, pulse_shape_c);\n\t\tsleep(4. * t_c*  us);\n\t}\n\tif(pulse_shape == 2){//sinc 26 * t_tickle\n\t\tpdq_tickle_pulse(shim_c , fr_c MHz , u_c, t_c, phase_c, phase_reset_c, pulse_shape_c);\n\t\tsleep(26. * t_c * us);\n\t}\n\n\n}\n\nvoid tickle_pdq_pulse_par(shim_c, fr_c, t_c, u_c, phase_c, phase_reset_c,A1,A2) {\n\n\tpdq_tickle_pulse_par(shim_c , fr_c MHz , u_c , t_c, phase_c, phase_reset_c,A1,A2);\n\tsleep(t_c us);\n\n}\n\nvoid tickle_pdq_offset(shim_c, fr_c, t_c, u_c, phase_c, phase_reset_c,offset_profile_c,profile_shim_c) {\n\tpdq_tickle_offset(shim_c , fr_c MHz , u_c , t_c, phase_c, phase_reset_c,offset_profile_c,profile_shim_c);\n\tsleep(t_c us);\n}\n\nvoid tickle_pdq_step(shim_c, fr_c, t_c ,u_c, phase_c, phase_reset_c,t_step_c,profile_c, special_c) {\n\tpdq_step_to(profile_c, t_step_c us, special_c);\n\tpdq_tickle_start(shim_c , fr_c MHz , u_c , phase_c, phase_reset_c);\n\tsleep(t_c us);\n\tpdq_tickle_stop();\n\tpdq_step_to(pdq_init_profile, t_step_c us, special_c);\n}\n\n\nvoid tickle_pdq_MDLTN_OFFST(shim_c, fr_c, t_c ,u_c, phase_c, phase_reset_c,t_step_c,profile_c, special_c) {\n\tpdq_step_to(profile_c, t_step_c us, special_c);\n\tpdq_tickle_start(shim_c , fr_c MHz , u_c , phase_c, phase_reset_c);\n\tpdq_tickle_start(shim_exc, fr_exc MHz, u_exc, .0, 2);\n\tsleep(t_c us);\n\tpdq_tickle_stop();\n\tpdq_step_to(pdq_init_profile, t_step_c us, special_c);\n}\nvoid pdq_osci_trigger(){\n\n\tttl(13,1);\n\tsleep(0.5 us);\n\tttl(13,0);\n}\nmain() {\ninit();\nloop(LOOPSP1){\n\texperiment_init();\t\n\tpdq_init(pdq_init_profile);\n\n\n\n\tcool(t_bdd_cool,t_bd_cool,t_rd_cool);\n\tsb_cooling();\n\n\ttickle_pdq(shim_exc, fr_exc, t_exc, u_exc, 0, fxd_phs);\n\n\ttickle_pdq(shim_exc1, fr_exc1, t_exc1, u_exc1, phs_exc1/pi/2, fxd_phs);\n\n\tmwpulse(fr_mw_3p3_2p2,t_mw_3p3_2p2,0.);\n\trtpulse(1,fr_lf_1R,t_lf_1R,0.,pwr_b1, fr_r2, pwr_r2);\n\tbeam_detect(t_det, bdx);\n\t\n\n\tcool(t_bdd_cool,t_bd_cool,t_rd_cool);\n\tsb_cooling();\n\ttickle_pdq(shim_exc, fr_exc, t_exc, u_exc, 0, fxd_phs);\n\ttickle_pdq(shim_exc1, fr_exc1, t_exc1, u_exc1, phs_exc1/pi/2, fxd_phs);\n\tsleep(t_mw_3p3_2p2 us);\n\trtpulse(1,fr_lf_1R,t_lf_1R,0.,pwr_b1, fr_r2, pwr_r2);\n\tbeam_detect_ct2(t_det, bdx);\n\t\n\tread();\n}\nclose();\n}</sourcecode>
+#</metadata>
+0	0.28	0.05318160234783	1596459298749
+1.142742857143	0.3	0.05504818825632	1596459299151
+2.285485714286	0.87	0.09374368665611	1596459299523
+3.428228571429	1.14	0.1073086739977	1596459299925
+4.570971428571	1.43	0.1201850425155	1596459300305
+5.713714285714	1.92	0.1392621247646	1596459300712
+6.856457142857	1.75	0.1329540058696	1596459301104
+7.9992	1.77	0.1337115846843	1596459301499
+9.141942857143	2.04	0.1435481125131	1596459301900
+10.28468571429	1.64	0.1287076398885	1596459302281
+11.42742857143	1.54	0.1247219128925	1596459302680
+12.57017142857	1.51	0.1235011143777	1596459303079
+13.71291428571	1.44	0.1206045378311	1596459303479
+14.85565714286	1.77	0.1337115846843	1596459303861
+15.9984	1.74	0.1325735930559	1596459304265
+17.14114285714	1.33	0.1159066151449	1596459304651
+18.28388571429	1.24	0.1119162746219	1596459305055
+19.42662857143	1.19	0.1096366819099	1596459305438
+20.56937142857	1.29	0.1141503527384	1596459305841
+21.71211428571	1.34	0.1163415383058	1596459306227
+22.85485714286	1.93	0.1396243155577	1596459306613
+23.9976	1.98	0.1414213562373	1596459307000
+25.14034285714	1.6	0.1271283452327	1596459307387
+26.28308571429	1.62	0.1279204298134	1596459307777
+27.42582857143	1.4	0.1189176780021	1596459308164
+28.56857142857	1.26	0.1128152149636	1596459308572
+29.71131428571	1.84	0.1363299621721	1596459308989
+30.85405714286	1.31	0.115031835734	1596459309379
+31.9968	1.51	0.1235011143777	1596459309770
+33.13954285714	1.43	0.1201850425155	1596459310158
+34.28228571429	1.8	0.1348399724926	1596459310566
+35.42502857143	1.2	0.1100963765126	1596459310982
+36.56777142857	1.19	0.1096366819099	1596459311385
+37.71051428571	1.5	0.1230914909793	1596459311775
+38.85325714286	1.63	0.1283146385439	1596459312179
+39.996	1.36	0.1172065430655	1596459312586
+
+
+0	79
+1	15
+2	5
+3	1
+
+
+0	81
+1	14
+2	2
+3	1
+4	1
+5	1
+
+
+0	60
+1	20
+2	7
+3	4
+4	6
+5	1
+6	2
+
+
+0	54
+1	18
+2	10
+3	10
+4	0
+5	5
+6	2
+7	0
+8	0
+9	1
+
+
+0	45
+1	19
+2	11
+3	10
+4	6
+5	7
+6	1
+7	1
+
+
+0	33
+1	15
+2	18
+3	13
+4	12
+5	6
+6	0
+7	1
+8	1
+9	1
+
+
+0	37
+1	23
+2	8
+3	12
+4	8
+5	7
+6	3
+7	1
+8	1
+
+
+0	43
+1	14
+2	11
+3	10
+4	12
+5	5
+6	1
+7	2
+8	0
+9	2
+
+
+0	32
+1	18
+2	17
+3	10
+4	7
+5	8
+6	4
+7	2
+8	2
+
+
+0	44
+1	12
+2	13
+3	12
+4	9
+5	7
+6	2
+7	1
+
+
+0	42
+1	23
+2	10
+3	9
+4	4
+5	7
+6	2
+7	3
+
+
+0	46
+1	18
+2	10
+3	7
+4	8
+5	8
+6	1
+7	2
+
+
+0	41
+1	22
+2	11
+3	12
+4	7
+5	6
+6	1
+
+
+0	44
+1	9
+2	10
+3	18
+4	11
+5	2
+6	3
+7	2
+8	1
+
+
+0	38
+1	18
+2	15
+3	7
+4	11
+5	6
+6	4
+7	1
+
+
+0	45
+1	18
+2	17
+3	6
+4	10
+5	2
+6	1
+7	1
+
+
+0	54
+1	17
+2	9
+3	5
+4	8
+5	3
+6	1
+7	3
+
+
+0	56
+1	17
+2	6
+3	8
+4	5
+5	2
+6	6
+
+
+0	48
+1	22
+2	10
+3	8
+4	4
+5	3
+6	4
+7	0
+8	1
+
+
+0	47
+1	19
+2	11
+3	8
+4	10
+5	3
+6	1
+7	0
+8	1
+
+
+0	41
+1	14
+2	12
+3	12
+4	7
+5	6
+6	3
+7	2
+8	1
+9	1
+10	0
+11	0
+12	1
+
+
+0	33
+1	15
+2	16
+3	15
+4	8
+5	7
+6	3
+7	3
+
+
+0	49
+1	10
+2	12
+3	12
+4	8
+5	2
+6	3
+7	3
+8	0
+9	1
+
+
+0	49
+1	10
+2	11
+3	12
+4	8
+5	5
+6	2
+7	1
+8	1
+9	0
+10	1
+
+
+0	51
+1	16
+2	8
+3	10
+4	7
+5	2
+6	3
+7	2
+8	1
+
+
+0	55
+1	14
+2	6
+3	10
+4	8
+5	4
+6	3
+
+
+0	45
+1	15
+2	10
+3	6
+4	5
+5	10
+6	5
+7	2
+8	1
+9	1
+
+
+0	50
+1	18
+2	7
+3	11
+4	9
+5	1
+6	3
+7	1
+
+
+0	45
+1	21
+2	9
+3	9
+4	3
+5	7
+6	5
+7	0
+8	1
+
+
+0	48
+1	17
+2	12
+3	6
+4	4
+5	11
+6	1
+7	1
+
+
+0	42
+1	17
+2	9
+3	10
+4	10
+5	3
+6	4
+7	4
+8	1
+
+
+0	53
+1	16
+2	8
+3	11
+4	7
+5	4
+6	0
+7	1
+
+
+0	59
+1	11
+2	11
+3	4
+4	6
+5	6
+6	2
+7	0
+8	1
+
+
+0	57
+1	9
+2	3
+3	13
+4	3
+5	10
+6	2
+7	2
+8	1
+
+
+0	44
+1	16
+2	13
+3	6
+4	12
+5	4
+6	2
+7	1
+8	2
+
+
+0	49
+1	17
+2	9
+3	12
+4	5
+5	5
+6	2
+7	0
+8	1
+
+
+0	2.66	0.1639167071066	1596459298749
+1.142742857143	2.9	0.1711517726842	1596459299151
+2.285485714286	2.56	0.1608060504415	1596459299523
+3.428228571429	2.27	0.1514242151351	1596459299925
+4.570971428571	1.61	0.1275250025	1596459300305
+5.713714285714	1.81	0.1352140091959	1596459300712
+6.856457142857	0.99	0.1	1596459301104
+7.9992	1.32	0.1154700538379	1596459301499
+9.141942857143	1.98	0.1414213562373	1596459301900
+10.28468571429	1.7	0.1310408988511	1596459302281
+11.42742857143	2.09	0.1452966314514	1596459302680
+12.57017142857	1.44	0.1206045378311	1596459303079
+13.71291428571	1.44	0.1206045378311	1596459303479
+14.85565714286	1.83	0.1359589956011	1596459303861
+15.9984	1.91	0.1388989895317	1596459304265
+17.14114285714	1.9	0.1385349024323	1596459304651
+18.28388571429	2.06	0.1442500634595	1596459305055
+19.42662857143	1.97	0.1410637795431	1596459305438
+20.56937142857	2.1	0.1456438162509	1596459305841
+21.71211428571	1.89	0.1381698559416	1596459306227
+22.85485714286	1.59	0.1267304464626	1596459306613
+23.9976	1.78	0.1340887690293	1596459307000
+25.14034285714	1.79	0.1344648953475	1596459307387
+26.28308571429	1.84	0.1363299621721	1596459307777
+27.42582857143	1.96	0.1407052941363	1596459308164
+28.56857142857	1.42	0.1197640778507	1596459308572
+29.71131428571	2.02	0.1428427121139	1596459308989
+30.85405714286	1.53	0.1243163121016	1596459309379
+31.9968	1.81	0.1352140091959	1596459309770
+33.13954285714	1.73	0.1321920855223	1596459310158
+34.28228571429	1.9	0.1385349024323	1596459310566
+35.42502857143	1.61	0.1275250025	1596459310982
+36.56777142857	2.11	0.1459901753993	1596459311385
+37.71051428571	1.94	0.1399855692418	1596459311775
+38.85325714286	2.28	0.1517573821279	1596459312179
+39.996	1.83	0.1359589956011	1596459312586
+
+
+0	9
+1	21
+2	18
+3	21
+4	18
+5	7
+6	3
+7	3
+
+
+0	6
+1	16
+2	26
+3	16
+4	20
+5	8
+6	3
+7	4
+8	1
+
+
+0	17
+1	18
+2	14
+3	20
+4	14
+5	10
+6	5
+7	2
+
+
+0	29
+1	15
+2	17
+3	10
+4	13
+5	8
+6	2
+7	4
+8	2
+
+
+0	42
+1	17
+2	9
+3	14
+4	10
+5	5
+6	2
+7	1
+
+
+0	41
+1	12
+2	13
+3	14
+4	6
+5	9
+6	3
+7	2
+
+
+0	57
+1	17
+2	8
+3	9
+4	6
+5	3
+
+
+0	45
+1	19
+2	13
+3	11
+4	9
+5	2
+6	0
+7	0
+8	1
+
+
+0	32
+1	13
+2	20
+3	10
+4	14
+5	7
+6	4
+
+
+0	45
+1	11
+2	19
+3	7
+4	7
+5	3
+6	3
+7	3
+8	0
+9	2
+
+
+0	26
+1	21
+2	16
+3	13
+4	12
+5	6
+6	4
+7	1
+8	1
+
+
+0	49
+1	13
+2	9
+3	15
+4	6
+5	6
+6	1
+7	0
+8	1
+
+
+0	45
+1	19
+2	10
+3	10
+4	7
+5	8
+6	0
+7	1
+
+
+0	40
+1	16
+2	11
+3	13
+4	7
+5	6
+6	3
+7	2
+8	2
+
+
+0	39
+1	14
+2	10
+3	13
+4	8
+5	12
+6	2
+7	2
+
+
+0	34
+1	14
+2	18
+3	14
+4	9
+5	5
+6	5
+7	1
+
+
+0	26
+1	22
+2	17
+3	13
+4	11
+5	7
+6	1
+7	1
+8	0
+9	1
+10	1
+
+
+0	28
+1	21
+2	13
+3	14
+4	17
+5	5
+6	1
+7	0
+8	0
+9	1
+
+
+0	27
+1	15
+2	20
+3	11
+4	18
+5	6
+6	1
+7	2
+
+
+0	36
+1	19
+2	14
+3	9
+4	8
+5	8
+6	2
+7	2
+8	1
+9	1
+
+
+0	42
+1	17
+2	14
+3	11
+4	7
+5	5
+6	3
+7	0
+8	0
+9	0
+10	1
+
+
+0	38
+1	13
+2	20
+3	9
+4	10
+5	3
+6	6
+7	1
+
+
+0	36
+1	19
+2	10
+3	17
+4	6
+5	7
+6	5
+
+
+0	33
+1	17
+2	19
+3	14
+4	6
+5	6
+6	3
+7	1
+8	1
+
+
+0	33
+1	18
+2	15
+3	11
+4	10
+5	8
+6	3
+7	1
+8	0
+9	0
+10	1
+
+
+0	39
+1	20
+2	17
+3	14
+4	6
+5	2
+6	2
+
+
+0	32
+1	15
+2	18
+3	15
+4	8
+5	4
+6	4
+7	2
+8	2
+
+
+0	37
+1	20
+2	17
+3	14
+4	6
+5	4
+6	1
+7	1
+
+
+0	34
+1	21
+2	12
+3	11
+4	12
+5	8
+6	1
+7	0
+8	0
+9	1
+
+
+0	41
+1	13
+2	13
+3	13
+4	7
+5	11
+6	2
+
+
+0	36
+1	14
+2	15
+3	12
+4	15
+5	3
+6	2
+7	1
+8	2
+
+
+0	43
+1	10
+2	17
+3	14
+4	7
+5	7
+6	2
+
+
+0	28
+1	21
+2	11
+3	16
+4	9
+5	10
+6	2
+7	2
+8	1
+
+
+0	33
+1	20
+2	15
+3	8
+4	9
+5	9
+6	4
+7	1
+8	1
+
+
+0	33
+1	13
+2	11
+3	11
+4	11
+5	14
+6	4
+7	2
+8	1
+
+
+0	43
+1	9
+2	9
+3	20
+4	9
+5	5
+6	3
+7	0
+8	1
+9	1
+
+
