@@ -149,7 +149,7 @@ def mp_helper_essa(t, sb, d, Omega, n_LD, cList, spin_probe, n, dec = 0, lim = 0
     pgs = [np.abs(ct[1-spin_probe])**2 for ct in cts]
     return(np.exp(-dec*t)*(np.sum(pgs)-lim) + lim)
 
-def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Omega, n_LD, dec = 0, lim = 0.5, sb = +1, d = 0, parallel = True):
+def evolution_spinState_Analytical(times, spin_init, spin_probe, phonon_init, Omega, n_LD, dec = 0, lim = 0.5, sb = +1, d = 0, parallel = False):
     """calculates the timeevolutin of the occupation probability of one spin state.
     The calculation is based on Formula (83) in LBM+03.
     Returns for each time point in times the occupation probability of the choosen spin state.

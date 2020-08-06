@@ -744,17 +744,20 @@ class EPOS(EIOS_META_SCRIPT):
 
         return red_chi, fit_valid, value, error
 
-    def single_fit_sb_fock_data(self, redflop, blueflop, lbl, mode_freq, mode_angle, Rabi_init, dec_init=0.001, limb_init=0.55, limr_init=0.85, nth=0.1, ncoh=1e-9, nsq=1e-9, fix=[0,0,0,0,0,1,1], nmax=8, ntrot=1):
+    def single_fit_sb_fock_data(self, redflop, blueflop, lbl, mode_freq, mode_angle, Rabi_init, dec_init=0.001, limb_init=0.55, limr_init=0.85, nth=0.1, ncoh=1e-9, nsq=1e-9, fix=[0,0,0,0,0,1,1], nmax=8, ntrot=1, rob=0):
         LD = LDparameter(mode_freq,mode_angle)
 
         init_sb = [Rabi_init,dec_init,limb_init,limr_init]
+
+
         red_chi_sb, fmin, param, m, flop_func_list, \
             [fit_rabi, fit_dec, fit_limb, fit_limr], \
             [fit_rabi_err,fit_dec_err,fit_limb_err,fit_limr_err], \
             fit_fockdist_norm, [fock_n, fock_p, fock_e] = \
-                fit_flop_sb_fock(redflop, blueflop, LD, nmax, init_sb, fix[0:4])
+                fit_flop_sb_fock_rob(redflop, blueflop, LD, nmax, init_sb, fix[0:4])
+
         fit_sb_valid = fmin['is_valid']
-        print("ssss")
+        # print("ssss")
 
         if self.do_plot:
             if fit_sb_valid:
@@ -810,6 +813,7 @@ class EPOS(EIOS_META_SCRIPT):
 
         if fock:
             func = self.single_fit_sb_fock_data
+            print('ddd')
         else:
             func = self.single_fit_sb_data
 

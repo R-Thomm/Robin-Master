@@ -21,7 +21,7 @@ import random
 import string
 
 from PyModules.analyse_eios.eios_data import read, read_xml, find_files, load, save
-from PyModules.analyse_eios.eios_sb import LDparameter, fit_flop_sb, fit_flop_sb_fock, fit_dist_fock, fit_flop_carrier, plot_fock_fit, plot_flop_fit, open_file
+from PyModules.analyse_eios.eios_sb import LDparameter, fit_flop_sb, fit_flop_sb_fock, fit_flop_sb_fock_rob, fit_dist_fock, fit_flop_carrier, plot_fock_fit, plot_flop_fit, open_file
 
 from PyModules.analyse_eios.eios_analyse import unpack_sorted, significant_digit, plot_fit
 from PyModules.analyse_eios.eios_analyse import fit_direct, fit_linear, fit_parameter, fit_func
@@ -607,8 +607,42 @@ class EPOS_V:
 
         return red_chi, fit_valid, value, error
 
+
+    # from rob, for carrier sideband fit
+    def single_fit_sb_carr_data(self, carrflop, blueflop, lbl, bluescale, mode_freq, mode_angle, Rabi_init, dec_init=0.001, limc_init=0.5, limb_init=0.5, nth=0.1, ncoh=1e-9, nsq=1e-9, fix=[0,0,0,0,0,1,1], nmax=20, ntrot=1):
+        LD = LDparameter(mode_freq,mode_angle)
+        initparams = [Rabi_init,dec_init,limc_init,limb_init, nth, ncoh, nsq]
+
+        red_chi, fmin, param, m, flop_func_list, value, error,\
+            fit_fockdist_norm, [fit_fock_n, fit_fock_p, fit_fock_e] = \
+                fit_flop_carr_bsb(carrflop, blueflop, LD, nmax, initparams, fix, ntrot, bluescale)
+
+        [fit_rabi, fit_dec, fit_limc, fit_limb, fit_nth, fit_ncoh, fit_nsq] = value
+        [fit_rabi_err,fit_dec_err,fit_limc_err,fit_limb_err,fit_nth_err,fit_ncoh_err,fit_nsq_err] = error
+        fit_valid = fmin['is_valid']
+
+        if fit_valid:
+            fit_status = '$red. \chi^2$= %.3f\n $\Omega_{0}$= %.3f +- %.3f\n $\Gamma_{dec}$= %.3f +- %.3f\n $n_{th}$= %.3f +- %.3f\n$n_{coh}$= %.3f +- %.3f\n$n_{sq}$= %.3f +- %.3f' % (red_chi, fit_rabi, fit_rabi_err, fit_dec, fit_dec_err, fit_nth, fit_nth_err, fit_ncoh, fit_ncoh_err, fit_nsq, fit_nsq_err)
+        else:
+            fit_status = 'fit failed'
+        if self.do_plot:
+            print('x-Axis for the blue sideband compressed by a factor of', bluescale)
+            plot_flop_fit(flop_func_list, fit_fock_n, fit_fock_p, fit_fock_e, [carrflop, blueflop], lbl, fit_status);
+            plt.show()
+
+        for (key, val),( _, err),f in zip(m.values.items(), m.errors.items(), fix):
+            n = max(significant_digit(err),0)
+            s_v = '%%%i.%if'%(6+n,n)
+            s_e = '%%%i.%if'%(1+n,n)
+            txt_par = '%s\t= %s +- %s'%(key,s_v%val,s_e%err)
+            if f>0:
+                txt_par += '*'
+        return red_chi, fit_valid, value, error
+
+
     def single_fit_sb_fock_data(self, redflop, blueflop, lbl, mode_freq, mode_angle, Rabi_init, dec_init=0.001, limb_init=0.55, limr_init=0.85, nth=0.1, ncoh=1e-9, nsq=1e-9, fix=[0,0,0,0,0,1,1], nmax=8, ntrot=1):
         LD = LDparameter(mode_freq,mode_angle)
+        print('lamb dicke parameter:',LD)
 
         init_sb = [Rabi_init,dec_init,limb_init,limr_init]
         red_chi_sb, fmin, param, m, flop_func_list, \
@@ -662,6 +696,47 @@ class EPOS_V:
         #return [red_chi_sb,red_chi_fock], [fit_sb_valid,fit_fock_valid], value, error
         return [red_chi_sb], [fit_sb_valid], value, error
 
+
+    # from rob, for generalized sideband fit
+    def single_fit_sb_carr_fock_data(self, carrflop, blueflop, lbl, bluescale, mode_freq, mode_angle, Rabi_init, dec_init=0.001, limc_init=0.55, limb_init=0.85, nth=0.1, ncoh=1e-9, nsq=1e-9, fix=[0,0,0,0,0,1,1], nmax=8, ntrot=1):
+        LD = LDparameter(mode_freq,mode_angle)
+        print('lamb dicke parameter:',LD)
+
+        init_sb = [Rabi_init,dec_init,limc_init,limb_init]
+        red_chi_sb, fmin, param, m, flop_func_list, \
+            [fit_rabi, fit_dec, fit_limc, fit_limb], \
+            [fit_rabi_err,fit_dec_err,fit_limc_err,fit_limb_err], \
+            fit_fockdist_norm, [fock_n, fock_p, fock_e] = \
+                fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, init_sb, fix[0:4], bluescale)
+        fit_sb_valid = fmin['is_valid']
+
+        if self.do_plot:
+            if fit_sb_valid:
+                fit_status = '$red. \chi^2$= %.3f\n $\Omega_{0}$= %.3f +- %.3f\n $\Gamma_{dec}$= %.3f +- %.3f\n$\eta_{LD}$=%.2f' % (red_chi_sb, fit_rabi, fit_rabi_err, fit_dec, fit_dec_err, LD)
+            else:
+                fit_status = 'Fit failed'
+
+            print('x-Axis for the blue sideband compressed by a factor of', bluescale)
+            plot_flop_fit(flop_func_list, fock_n, fock_p, fock_e, [carrflop, blueflop], lbl, fit_status, figsize=(8,4));
+            plt.show()
+
+        for (key, val),( _, err),f in zip(m.values.items(), m.errors.items(), fix):
+            n = max(significant_digit(err),0)
+            s_v = '%%%i.%if'%(6+n,n)
+            s_e = '%%%i.%if'%(1+n,n)
+            txt_par = '%s\t= %s +- %s'%(key,s_v%val,s_e%err)
+            if f>0:
+                txt_par += '*'
+
+        init_fock = [nth, ncoh, nsq]
+        fix_fock = []
+
+        value = [fit_rabi, fit_dec, fit_limc, fit_limb, fock_p]
+        error = [fit_rabi_err,fit_dec_err,fit_limc_err,fit_limb_err, fock_e]
+        return [red_chi_sb], [fit_sb_valid], value, error
+
+
+
     def single_fit_sb(self, fullpath, *args, **kwargs):
         redflop, blueflop, lbl = open_file(fullpath, self.cache_path)
 
@@ -677,6 +752,28 @@ class EPOS_V:
             func = self.single_fit_sb_data
 
         ret = func(redflop, blueflop, lbl, *args, **kwargs)
+        self._log('fit %s %s %s %s %i %f %f %f'%('single_fit_sb', '['+','.join(fullpath)+']', 'dummy', func.__name__, fock, \
+                    kwargs['mode_freq'], kwargs['mode_angle'], kwargs['Rabi_init']))
+        return ret
+
+    # from rob
+    def single_fit_sb_carr(self, fullpath, bluescale, *args, **kwargs):
+        '''sidebands: [first_sb, second_sb] sidebands used for the fit, if sb>0, start in the dark state, else start in the bright one
+            in the following: first_sb = carrier = 0, second_sb = first blue sideband = +1'''
+        carrflop, blueflop, lbl = open_file(fullpath, self.cache_path)
+
+        fock=False
+        if 'fock' in kwargs:
+            fock=kwargs['fock']
+            del kwargs['fock']
+
+        if fock:
+            func = self.single_fit_sb_carr_fock_data
+            # hier gehts rein
+        else:
+            func = self.single_fit_sb_carr_data
+
+        ret = func(redflop, blueflop, lbl, bluescale, *args, **kwargs)
         self._log('fit %s %s %s %s %i %f %f %f'%('single_fit_sb', '['+','.join(fullpath)+']', 'dummy', func.__name__, fock, \
                     kwargs['mode_freq'], kwargs['mode_angle'], kwargs['Rabi_init']))
         return ret
