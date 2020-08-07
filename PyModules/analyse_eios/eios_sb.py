@@ -45,6 +45,21 @@ def OCFlop1Mdec(LDparameter, Fockdist, Rabi0, gamma, lim, dn, tlist):
         values.append(tsumdec)
     return values
 
+
+def mixedfockdist_rob(nmax, nthermal, ncoherent, nsqueezed, ntrot):
+    alpha = np.sqrt(ncoherent)
+    rsqueeze = np.arcsinh(np.sqrt(nsqueezed))
+    if ntrot==1:
+        psi = displace(nmax+1, alpha)*squeeze(nmax+1, rsqueeze)*thermal_dm(nmax+1, nthermal)*squeeze(nmax+1, rsqueeze).dag()*displace(nmax+1, alpha).dag()
+    elif ntrot==-1:
+        psi = squeeze(nmax+1, rsqueeze)*displace(nmax+1, alpha)*thermal_dm(nmax+1, nthermal)*displace(nmax+1, alpha).dag()*squeeze(nmax+1, rsqueeze).dag()
+    else:
+        raise ValueError('ntrot takes numbers 1, -1')
+    list_Pn = np.abs(np.diag(psi.full()))
+    return [[i, p] for i, p in enumerate(list_Pn)]
+
+
+
 def mixedfockdist(nmax, nthermal, ncoherent, nsqueezed, ntrot):
     alpha = np.sqrt(ncoherent)
     rsqueeze = np.arcsinh(np.sqrt(nsqueezed)) ## update: MW 04.12.2019
@@ -215,9 +230,9 @@ def fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, initparams, fixparams, 
     dec_init = initparams[1]
     limc_init = initparams[2]
     limb_init = initparams[3]
-    p0_init = 0.9
-    p1_init = 0.05
-    p2_init = 0.05
+    # p0_init = 0.9
+    # p1_init = 0.05
+    # p2_init = 0.05
     Rabi_error = 0.0
     dec_error = 0.0
     limc_error = 0.0
@@ -231,11 +246,16 @@ def fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, initparams, fixparams, 
     fixes = [fixparams[0],fixparams[1],fixparams[2],fixparams[3]]
 
     # initvals for fock states
-    rand = np.random.rand(nmax)
-    init_pops = rand/np.sum(rand)
+    if len(initparams)>4:
+        init_pops = initparams[4:]/np.sum(initparams[4:])
+    else:
+        init_pops = [1./nmax for i in range(nmax)]
+        # rand = np.random.rand(nmax)
+        # init_pops = rand/np.sum(rand)
+
     for i in range(4,nmax+4):
-        initvals.append(1./nmax)
-        # initvals.append(init_pops[i-4])
+        # initvals.append(1./nmax)
+        initvals.append(init_pops[i-4])
         errorvals.append(pn_error)
         names.append('p%i'%(i-4))
         limits.append(tuple([0.,1.]))
@@ -551,7 +571,7 @@ def fit_flop_carr_bsb(carrflop, blueflop, LD, nmax, initparams, fixparams, ntrot
 
     def fit_function_par(par):
         [Rabi, dec, limc, limb, nth, ncoh, nsq] = par
-        fockdistnorm = mixedfockdist(nmax, nth, ncoh, nsq, ntrot)
+        fockdistnorm = mixedfockdist_rob(nmax, nth, ncoh, nsq, ntrot)
 
         modelCAR = OCFlop1Mdec(LD, fockdistnorm, Rabi, dec, limc, 0, tdatacar);
         modelBSB = OCFlop1Mdec(LD, fockdistnorm, Rabi, dec, limb, 1, tdatabsb);
@@ -592,7 +612,7 @@ def fit_flop_carr_bsb(carrflop, blueflop, LD, nmax, initparams, fixparams, ntrot
     [fit_rabi, fit_dec, fit_limc, fit_limb, fit_nth, fit_ncoh, fit_nsq] = m.values.values()
     [fit_rabi_err,fit_dec_err,fit_limc_err,fit_limb_err,fit_nth_err,fit_ncoh_err,fit_nsq_err] = m.errors.values()
 
-    fit_fockdist_norm = mixedfockdist(nmax, fit_nth, fit_ncoh, fit_nsq, ntrot)
+    fit_fockdist_norm = mixedfockdist_rob(nmax, fit_nth, fit_ncoh, fit_nsq, ntrot)
     fit_fock_n = [item[0] for item in fit_fockdist_norm]
     fit_fock_p = [item[1] for item in fit_fockdist_norm]
     fit_fock_e = [0]*len(fit_fock_n)
