@@ -205,7 +205,9 @@ def fit_flop_sb_fock(redflop, blueflop, LD, nmax, initparams, fixparams):
 
 
 # from rob, for carrier sideband flop
-def fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, initparams, fixparams, b_scale):
+import lhsmdu as lhs
+from joblib import Parallel, delayed
+def fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, initparams, fixparams, b_scale, n_lhs=0):
     [tdatacar, flopdatacar, errscar] = carrflop;
     [tdatabsb, flopdatabsb, errsbsb] = blueflop;
     tdatabsb = b_scale*np.array(tdatabsb)
@@ -215,6 +217,7 @@ def fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, initparams, fixparams, 
         dec = par[1]
         limc = par[2]
         limb = par[3]
+
         fockdist = []
         for tp in range(4,len(par)):
             fockdist.append([tp-4,par[tp]])
@@ -242,16 +245,23 @@ def fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, initparams, fixparams, 
     initvals = [Rabi_init,dec_init,limc_init,limb_init]
     errorvals = [Rabi_error,dec_error,limc_error,limb_error]
     limits = [(0,None),(0,None),(0,1),(0,1)]
-    names = ["Rabi","dec","limb","limr"]
+    names = ["Rabi","dec","limc","limb"]
     fixes = [fixparams[0],fixparams[1],fixparams[2],fixparams[3]]
 
     # initvals for fock states
-    if len(initparams)>4:
+    if n_lhs > 0:
+        lhs_list = np.transpose(np.array(lhs.sample(nmax, n_lhs)))
+        # print(lhs_list)
+        init_pops = [1./nmax for i in range(nmax)]
+    elif len(initparams)>4:
         init_pops = initparams[4:]/np.sum(initparams[4:])
+        lhs_list = [0]
     else:
         init_pops = [1./nmax for i in range(nmax)]
+        lhs_list = [0]
         # rand = np.random.rand(nmax)
         # init_pops = rand/np.sum(rand)
+
 
     for i in range(4,nmax+4):
         # initvals.append(1./nmax)
@@ -264,19 +274,108 @@ def fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, initparams, fixparams, 
     n_param = np.sum(np.array(fixes)<1.)
     print('Free parameter count',n_param)
 
-    m = Minuit.from_array_func(fit_function_freepops,
-                           tuple(initvals), error = tuple(errorvals), fix = tuple(fixes),
-                           limit = tuple(limits), name = tuple(names),
-                           errordef=1)
+    def helper_carr_bsb_fock(initpops):
+        if n_lhs > 0:
+            initvals[4:] = initpops/np.sum(initpops)
+            # print(lhs_init/np.sum(lhs_init))
+            # print(initvals)
 
-    # fit it
-    print('migrad started at',time.asctime( time.localtime(time.time()) ) )
+        m = Minuit.from_array_func(fit_function_freepops,
+                               tuple(initvals), error = tuple(errorvals), fix = tuple(fixes),
+                               limit = tuple(limits), name = tuple(names),
+                               errordef=1)
 
-    # @jit(nopython=True, parallel=True)
-    fmin, param = m.migrad(ncall=10000, resume=False);
+        # fit it
+        print('migrad started at',time.asctime( time.localtime(time.time()) ) )
 
-    print('migrad finished at',time.asctime( time.localtime(time.time()) ) )
-    red_chi = fmin.fval
+        # @jit(nopython=True, parallel=True)
+        fmin, param = m.migrad(ncall=10000, resume=False);
+
+        print('migrad finished at',time.asctime( time.localtime(time.time()) ) )
+        # red_chi = fmin.fval
+        red_chi = fmin.fval / (len(flopdatacar)+len(flopdatabsb) - n_param)
+        # print(param)
+        return(red_chi, fmin, param, m)
+
+    if n_lhs > 0 and False: # lhs parallel
+        res = Parallel(n_jobs=-1, verbose=51)(delayed(helper_carr_bsb_fock)(lhs_init) for lhs_init in lhs_list)
+
+        red_chi_list = [r[0] for r in res]
+        print(red_chi_list)
+        idx = np.argmin(red_chi_list)
+        print(idx)
+        red_chi, fmin, param = res[idx]
+
+        print(res[idx])
+        plt.scatter(range(len(red_chi_list)), sorted(red_chi_list))
+        plt.show()
+
+    elif n_lhs > 0: # lhs not parallel
+        res = [helper_carr_bsb_fock(lhs_init) for lhs_init in lhs_list]
+
+        red_chi_list = [r[0] for r in res]
+        idx = np.argmin(red_chi_list)
+        red_chi, fmin, param, m = res[idx]
+
+        print(param)
+        plt.scatter(range(len(red_chi_list)), sorted(red_chi_list))
+        plt.show()
+
+        # fmin_list, param_list, red_chi_list, m_list = [], [], [], []
+        # for lhs_init in lhs_list:
+        #     red_chi, fmin, param, m = helper_carr_bsb_fock(lhs_init)
+        #     fmin_list.append(fmin)
+        #     param_list.append(param)
+        #     red_chi_list.append(red_chi)
+        #     m_list.append(m)
+        #     print(param)
+        #     print(param[0]['value'])
+
+        # idx = np.argmin(red_chi_list)
+        # fmin = fmin_list[idx]
+        # param = param_list[idx]
+        # red_chi = red_chi_list[idx]
+        # m = m_list[idx]
+        #
+        # plt.scatter(range(len(red_chi_list)), sorted(red_chi_list))
+        # plt.show()
+    else: # normal
+        red_chi, fmin, param, m = helper_carr_bsb_fock(init_pops)
+
+    # for lhs_init in lhs_list:
+        # if n_lhs > 0:
+        #     initvals[4:] = lhs_init/np.sum(lhs_init)
+        #     # print(lhs_init/np.sum(lhs_init))
+        #     # print(initvals)
+        #
+        # m = Minuit.from_array_func(fit_function_freepops,
+        #                        tuple(initvals), error = tuple(errorvals), fix = tuple(fixes),
+        #                        limit = tuple(limits), name = tuple(names),
+        #                        errordef=1)
+        #
+        # # fit it
+        # print('migrad started at',time.asctime( time.localtime(time.time()) ) )
+        #
+        # # @jit(nopython=True, parallel=True)
+        # fmin, param = m.migrad(ncall=10000, resume=False);
+        #
+        # print('migrad finished at',time.asctime( time.localtime(time.time()) ) )
+        # # red_chi = fmin.fval
+        # red_chi = fmin.fval / (len(flopdatacar)+len(flopdatabsb) - n_param)
+        #
+        # if n_lhs > 0:
+        #     fmin_list.append(fmin)
+        #     param_list.append(param)
+        #     red_chi_list.append(red_chi)
+
+    # if n_lhs > 0:
+    #     idx = np.argmin(red_chi_list)
+    #     fmin = fmin_list[idx]
+    #     param = param_list[idx]
+    #     red_chi = red_chi_list[idx]
+    #
+    #     plt.scatter(range(len(red_chi_list)), sorted(red_chi_list))
+    #     plt.show()
     #print(red_chi)
     fit_rabi=m.values[0]
     fit_dec=m.values[1]
@@ -287,6 +386,16 @@ def fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, initparams, fixparams, 
     fit_dec_err=m.errors[1]
     fit_limc_err=m.errors[2]
     fit_limb_err=m.errors[3]
+
+    # fit_rabi=param[0]['value']
+    # fit_dec=param[1]['value']
+    # fit_limc=param[2]['value']
+    # fit_limb=param[3]['value']
+    #
+    # fit_rabi_err=param[0]['error']
+    # fit_dec_err=param[1]['error']
+    # fit_limc_err=param[2]['error']
+    # fit_limb_err=param[3]['error']
 
     fit_fockdist = []
     for tn in range(4,len(m.values)):
@@ -307,6 +416,7 @@ def fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, initparams, fixparams, 
     flop_func_bsb = lambda t: OCFlop1Mdec(LD, fit_fockdist_norm, fit_rabi, fit_dec, fit_limb, 1, t)
     flop_func_list = [flop_func_car, flop_func_bsb]
 
+    print('ddd')
     return red_chi, fmin, param, m,\
             flop_func_list, \
             [fit_rabi, fit_dec, fit_limc, fit_limb], \
@@ -571,7 +681,7 @@ def fit_flop_carr_bsb(carrflop, blueflop, LD, nmax, initparams, fixparams, ntrot
 
     def fit_function_par(par):
         [Rabi, dec, limc, limb, nth, ncoh, nsq] = par
-        fockdistnorm = mixedfockdist_rob(nmax, nth, ncoh, nsq, ntrot)
+        fockdistnorm = mixedfockdist(nmax, nth, ncoh, nsq, ntrot)
 
         modelCAR = OCFlop1Mdec(LD, fockdistnorm, Rabi, dec, limc, 0, tdatacar);
         modelBSB = OCFlop1Mdec(LD, fockdistnorm, Rabi, dec, limb, 1, tdatabsb);
