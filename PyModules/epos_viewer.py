@@ -609,20 +609,20 @@ class EPOS_V:
 
 
     # from rob, for carrier sideband fit
-    def single_fit_sb_carr_data(self, carrflop, blueflop, lbl, bluescale, mode_freq, mode_angle, Rabi_init, dec_init=0.001, limc_init=0.5, limb_init=0.5, nth=0.1, ncoh=1e-9, nsq=1e-9, fix=[0,0,0,0,0,1,1], nmax=20, ntrot=1):
+    def single_fit_sb_carr_data(self, carrflop, blueflop, lbl, bluescale, mode_freq, mode_angle, Rabi_init, decc_init=0.001, decb_init=0.001, limc_init=0.5, limb_init=0.5, nth=0.1, ncoh=1e-9, nsq=1e-9, fix=[0,0,0,0,0,1,1], nmax=20, ntrot=1):
         LD = LDparameter(mode_freq,mode_angle)
-        initparams = [Rabi_init,dec_init,limc_init,limb_init, nth, ncoh, nsq]
+        initparams = [Rabi_init,decc_init, decb_init, limc_init,limb_init, nth, ncoh, nsq]
 
         red_chi, fmin, param, m, flop_func_list, value, error,\
             fit_fockdist_norm, [fit_fock_n, fit_fock_p, fit_fock_e] = \
                 fit_flop_carr_bsb(carrflop, blueflop, LD, nmax, initparams, fix, ntrot, bluescale)
 
-        [fit_rabi, fit_dec, fit_limc, fit_limb, fit_nth, fit_ncoh, fit_nsq] = value
-        [fit_rabi_err,fit_dec_err,fit_limc_err,fit_limb_err,fit_nth_err,fit_ncoh_err,fit_nsq_err] = error
+        [fit_rabi, fit_decc, fit_decb, fit_limc, fit_limb, fit_nth, fit_ncoh, fit_nsq] = value
+        [fit_rabi_err,fit_decc_err,fit_decb_err,fit_limc_err,fit_limb_err,fit_nth_err,fit_ncoh_err,fit_nsq_err] = error
         fit_valid = fmin['is_valid']
 
         if fit_valid:
-            fit_status = '$red. \chi^2$= %.3f\n $\Omega_{0}$= %.3f +- %.3f\n $\Gamma_{dec}$= %.3f +- %.3f\n $n_{th}$= %.3f +- %.3f\n$n_{coh}$= %.3f +- %.3f\n$n_{sq}$= %.3f +- %.3f' % (red_chi, fit_rabi, fit_rabi_err, fit_dec, fit_dec_err, fit_nth, fit_nth_err, fit_ncoh, fit_ncoh_err, fit_nsq, fit_nsq_err)
+            fit_status = '$red. \chi^2$= %.3f\n $\Omega_{0}$= %.3f +- %.3f\n $\Gamma_{dec,C}$= %.3f +- %.3f\n $\Gamma_{dec,B}$= %.3f +- %.3f\n $n_{th}$= %.3f +- %.3f\n$n_{coh}$= %.3f +- %.3f\n$n_{sq}$= %.3f +- %.3f' % (red_chi, fit_rabi, fit_rabi_err, fit_decc, fit_decc_err, fit_decb, fit_decb_err, fit_nth, fit_nth_err, fit_ncoh, fit_ncoh_err, fit_nsq, fit_nsq_err)
         else:
             fit_status = 'fit failed'
         if self.do_plot:
@@ -700,28 +700,32 @@ class EPOS_V:
 
 
     # from rob, for generalized sideband fit
-    def single_fit_sb_carr_fock_data(self, carrflop, blueflop, lbl, bluescale, mode_freq, mode_angle, Rabi_init, dec_init=0.001, limc_init=0.55, limb_init=0.85, nth=0.1, ncoh=1e-9, nsq=1e-9, fix=[0,0,0,0,0,1,1], nmax=8, ntrot=1, n_lhs=0):
+    def single_fit_sb_carr_fock_data(self, carrflop, blueflop, lbl, bluescale, mode_freq, mode_angle, Rabi_init, decc_init=0.001, decb_init=0.001, limc_init=0.55, limb_init=0.85, nth=0.1, ncoh=1e-9, nsq=1e-9, init_pops=[], fix=[0,0,0,0,0,0,1,1], nmax=8, ntrot=1, n_lhs=0):
         LD = LDparameter(mode_freq,mode_angle)
         print('lamb dicke parameter:',np.round(LD,4))
 
-        init_sb = [Rabi_init,dec_init,limc_init,limb_init]
-        red_chi_sb, fmin, param, m, flop_func_list, \
-            [fit_rabi, fit_dec, fit_limc, fit_limb], \
-            [fit_rabi_err,fit_dec_err,fit_limc_err,fit_limb_err], \
-            fit_fockdist_norm, [fock_n, fock_p, fock_e] = \
-                fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, init_sb, fix[0:4], bluescale, n_lhs)
+        init_sb = [Rabi_init,decc_init,decb_init,limc_init,limb_init]
+        if len(init_pops)>0:
+            print('yo')
+            init_sb = np.append(init_sb,init_pops)
+            print(init_sb)
+
+        red_chi_sb, fmin, param, m, flop_func_list, values, errors, fit_fockdist_norm, [fock_n, fock_p, fock_e] = \
+                fit_flop_carr_bsb_fock(carrflop, blueflop, LD, nmax, init_sb, fix[0:5], bluescale, n_lhs)
+
         fit_sb_valid = fmin['is_valid']
+        [fit_rabi, fit_decc, fit_decb, fit_limc, fit_limb] = values
+        [fit_rabi_err,fit_decc_err,fit_decb_err,fit_limc_err,fit_limb_err] = errors
 
         if self.do_plot:
             if fit_sb_valid:
-                fit_status = '$red. \chi^2$= %.3f\n $\Omega_{0}$= %.3f +- %.3f\n $\Gamma_{dec}$= %.3f +- %.3f\n$\eta_{LD}$=%.2f' % (red_chi_sb, fit_rabi, fit_rabi_err, fit_dec, fit_dec_err, LD)
+                fit_status = '$red. \chi^2$= %.3f\n $\Omega_{0}$= %.3f +- %.3f\n $\Gamma_{dec,C}$= %.3f +- %.3f\n $\Gamma_{dec,B}$= %.3f +- %.3f\n$\eta_{LD}$=%.2f' % (red_chi_sb, fit_rabi, fit_rabi_err, fit_decc, fit_decc_err,  fit_decb, fit_decb_err, LD)
             else:
                 fit_status = 'Fit failed'
 
             # print('x-Axis for the blue sideband compressed by a factor of', bluescale)
             a,b,c=blueflop
-            blueflop_plt = [bluescale*a,b,c]
-            plot_flop_fit(flop_func_list, fock_n, fock_p, fock_e, [carrflop, blueflop_plt], lbl, fit_status, figsize=(14,8));
+            plot_flop_fit(flop_func_list, fock_n, fock_p, fock_e, [carrflop, [bluescale*a,b,c]], lbl, fit_status, figsize=(10,5));
             plt.show()
 
         for (key, val),( _, err),f in zip(m.values.items(), m.errors.items(), fix):
@@ -735,8 +739,8 @@ class EPOS_V:
         init_fock = [nth, ncoh, nsq]
         fix_fock = []
 
-        value = [fit_rabi, fit_dec, fit_limc, fit_limb, fock_p]
-        error = [fit_rabi_err,fit_dec_err,fit_limc_err,fit_limb_err, fock_e]
+        value = [fit_rabi, fit_decc, fit_decb, fit_limc, fit_limb, fock_p]
+        error = [fit_rabi_err,fit_decc_err,fit_decb_err,fit_limc_err,fit_limb_err, fock_e]
         return [red_chi_sb], [fit_sb_valid], value, error
 
 
@@ -765,7 +769,8 @@ class EPOS_V:
         '''sidebands: [first_sb, second_sb] sidebands used for the fit, if sb>0, start in the dark state, else start in the bright one
             in the following: first_sb = carrier = 0, second_sb = first blue sideband = +1'''
         carrflop, blueflop, lbl = open_file(fullpath, self.cache_path)
-        print('blueflop:',blueflop)
+        print('first point of carrierflop (should be 1):',carrflop[1][0])
+        print('first point of blueflop (should be 0):',blueflop[1][0])
 
         fock=False
         if 'fock' in kwargs:
