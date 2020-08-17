@@ -17,3 +17,16 @@ def select_files(files,start,end,print_len=True):
 
 def save_arr(array, note):
     """saves a numpy array in a file in the directory '/data/', named after the time of saving, with note (string) as suffix"""
+
+
+from PyModules.analyse_eios.eios_data import read, read_xml
+def get_ionprop(file, ion_props = ['blue_scale', 'dec_lf', 'fr_lf'], verbose=True):
+    _,xml = read(file)
+    xml_dict = read_xml(xml)
+    vals = []
+    for ion_prop in ion_props:
+        value = xml_dict['ionproperties'][ion_prop]
+        if verbose:
+            print(ion_prop,'=',value)
+        vals.append(value)
+    return vals
