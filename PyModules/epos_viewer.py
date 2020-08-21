@@ -660,7 +660,7 @@ class EPOS_V:
                 fit_status = '$red. \chi^2$= %.3f\n $\Omega_{0}$= %.3f +- %.3f\n $\Gamma_{dec}$= %.3f +- %.3f\n$\eta_{LD}$=%.2f' % (red_chi_sb, fit_rabi, fit_rabi_err, fit_dec, fit_dec_err, LD)
             else:
                 fit_status = 'Fit failed'
-            plot_flop_fit(flop_func_list, fock_n, fock_p, fock_e, [redflop, blueflop_plt], lbl, fit_status, figsize=(8,4));
+            plot_flop_fit(flop_func_list, fock_n, fock_p, fock_e, [redflop, blueflop], lbl, fit_status, figsize=(8,4));
             plt.show()
 
         for (key, val),( _, err),f in zip(m.values.items(), m.errors.items(), fix):
